@@ -27,5 +27,19 @@ urlpatterns = [
     path('profile_manager/signup/', views.signup),
     path('profile_manager/signin/', views.signin),
     path('profile_manager/otp/<id>', views.otp),
-    path('profile_manager/dashboard/<id>', views.dashboard),
+    path('profile_manager/profile_picture/<id>', views.profile_picture),
+    path('profile_manager/upload_acc/<id>', views.upload_acc),
+    path('profile_manager/admin_dashboard/<id>', views.admin_dashboard),
+    path('profile_manager/profile_account/<id>', views.profile_account),
+    path('profile_manager/edit_acc/<id>', views.edit_acc),
+    path('profile_manager/acc_balance/<id>', views.acc_balance),
+    path('profile_manager/profile_finders/<id>', views.profile_finders),
+    path('profile_manager/view_details/<id>', views.view_details),
+    path('profile_manager/complaints/<id>', views.complaints),
+    path('profile_manager/users/<id>', views.users),
+    path('profile_manager/add_user/<id>', views.add_user),
+    path('profile_manager/settings/<id>', views.settings),
+
+
+
 ]

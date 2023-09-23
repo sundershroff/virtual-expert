@@ -2800,7 +2800,7 @@ padding:10px 5px;
 /* over */
 /* profile picture */
 .propicuplod_page_images{
-    background:linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url("/media/images/hand_ring.png");
+    background:linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url("/static/images/hand_ring.png");
     height:750px;
     background-repeat:no-repeat;
     background-size:cover;
