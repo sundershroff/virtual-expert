@@ -55,17 +55,19 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
+{% for i in my %}
     <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
         <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
+         <!-- <img src="{% static 'images/girl1.png'%}"> -->
+         <img src="{{i.profile_picture}}">
          <i class="fa-solid fa-caret-down"></i>
          </div>
 
     </div>
+    {% endfor %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 

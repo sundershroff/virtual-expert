@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 import requests
 
 
@@ -12,12 +12,12 @@ def signup(request):
     if request.method == "POST":
         if request.POST['password'] == request.POST['confirm_password']:
                 # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
-                response = requests.post("profile_manager/signup/",data=request.POST)
+                response = requests.post("http://127.0.0.1:3000/pm_signup/",data=request.POST)
                 print(response.status_code)
                 print(response.text)
                 uidd = (response.text[1:-1])
                 print(uidd)
-                return redirect(f"http://127.0.0.1:3000/profile_manager/otp/{uidd}")
+                return redirect(f"/profile_manager/otp/{uidd}")
         else:
             print("password doesn't match")
     return render(request,"signup.html")
@@ -38,24 +38,81 @@ def signin(request):
         uidd = (response.text[1:-1])
         print(uidd)
         if response.status_code == 200:
-            return redirect(f"/profile_page/{uidd}")
+            return redirect(f"/profile_manager/admin_dashboard/{uidd}")
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
     context = {'error':error}
     return render(request,"signin.html",context)
 
 def otp(request,id):
-    return render(request,"otpcheck.html")
+    context = {'invalid':"invalid"}
+    new=[]
+    if request.method == "POST":
+        new.append(request.POST["otp1"])
+        new.append(request.POST["otp2"])
+        new.append(request.POST["otp3"])
+        new.append(request.POST["otp4"])
+        data = {
+            'user_otp':int(''.join(new).strip())
+           
+        }
+        print(data)
+        # response = requests.post(f"http://54.159.186.219:8000/otp/{id}",   data=data)
+        response = requests.post(f"http://127.0.0.1:3000/pm_otp/{id}", data=data)
+
+       
+        print(response)
+        print(response.status_code)
+        print(data['user_otp'])
+        print(response.text)
+        uidd = (response.text[1:-1])
+        
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
+            # return redirect(f"/profileidcard/{uidd}")
+            return redirect(f"/profile_manager/profile_picture/{uidd}")
+        else:
+            invalid = "Invalid OTP"
+            context = {'invalid':invalid}
+    return render(request,"otpcheck.html",context)
 
 def profile_picture(request,id):
+    if request.method == "POST":
+        print(request.FILES)
+        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/pm_profile_picture/{id}",   files=request.FILES)
+        print(response)
+        print(response.status_code)
+        print(response.text)
+        uidd = (response.text[1:-1])
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
+            return redirect(f"/profile_manager/upload_acc/{uidd}")
+        else:
+            return HttpResponse("INVALId")
     return render(request,"profilepicture.html")
 
 def upload_acc(request,id):
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/pm_edit_account/{id}",   data = request.POST,files=request.FILES)
+        print(response)
+        print(response.status_code)
+        print(response.text)
+        uidd = (response.text[1:-1])
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
+            return redirect(f"/profile_manager/admin_dashboard/{uidd}")
+        else:
+            return HttpResponse("INVALId")
     return render(request,"upload_acc.html")
 
 def admin_dashboard(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_myid/{id}").json()  
     context={
-        'admin_dashboard':"admin_dashboard",
+        'my':mydata,
     }
     return render(request,"admin_dashboard.html",context)
 

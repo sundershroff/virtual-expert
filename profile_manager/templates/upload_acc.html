@@ -78,25 +78,26 @@
       <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="" action="">
+        <form method="POST" enctype="multipart/form-data" action="">
+          {% csrf_token %}
           <div class="row mb-3">
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Name">
+            <input type="text" name="office_name" class="form-control" placeholder="Name">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select class="form-select" name="office_country">
+              <option value="default">Select</option>
             </select>
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select class="form-select" name="office_city">
+              <option value="default">Select</option>
             </select>
           </div>
           
@@ -105,8 +106,8 @@
         <div class="row">
 
         <div class="col-12">
-          <label class="form-label">Address<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Address">
+          <label class="form-label">Office Address<span>*</span></label>
+            <input type="text" name="office_address" class="form-control" placeholder="Address">
         </div> 
           
         </div>
@@ -119,36 +120,36 @@
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">First Name<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="first name">
+                  <input type="text" name="first_name" class="form-control" placeholder="first name">
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">Last Name<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="last name">
+                  <input type="text" name="last_name" class="form-control" placeholder="last name">
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select class="form-select">
-              <option>Select</option>
+                  <select class="form-select" name="personal_country">
+              <option value="default">Select</option>
             </select>
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select">
-              <option>Select</option>
+                  <select class="form-select" name="personal_city">
+              <option value="default">Select</option>
             </select>
                 </div>
 
                 <div class="col-12 my-3">
                   <label class="form-label">Addresss<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="Address">
+                  <input type="text" name="personal_address" class="form-control" placeholder="Address">
                 </div>
 
                 <div class="col-lg-6 my-3">
             <label class="form-label">Notary<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select class="form-select" name="notary">
+              <option value="default">Select</option>
             </select>
           </div>
 
@@ -168,7 +169,7 @@
                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
                       <header>Drag or click here to Upload your ID </header>
 
-                      <input type="file" style="
+                      <input type="file" name="id_card" style="
                       opacity: 0;
                       position: absolute;">
                 
@@ -194,15 +195,15 @@
           
         </div>
         
-        </form>
+       
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
           
         </div>
            
-        
+      </form>
         
       </div>
       
