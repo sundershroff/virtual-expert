@@ -8,7 +8,7 @@ def dashboard(request):
     return render(request,"dashboard.html")
 
 def signup(request):
-    
+    error = ""
     if request.method == "POST":
         if request.POST['password'] == request.POST['confirm_password']:
                 # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
@@ -17,10 +17,14 @@ def signup(request):
                 print(response.text)
                 uidd = (response.text[1:-1])
                 print(uidd)
-                return redirect(f"/profile_manager/otp/{uidd}")
+                if response.status_code == 200:
+                   return redirect(f"/profile_manager/otp/{uidd}")
+                elif response.status_code == 302:
+                    error = "User Already Exist"
         else:
             print("password doesn't match")
-    return render(request,"signup.html")
+    context = {'error':error}
+    return render(request,"signup.html",context)
 
 def signin(request):
     # a= requests.get("http://127.0.0.1:3000/pm_alldata/").json()
