@@ -820,7 +820,7 @@ input:checked + .slider:before {
 	  border-color:#6E717A;
 	  border-width:1px;
 	  width:fit-content;    
-	  padding: 50px 70px 50px;
+	  padding: 50px 18px 50px;
 	  cursor:pointer;
 }
 

@@ -79,6 +79,8 @@ urlpatterns = [
     path('hiring_manager/signin/', hm_views.signin),
     path('hiring_manager/otp/<id>', hm_views.otp),
     path('hiring_manager/profile_picture/<id>', hm_views.profile_picture),
+    path('hiring_manager/hm_upload_acc/<id>', hm_views.upload_acc),
+
 
 #///////ad_provider manager//////
     path('ad_provider/signup/', ad_provider_views.signup),

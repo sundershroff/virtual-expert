@@ -92,7 +92,7 @@
     });
     $( "#myform" ).validate({
       rules: {
-        'user_otp[]': {
+        otp1: {
           required: true,
           number:true,
         }
@@ -113,5 +113,6 @@
         document.getElementById("invalid").innerHTML=c;
       }
     </script>
+
 </body>
 </html>

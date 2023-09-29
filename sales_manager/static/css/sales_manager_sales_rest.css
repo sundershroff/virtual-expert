@@ -14,7 +14,20 @@
 	margin-left: 6rem;
 	margin-right: 6rem;
 }
-@media(max-width:575px){
+label#id_card-error {
+    display: flex;
+    justify-content: center;
+    height: 186px;
+    position: absolute;
+    width: 258px;
+    align-items: end;
+}
+input[type="file"] {
+    border: 2px dashed #E5E5E5;
+    background-color: transparent;
+    height: 200px;
+}
+@media(max-width:700px){
     .px-4 {
     padding-right: 1.5rem!important;
     padding-left: 1.5rem!important;
@@ -829,7 +842,7 @@ input:checked + .slider:before {
 	  border-color:#6E717A;
 	  border-width:1px;
 	  width:fit-content;    
-	  padding: 50px 70px 50px;
+	  padding: 50px 18px 50px;
 	  cursor:pointer;
 }
 

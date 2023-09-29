@@ -92,7 +92,7 @@
     });
     $( "#myform" ).validate({
       rules: {
-        'user_otp[]': {
+        otp1: {
           required: true,
           number:true,
         }
@@ -112,6 +112,27 @@
       if(c == "Invalid OTP"){
         document.getElementById("invalid").innerHTML=c;
       }
+    </script>
+    {% include 'footer.html' %}
+    <script>
+      // just for the demos, avoids form submit
+      jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+      });
+      $("#myform").validate({
+        rules: {
+          email: {
+            required: true
+          },
+         
+  
+        },
+        submitHandler: function (form) {
+          console.log('test');
+          form.submit();
+        }
+      });
     </script>
 </body>
 </html>

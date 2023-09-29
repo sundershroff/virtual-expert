@@ -151,12 +151,12 @@
                   <input type="text" name="personal_address" class="form-control" placeholder="Address">
                 </div>
 
-                <div class="col-lg-6 my-3">
+                <!-- <div class="col-lg-6 my-3">
             <label class="form-label">Notary<span>*</span></label>
             <select class="form-select" name="notary">
               <option value="default">Select</option>
             </select>
-          </div>
+          </div> -->
 
               
                 
@@ -275,9 +275,9 @@
             personal_address: {
               required: true
             },
-            notary: {
-              required: true
-            },
+            // notary: {
+            //   required: true
+            // },
             id_card: {
               required: true
             }
@@ -304,6 +304,9 @@
     display: none;
     width: 16px;
     height: 16px;
+}
+label.error{
+	color:red;
 }
 </style>
       <script src="{% static 'js/main.js'%}"></script>
