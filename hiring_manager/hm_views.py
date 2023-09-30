@@ -106,8 +106,44 @@ def upload_acc(request,id):
             return HttpResponse("INVALId")
     return render(request,"hm_upload_acc.html")
 
-# def admin_dashboard(request,id):
-#     context={
-#         'admin_dashboard':"admin_dashboard",
-#     }
-#     return render(request,"admin_dashboard.html",context)
+def admin_dashboard(request,id):
+    return render(request,"hm_admin_dashboard.html")
+
+
+def profile(request,id):
+    return render(request,"hm_profile.html")
+
+def edit_acc(request,id):
+    return render(request,"hm_edit_acc.html")
+
+
+def local_admin(request,id):
+    return render(request,"hm_localadmin.html")
+
+def local_admin_upload(request,id):
+    return render(request,"hm_LocaladminDoc.html")
+
+def ad_provider(request,id):
+    return render(request,"hm_ad_provider.html")
+
+def ad_provider_doc(request,id):
+    return render(request,"hm_adproviderdoc.html")
+
+def sales(request,id):
+    return render(request,"hm_sales_person.html")
+
+def sales_doc(request,id):
+    return render(request,"hm_sales_person_doc.html")
+
+def hiring_manager(request,id):
+    return render(request,"hm_hiring_manager.html")
+
+def hiring_manager_doc(request,id):
+    return render(request,"hm_hiring_manager_doc.html")
+
+def setting(request,id):
+    return render(request,"hm_acc_setting.html")
+
+
+
+

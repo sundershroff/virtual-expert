@@ -36,6 +36,7 @@
 .dash_brd_img1{
 	margin:0 20px;
 	cursor:pointer;
+	display: contents;
 }
 
 .dash_brd_img1 img{
@@ -67,7 +68,7 @@
 .dash_bor_box{
 	border-radius:10px;
 	height:90px;
-	width:220px;
+	width: 250px;
 	background-color:white;
 
 }
@@ -94,16 +95,16 @@
 
 .dash_db_user{
 	font-size:0.9em;
-	color:rgba(246, 160, 128, 1);
+	color:#8CD7CF;
 	border-radius:50%;
-	background-color:rgba(246, 160, 128, 0.1);
+	background-color:rgba(140,215,207, 0.1);
   padding:16px 16px;
 	margin:10px 0;
 }
 
 .dash_users{
 	font-size:1.2em;
-	color:rgba(123, 97, 255,1);
+	color:#7B61FF;
 	border-radius:50%;
 	background-color:rgba(123, 97, 255, 0.1);
   padding:16px 16px;
@@ -112,18 +113,18 @@
 
 .dash_dot{
 	font-size:1.2em;
-	color:rgba(235, 87, 87, 1);
+	color:#7B61FF;
 	border-radius:50%;
-	background-color:rgba(235, 87, 87, 0.1);
+	background-color:rgba(140, 215, 207, 0.1);
   padding:16px 16px;
 	margin:10px 0;
 }
 
 .dash_dlr{
 	font-size:1.2em;
-	color:rgba(43, 54, 116, 1);
+	color:#CBE49F;
 	border-radius:50%;
-	background-color:rgba(43, 54, 116, 0.1);
+	background-color:#eef7df;
   padding:16px 16px;
 	margin:10px 0;
 }
@@ -409,3 +410,25 @@
   cursor: pointer;
 }
 }
+.background{
+	background-color: white;;
+}
+ .admin_clients{
+	font-size:1.2em;
+	color:#7B61FF;
+	border-radius:50%;
+	background-color:#e5e0ff;
+  padding:16px 16px;
+	margin:10px 0;
+ }
+ .report_modal{
+	padding:30px;
+}
+.report_modal i{
+   color:#3247CE;
+}
+.report_modal a{
+	cursor:pointer;
+	text-decoration: none;
+	color:#000;
+ }

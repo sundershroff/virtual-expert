@@ -19,7 +19,7 @@
 }
 
 .dash_par1 i:first-child{
-	margin:0 20px;
+	margin:0 8px;
 	font-size:1.5em;
 }
 
@@ -52,7 +52,7 @@
 }
 .dash_par2 button:hover{
 	transition:0.5s;
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	box-shadow: rgba(147, 99, 179, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .dash_par2 button{
@@ -67,7 +67,7 @@
 .dash_bor_box{
 	border-radius:10px;
 	height:90px;
-	width:220px;
+	width:250px;
 	background-color:white;
 
 }
@@ -94,9 +94,9 @@
 
 .dash_db_user{
 	font-size:0.9em;
-	color:rgba(246, 160, 128, 1);
+	color:rgba(140, 215, 207, 1);
 	border-radius:50%;
-	background-color:rgba(246, 160, 128, 0.1);
+	background-color:rgba(140, 215, 207, 0.1);
   padding:16px 16px;
 	margin:10px 0;
 }
@@ -121,9 +121,9 @@
 
 .dash_dlr{
 	font-size:1.2em;
-	color:rgba(43, 54, 116, 1);
+	color:rgba(237, 221, 214, 1);
 	border-radius:50%;
-	background-color:rgba(43, 54, 116, 0.1);
+	background-color:rgba(237, 221, 214, 0.1);
   padding:16px 16px;
 	margin:10px 0;
 }
@@ -409,3 +409,19 @@
   cursor: pointer;
 }
 }
+   /* Add your CSS styles here */
+   .dropdown {
+	position: relative;
+	display: inline-block;
+}
+ .report_modal{
+     padding:30px;
+ }
+ .report_modal i{
+	color:#3247CE;
+ }
+ .report_modal a{
+	cursor:pointer;
+	text-decoration: none;
+	color:#000;
+ }

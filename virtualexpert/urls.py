@@ -80,6 +80,25 @@ urlpatterns = [
     path('hiring_manager/otp/<id>', hm_views.otp),
     path('hiring_manager/profile_picture/<id>', hm_views.profile_picture),
     path('hiring_manager/hm_upload_acc/<id>', hm_views.upload_acc),
+    path('hiring_manager/hm_dmin_dashboard/<id>', hm_views.admin_dashboard),
+    path('hiring_manager/hm_profile/<id>', hm_views.profile),
+    path('hiring_manager/hm_edit_acc/<id>', hm_views.edit_acc),
+    path('hiring_manager/hm_local_admin/<id>', hm_views.local_admin),
+    path('hiring_manager/hm_local_admin_upload/<id>', hm_views.local_admin_upload),
+    path('hiring_manager/hm_ad_provider/<id>', hm_views.ad_provider),
+    path('hiring_manager/hm_adprovider_upload/<id>', hm_views.ad_provider_doc),
+    path('hiring_manager/hm_sales_person/<id>', hm_views.sales),
+    path('hiring_manager/hm_sales_person_doc/<id>', hm_views.sales_doc),
+    path('hiring_manager/hm_hiring_manager/<id>', hm_views.hiring_manager),
+    path('hiring_manager/hm_hiring_manager_doc/<id>', hm_views.hiring_manager_doc),
+    path('hiring_manager/hm_settings/<id>', hm_views.setting),
+
+
+
+
+
+
+
 
 
 #///////ad_provider manager//////
@@ -87,12 +106,35 @@ urlpatterns = [
     path('ad_provider/signin/', ad_provider_views.signin),
     path('ad_provider/otp/<id>', ad_provider_views.otp),
     path('ad_provider/profile_picture/<id>', ad_provider_views.profile_picture),
+    path('ad_provider/upload_acc/<id>', ad_provider_views.upload_acc),
+    path('ad_provider/ad_provider_admin_dashboard/<id>', ad_provider_views.admin_dashboard),
+    path('ad_provider/ad_pro_account/<id>', ad_provider_views.account),
+    path('ad_provider/ad_pro_editAccount/<id>', ad_provider_views.edit_account),
+    path('ad_provider/ad_pro_acc_balance/<id>', ad_provider_views.acc_balance),
+    path('ad_provider/ad_pro_adFunds.html/<id>', ad_provider_views.add_funds),
+    path('ad_provider/ad_pro_list/<id>', ad_provider_views.ads_list_all),
+    path('ad_provider/ad_pro_active/<id>', ad_provider_views.ads_active),
+    path('ad_provider/ad_pro_pending/<id>', ad_provider_views.ads_pending),
+    path('ad_provider/ad_pro_deactive/<id>', ad_provider_views.ads_deactive),
+
+
+
+
+
+
+
+
+
 
 #///////ad_distributor manager//////
     path('ad_distributor/signup/', ad_dis_views.signup),
     path('ad_distributor/signin/', ad_dis_views.signin),
     path('ad_distributor/otp/<id>', ad_dis_views.otp),
     path('ad_distributor/profile_picture/<id>', ad_dis_views.profile_picture),
+    path('ad_distributor/upload_acc/<id>', ad_dis_views.upload_acc),
+
+    
+
 
 #///////affiliate_marketing manager//////
     path('affiliate_marketing/signup/', af_views.signup),

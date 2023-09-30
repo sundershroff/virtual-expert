@@ -75,13 +75,69 @@ def otp(request,id):
     return render(request,"ad_provider_otpcheck.html",context)
 
 def profile_picture(request,id):
+    if request.method == "POST":
+        print(request.FILES)
+        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/ad_pro_profile_picture/{id}",   files=request.FILES)
+        print(response)
+        print(response.status_code)
+        print(response.text)
+        uidd = (response.text[1:-1])
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
+            return redirect(f"/ad_provider/upload_acc/{uidd}")
+        else:
+            return HttpResponse("INVALId")
     return render(request,"ad_provider_profilepicture.html")
 
 def upload_acc(request,id):
-    return render(request,"upload_acc.html")
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/ad_pro_upload_account/{id}",   data = request.POST,files=request.FILES)
+        print(response)
+        print(response.status_code)
+        print(response.text)
+        uidd = (response.text[1:-1])
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
 
-# def admin_dashboard(request,id):
-#     context={
-#         'admin_dashboard':"admin_dashboard",
-#     }
-#     return render(request,"admin_dashboard.html",context)
+            return redirect(f"/ad_distributor/ad_provider_admin_dashboard/{uidd}")
+        else:
+            return HttpResponse("INVALId")
+    return render(request,"ad_ptovider_upload_acc.html")
+
+def admin_dashboard(request,id):
+    return render(request,"ad_provider_admin_dashboard.html")
+
+def account(request,id):
+    return render(request,"ad_pro_account.html")
+
+def edit_account(request,id):
+    return render(request,"ad_pro_editAccount.html")
+
+
+def acc_balance(request,id):
+    return render(request,"ad_pro_accntBalance.html")
+
+def add_funds(request,id):
+    return render(request,"ad_pro_adFunds.html")
+
+def ads_list_all(request,id):
+    return render(request,"ad_pro_list.html")
+
+def ads_active(request,id):
+    return render(request,"ad_pro_active.html")
+
+def ads_pending(request,id):
+    return render(request,"ad_pro_pending.html")
+
+def ads_deactive(request,id):
+    return render(request,"ad_pro_deactive.html")
+
+
+
+
+
+
