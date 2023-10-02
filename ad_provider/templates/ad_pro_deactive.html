@@ -84,7 +84,11 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <button data-bs-toggle="modal" data-bs-target="#">Add New <i class="fa-solid fa-circle-plus"></i></button>
+        <a href="/ad_provider/ad_pro_createAd/<id>" ><button data-bs-toggle="modal" data-bs-target="#" style="
+          border: 1px solid white;
+          background-color: rgba(123, 97, 255, 1);
+          color: white;
+      ">Add New <i class="fa-solid fa-circle-plus"></i></button></a>
       </div>
       
     </div>
@@ -95,8 +99,10 @@
     <a href="/ad_provider/ad_pro_list/<id>" class="ad_nonactive_menu p-2"><b>All</b> </a> 
       <a href="/ad_provider/ad_pro_active/<id>" class="ad_nonactive_menu p-3">Active</a>
         <a href="/ad_provider/ad_pro_pending/<id>" class="ad_nonactive_menu p-3">Pending</a>
-    <a href="/ad_provider/ad_pro_deactive/<id>" class="ad_active_menu p-3"><b>Deactive</b></a>
-    <a href="ad-closed.html" class="ad_nonactive_menu p-3">Closed</a>
+    <a href="/ad_provider/ad_pro_deactive/<id>" class="ad_active_menu p-3" style="
+      font-weight: 700;
+  ">Deactive</a>
+    <a href="/ad_provider/ad_pro_closed/<id>" class="ad_nonactive_menu p-3">Closed</a>
 
     </div>
 </div>

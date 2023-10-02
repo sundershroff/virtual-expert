@@ -101,13 +101,70 @@ def upload_acc(request,id):
         uidd = (response.text[1:-1])
         if response.status_code == 200:
         # if get["otp"] == data['user_otp']:
-            return redirect(f"/ad_distributor/admin_dashboard/{uidd}")
+            return redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uidd}")
         else:
             return HttpResponse("INVALId")
     return render(request,"ad_dis_upload_acc.html")
 
-# def admin_dashboard(request,id):
-#     context={
-#         'admin_dashboard':"admin_dashboard",
-#     }
-#     return render(request,"admin_dashboard.html",context)
+
+def admin_dashboard(request,id):
+    return render(request,"ad_dis_admin_dashboard.html")
+
+def account(request,id):
+    return render(request,"ad_dis_account.html")
+
+def edit_account(request,id):
+    return render(request,"ad_dis_editAccount.html")
+
+
+def acc_balance(request,id):
+    return render(request,"ad_dis_accntBalance.html")
+
+def add_funds(request,id):
+    return render(request,"ad_dis_adFunds.html")
+
+def ads_list_all(request,id):
+    return render(request,"ad_dis_list.html")
+
+def ads_active(request,id):
+    return render(request,"ad_dis_active.html")
+
+def ads_pending(request,id):
+    return render(request,"ad_dis_pending.html")
+
+def ads_deactive(request,id):
+    return render(request,"ad_dis_deactive.html")
+
+def ads_closed(request,id):
+    return render(request,"ad_dis_closed.html")
+
+def ad_dis_createAd(request,id):
+    if request.POST:
+        return redirect("/ad_distributor/ad_dis_payment/<id>")
+    return render(request,"ad_dis_createAd.html")
+
+def ad_dis_payment(request,id):
+    return render(request,"ad_dis_payment.html")
+
+def ad_dis_editAd(request,id):
+    if request.POST:
+        return redirect("/ad_distributor/ad_dis_payment/<id>")
+    return render(request,"ad_dis_editad.html")
+
+def ad_dis_adDetails(request,id):
+    if request.POST:
+        return redirect("/ad_disvider/ad_dis_payment/<id>")
+    return render(request,"ad_dis_adDetails.html")
+
+def ad_dis_users(request,id):
+    return render(request,"ad_dis_users.html")
+
+
+def ad_dis_addusers(request,id):
+    return render(request,"ad_dis_addusers.html")
+
+def ad_dis_settings(request,id):
+    return render(request,"ad_dis_settings.html")
+
+
+

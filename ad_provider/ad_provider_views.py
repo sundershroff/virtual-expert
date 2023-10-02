@@ -136,6 +136,38 @@ def ads_pending(request,id):
 def ads_deactive(request,id):
     return render(request,"ad_pro_deactive.html")
 
+def ads_closed(request,id):
+    return render(request,"ad_pro_closed.html")
+
+def ad_pro_createAd(request,id):
+    if request.POST:
+        return redirect("/ad_provider/ad_pro_payment/<id>")
+    return render(request,"ad_pro_createAd.html")
+
+def ad_pro_payment(request,id):
+    return render(request,"ad_pro_payment.html")
+
+def ad_pro_editAd(request,id):
+    if request.POST:
+        return redirect("/ad_provider/ad_pro_payment/<id>")
+    return render(request,"ad_pro_editad.html")
+
+def ad_pro_adDetails(request,id):
+    if request.POST:
+        return redirect("/ad_provider/ad_pro_payment/<id>")
+    return render(request,"ad_pro_adDetails.html")
+
+def ad_pro_users(request,id):
+    return render(request,"ad_pro_users.html")
+
+
+def ad_pro_addusers(request,id):
+    return render(request,"ad_pro_addusers.html")
+
+def ad_pro_settings(request,id):
+    return render(request,"ad_pro_settings.html")
+
+
 
 
 

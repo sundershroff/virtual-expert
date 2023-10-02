@@ -20,7 +20,7 @@ from profile_manager import pm_views
 from sales_manager import sm_views
 from hiring_manager import hm_views
 from ad_provider import ad_provider_views
-from ad_distributor import ad_dis_views
+from ad_distributor import ad_distributor_views
 from affiliate_marketing import af_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -116,22 +116,42 @@ urlpatterns = [
     path('ad_provider/ad_pro_active/<id>', ad_provider_views.ads_active),
     path('ad_provider/ad_pro_pending/<id>', ad_provider_views.ads_pending),
     path('ad_provider/ad_pro_deactive/<id>', ad_provider_views.ads_deactive),
-
-
-
-
-
+    path('ad_provider/ad_pro_closed/<id>', ad_provider_views.ads_closed),
+    path('ad_provider/ad_pro_createAd/<id>', ad_provider_views.ad_pro_createAd),
+    path('ad_provider/ad_pro_payment/<id>', ad_provider_views.ad_pro_payment),
+    path('ad_provider/ad_pro_editAd/<id>', ad_provider_views.ad_pro_editAd),
+    path('ad_provider/ad_pro_adDetails/<id>', ad_provider_views.ad_pro_adDetails),
+    path('ad_provider/ad_pro_users/<id>', ad_provider_views.ad_pro_users),
+    path('ad_provider/ad_pro_addusers/<id>', ad_provider_views.ad_pro_addusers),
+    path('ad_provider/ad_pro_settings/<id>', ad_provider_views.ad_pro_settings),
 
 
 
 
 
 #///////ad_distributor manager//////
-    path('ad_distributor/signup/', ad_dis_views.signup),
-    path('ad_distributor/signin/', ad_dis_views.signin),
-    path('ad_distributor/otp/<id>', ad_dis_views.otp),
-    path('ad_distributor/profile_picture/<id>', ad_dis_views.profile_picture),
-    path('ad_distributor/upload_acc/<id>', ad_dis_views.upload_acc),
+    path('ad_distributor/signup/', ad_distributor_views.signup),
+    path('ad_distributor/signin/', ad_distributor_views.signin),
+    path('ad_distributor/otp/<id>', ad_distributor_views.otp),
+    path('ad_distributor/profile_picture/<id>', ad_distributor_views.profile_picture),
+    path('ad_distributor/upload_acc/<id>', ad_distributor_views.upload_acc),
+    path('ad_distributor/ad_distributor_admin_dashboard/<id>', ad_distributor_views.admin_dashboard),
+    path('ad_distributor/ad_dis_account/<id>', ad_distributor_views.account),
+    path('ad_distributor/ad_dis_editAccount/<id>', ad_distributor_views.edit_account),
+    path('ad_distributor/ad_dis_acc_balance/<id>', ad_distributor_views.acc_balance),
+    path('ad_distributor/ad_dis_adFunds.html/<id>', ad_distributor_views.add_funds),
+    path('ad_distributor/ad_dis_list/<id>', ad_distributor_views.ads_list_all),
+    path('ad_distributor/ad_dis_active/<id>', ad_distributor_views.ads_active),
+    path('ad_distributor/ad_dis_pending/<id>', ad_distributor_views.ads_pending),
+    path('ad_distributor/ad_dis_deactive/<id>', ad_distributor_views.ads_deactive),
+    path('ad_distributor/ad_dis_closed/<id>', ad_distributor_views.ads_closed),
+    path('ad_distributor/ad_dis_createAd/<id>', ad_distributor_views.ad_dis_createAd),
+    path('ad_distributor/ad_dis_payment/<id>', ad_distributor_views.ad_dis_payment),
+    path('ad_distributor/ad_dis_editAd/<id>', ad_distributor_views.ad_dis_editAd),
+    path('ad_distributor/ad_dis_adDetails/<id>', ad_distributor_views.ad_dis_adDetails),
+    path('ad_distributor/ad_dis_users/<id>', ad_distributor_views.ad_dis_users),
+    path('ad_distributor/ad_dis_addusers/<id>', ad_distributor_views.ad_dis_addusers),
+    path('ad_distributor/ad_dis_settings/<id>', ad_distributor_views.ad_dis_settings),
 
     
 

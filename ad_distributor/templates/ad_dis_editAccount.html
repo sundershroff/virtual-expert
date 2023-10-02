@@ -5,9 +5,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Complete profile</title>
-  <link rel="stylesheet" href="{% static 'css/upload_acc.css' %}">
-	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<title>Ad-Edit Account</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/all_style.css'%}">
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- BS -->
   <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
@@ -24,42 +25,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
-  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
 
 </head>
-<body style=" background-color:rgba(0, 0, 255, 0.1);">
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-
+<body style=" background-color:#F4F2FF;">
    
  <div class="dash_bor_sec1">
 
-  <!-- <div class="dash_bor_sdbr" id="dashsidebar" >
+  <div class="dash_bor_sdbr" id="dashsidebar" >
 
       <header id="header">
     <div class="d-flex flex-column">
-      
        <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
       <nav id="navbar" class="nav-menu navbar">
        
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
-          <li><a href="#about" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
-          <li><a href="#resume" class="nav-link scrollto"><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
-          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
-          <li><a href="#services" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
-         
-          <li><a href="#services" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
-        </ul>
+        {% include "ad_dis_nav.html"%}
 
       </nav>
-      .nav-menu 
+      <!-- .nav-menu -->
     </div>
     <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
   </header>
   
-  </div> -->
+  </div>
 
   <div class="dash_bor_main1" >
     <!-- start1-->
@@ -70,7 +57,17 @@
 
         <div class="dash_brd_img1">
          <img src="{% static 'images/girl1.png'%}">
-         <i class="fa-solid fa-caret-down"></i>
+         <div class="dropdown">
+            <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
+             
+            </a>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
+              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
+              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
+            </ul>
+          </div>
          </div>
 
     </div>
@@ -80,33 +77,28 @@
     <!-- start -->
     <div class="local_admin_edi_acc px-3 py-4">
 
-      <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3>
+     <a href="/ad_distributor/ad_dis_account/<id>" style="text-decoration: none;"><h3 class="mb-4">Profile ></a>  <span style="color:#7B61FF;font-weight:500;">Edit Account</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="POST" enctype="multipart/form-data" id="myform">
-          {% csrf_token %}
+        <form method="" action="">
           <div class="row mb-3">
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
-            <input type="text" name="office_name" class="form-control" placeholder="Name">
+            <input type="text" name="" class="form-control" placeholder="Name">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select" name="office_country">
-              <option value="default">Select</option>
-              <option value="INDIA">INDIA</option>
-
+            <select class="form-select">
+              <option>Select</option>
             </select>
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select" name="office_city">
-              <option value="default">Select</option>
-              <option value="Nagercoil">Nagercoil</option>
-
+            <select class="form-select">
+              <option>Select</option>
             </select>
           </div>
           
@@ -115,8 +107,8 @@
         <div class="row">
 
         <div class="col-12">
-          <label class="form-label">Office Address<span>*</span></label>
-            <input type="text" name="office_address" class="form-control" placeholder="Address">
+          <label class="form-label">Address<span>*</span></label>
+            <input type="text" name="" class="form-control" placeholder="Address">
         </div> 
           
         </div>
@@ -129,42 +121,36 @@
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">First Name<span>*</span></label>
-                  <input type="text" name="first_name" class="form-control" placeholder="first name">
+                  <input type="text" class="form-control" placeholder="first name">
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">Last Name<span>*</span></label>
-                  <input type="text" name="last_name" class="form-control" placeholder="last name">
+                  <input type="text" class="form-control" placeholder="last name">
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select class="form-select" name="personal_country">
-              <option value="default">Select</option>
-              <option value="INDIA">INDIA</option>
-
+                  <select class="form-select">
+              <option>Select</option>
             </select>
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select" name="personal_city">
-              <option value="default">Select</option>
-              <option value="Nagercoil">Nagercoil</option>
-
+                  <select class="form-select">
+              <option>Select</option>
             </select>
                 </div>
 
                 <div class="col-12 my-3">
                   <label class="form-label">Addresss<span>*</span></label>
-                  <input type="text" name="personal_address" class="form-control" placeholder="Address">
+                  <input type="text" class="form-control" placeholder="Address">
                 </div>
 
                 <div class="col-lg-6 my-3">
             <label class="form-label">Notary<span>*</span></label>
-            <select class="form-select" name="hiring_manager">
-              <option value="default">Select</option>
-              <option value="Sunder">Sunder</option>
-
+            <select class="form-select">
+              <option>Select</option>
             </select>
           </div>
 
@@ -184,9 +170,7 @@
                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
                       <header>Drag or click here to Upload your ID </header>
 
-                      <input type="file" name="id_card" style="
-                      opacity: 0;
-                      position: absolute;">
+                      <input type="file" style="opacity: 0;position: absolute;">
                 
 
                   </div>
@@ -210,15 +194,15 @@
           
         </div>
         
-       
-        <div class="local_admin_edi_subbtn my-4">
+        </form>
+        <div class="ad_edit_acc my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
           
         </div>
            
-      </form>
+        
         
       </div>
       
@@ -247,90 +231,9 @@
           
         </div>
       </div>
-      <script>
-        // just for the demos, avoids form submit
-        jQuery.validator.setDefaults({
-          debug: true,
-          success: "valid"
-        });
-        $.validator.addMethod("valueNotEquals", function(value, element, arg){
-              return arg !== value;
-            }, "Select Any One");
-        $( "#myform" ).validate({
-          rules: {
-            office_name: {
-              required: true
-            },
-            office_country: {
-              valueNotEquals: "default"
-            },
-            office_city: {
-              valueNotEquals: "default"
-            },
-            office_address: {
-              required: true
-            },
-            first_name: {
-              required: true
-            },
-            last_name: {
-              required: true
-            },
-            personal_country: {
-              valueNotEquals: "default"
-            },
-            personal_city: {
-              valueNotEquals: "default"
-            },
-            personal_address: {
-              required: true
-            },
-            notary: {
-              required: true
-            },
-            id_card: {
-              required: true
-            }
-
-          },
-          submitHandler: function (form) {
-                    console.log('test');
-                    form.submit();
-                }
-        });
-        </script>
-        <script>
-          $(document).ready(function () {
-              $("#success").click(function(){
-                  setTimeout(function() {
-                      $('#exampleModal').modal('toggle');
-                  }, 2000);
-              });
-          });
-      </script>
-<style>
-    label.valid {
-    background: url(images/checked.gif) no-repeat;
-    display: none;
-    width: 16px;
-    height: 16px;
-    }
-    label.error {
-        color: red;
-    }
-    label#id_card-error {
-        display: flex;
-        display: flex;
-        justify-content: center;
-        height: 186px;
-        position: absolute;
-        width: 258px;
-        align-items: end;
-    }
-    </style>
-    
+     
+ 
       <script src="{% static 'js/main.js'%}"></script>
-      
 
 
 </body>
