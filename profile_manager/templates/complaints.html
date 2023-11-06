@@ -29,15 +29,7 @@
     <div class="d-flex flex-column">
       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
       <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="/profile_manager/admin_dashboard/jhvuv" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
-          <li><a href="/profile_manager/profile_account/jhvuv" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
-          <li><a href="/profile_manager/profile_finders/jhvuv" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
-          <li><a href="/profile_manager/complaints/jhvuv" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
-          <li><a href="/profile_manager/users/jhvuv" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
-         
-          <li><a href="/profile_manager/settings/jhvuv" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
-        </ul>
+        {% include 'nav.html'%}
 
 
       </nav>
@@ -51,16 +43,7 @@
   <div class="dash_bor_main1">
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <i class="fa-solid fa-caret-down"></i>
-         </div>
-
-    </div>
+    {% include 'pm_header.html'%}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 

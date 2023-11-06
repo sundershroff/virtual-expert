@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+import json
 
 
 # Create your views here.
@@ -97,6 +98,20 @@ def profile_picture(request,id):
     return render(request,"profilepicture.html")
 
 def upload_acc(request,id):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    # region = (requests.get('https://api.first.org/data/v1/countries').json())
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                          'country': countryname,'states': states}
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -111,41 +126,94 @@ def upload_acc(request,id):
             return redirect(f"/profile_manager/admin_dashboard/{uidd}")
         else:
             return HttpResponse("INVALId")
-    return render(request,"upload_acc.html")
+    return render(request,"upload_acc.html",context)
 
 def admin_dashboard(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/pm_myid/{id}").json()  
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
     context={
-        'my':mydata,
+        'key':mydata,
+        'current_path':request.get_full_path()
+
     }
     return render(request,"admin_dashboard.html",context)
 
 def profile_account(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
     context={
-        'profile_account':"profile_account",
+        'key':mydata,
+        'current_path':request.get_full_path()
+
     }
     return render(request,"profile_account.html",context)
 
 def edit_acc(request,id):
-    return render(request,"edit_acc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"edit_acc.html",context)
 
 def acc_balance(request,id):
-    return render(request,"acc_balance.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"acc_balance.html",context)
 
 def profile_finders(request,id):
-    return render(request,"profile_finders.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"profile_finders.html",context)
     
 def view_details(request,id):
-    return render(request,"view_details.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"view_details.html",context)
 
 def complaints(request,id):
-    return render(request,"complaints.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"complaints.html",context)
 
 def users(request,id):
-    return render(request,"users.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"users.html",context)
 
 def add_user(request,id):
-    return render(request,"add_user.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"add_user.html",context)
 
 def settings(request,id):
-    return render(request,"settings.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"settings.html",context)

@@ -39,15 +39,7 @@
 
 
 
-        <ul>
-          <li><a href="/profile_manager/admin_dashboard/jhvuv" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
-          <li><a href="/profile_manager/profile_account/jhvuv" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
-          <li><a href="/profile_manager/profile_finders/jhvuv" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
-          <li><a href="/profile_manager/complaints/jhvuv" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
-          <li><a href="/profile_manager/users/jhvuv" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
-         
-          <li><a href="/profile_manager/settings/jhvuv" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
-        </ul>
+        {% include 'nav.html'%}
 
       
       </nav>
@@ -61,16 +53,7 @@
   <div class="dash_bor_main1">
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <i class="fa-solid fa-caret-down"></i>
-         </div>
-
-    </div>
+    {% include 'pm_header.html'%}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -89,10 +72,10 @@
             </div>
 
             <div>
-              <h4>Jacob Jones</h4>
+              <h4>{{key.first_name}} {{key.last_name}}</h4>
               <h5>Local Account</h5>
-              <h5>Created on: <span style="color:rgba(123, 97, 255, 1);font-weight:500;">20 January, 2022</span></h5>
-             <a href="/profile_manager/edit_acc/jhvuv"> <button>Edit Profile</button></a>
+              <h5>Created on: <span style="color:rgba(123, 97, 255, 1);font-weight:500;">{{key.created_date}}</span></h5>
+             <a href="/profile_manager/edit_acc/{{key.uid}}"> <button>Edit Profile</button></a>
             </div>
 
           </div>
@@ -105,7 +88,7 @@
 
             <div>
               <h3 style="color:#34A853;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 2,500</span></h3>
-              <p>Account Balance <span><a href="/profile_manager/acc_balance/jhvuv">Details</a></span></p>
+              <p>Account Balance <span><a href="/profile_manager/acc_balance/{{key.uid}}">Details</a></span></p>
             </div>
             
           </div>
@@ -134,11 +117,11 @@
         </ul>
 
         <ul>
-          <li class="local_admin_clr">ABCD associate</li>
-          <li class="local_admin_clr">+918888555599</li>
-          <li class="local_admin_clr">adcdef@gamil.com</li>
-          <li class="local_admin_clr">Kochi,India</li>
-          <li class="local_admin_clr">Building 404,Office 12,TVM,Kochi</li>
+          <li class="local_admin_clr">{{key.office_name}}</li>
+          <li class="local_admin_clr">+91 {{key.mobile}}</li>
+          <li class="local_admin_clr">{{key.email}}</li>
+          <li class="local_admin_clr">{{key.office_country}},{{key.office_city}}</li>
+          <li class="local_admin_clr">{{key.office_address}}</li>
         </ul>
            
          </div>
@@ -151,7 +134,7 @@
 
          <div class="local_admin_details">
             <ul>
-          <li>Office Name:</li>
+          <li> Name:</li>
           <li>Phone Number:</li>
           <li>Email ID:</li>
           <li>Location:</li>
@@ -159,11 +142,11 @@
         </ul>
 
         <ul>
-          <li class="local_admin_clr">ABCD associate</li>
-          <li class="local_admin_clr">+918888555599</li>
-          <li class="local_admin_clr">adcdef@gamil.com</li>
-          <li class="local_admin_clr">Kochi,India</li>
-          <li class="local_admin_clr">Building 404,Office 12,TVM,Kochi</li>
+          <li class="local_admin_clr">{{key.first_name}} {{key.last_name}}</li>
+          <li class="local_admin_clr">+91 {{key.mobile}}</li>
+          <li class="local_admin_clr">{{key.email}}</li>
+          <li class="local_admin_clr">{{key.personal_country}} {{key.personal_city}}</li>
+          <li class="local_admin_clr">{{key.personal_address}}</li>
         </ul>
            
          </div>
