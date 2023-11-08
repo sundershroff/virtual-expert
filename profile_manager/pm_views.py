@@ -116,7 +116,7 @@ def upload_acc(request,id):
         print(request.POST)
         print(request.FILES)
         # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/pm_edit_account/{id}",   data = request.POST,files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/pm_complete_account/{id}",   data = request.POST,files=request.FILES)
         print(response)
         print(response.status_code)
         print(response.text)
@@ -147,13 +147,35 @@ def profile_account(request,id):
     return render(request,"profile_account.html",context)
 
 def edit_acc(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0] 
+        neww=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        # region = (requests.get('https://api.first.org/data/v1/countries').json())
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        states = json.dumps(all["data"])
+        al = (all["data"])
+        for x in al:
+           name = (x.get("name"))
+           neww.append(name)
+        countryname = json.dumps(neww)
+    
+        context = {'response': response, 'region': response,'all':al,
+                    'country': countryname,'states': states,'key':mydata,
+                    'current_path':request.get_full_path()}
+        
+        if request.method=="POST":
+            print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/pm_edit_account/{id}",   data = request.POST,files=request.FILES)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+    
+        return render(request,"edit_acc.html",context)
+    except:
+        return render(request,"edit_acc.html",context)
 
-    }
-    return render(request,"edit_acc.html",context)
 
 def acc_balance(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
