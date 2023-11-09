@@ -69,12 +69,12 @@
 
           <div class="local_adm_det1">
 
-            <img src="{% static 'images/girl1.png'%}">
+            <img src="{{specific_data.profile_picture}}">
 
-            <h5>S.Reshma</h5>
-            <h5>Emirati</h5>
+            <h5>{{specific_data.name}}</h5>
+            {% comment %} <h5>Emirati</h5> {% endcomment %}
 
-            <h5>ID:123456</h5>
+            <h5>ID:{{specific_data.uid}}</h5>
 
             <div class="local_adm_det_icons">
               <a href=""><i class="fa-brands fa-square-facebook"></i></a>
@@ -90,7 +90,7 @@
 
            <h6 class="my-4">Profile Tagline</h6>
 
-           <h5 class="my-4">Life is pull of possibility</h5>
+           <h5 class="my-4">{{specific_data.profile_tag}}</h5>
 
            <div class="local_adm_det_link1 my-4">
              <a href="#">About Me</a>
@@ -113,16 +113,14 @@
 
         <div class="local_adm_chi2">
            <div class="local_adm_det3">
-             <h4>Details</h4>
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, </p>
-
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, </p>
+             <h4>About Me</h4>
+             <p> {{ specific_data.about_candidate }} </p>
            </div>
 
            <div class="local_adm_det3 my-4">
 
-             <h4>Current Details</h4>
-             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, </p>
+             <h4>Current Status</h4>
+             <p>{{ specific_data.current_status }} </p>
 
         
            </div>
@@ -133,10 +131,10 @@
               <h5>Contact Details</h5>
 
               <div>
-                <p>45a street, villa 17, al barsha</p>
-                <p>Dubai, Internet City</p>
-                <p>+971 553776176</p>
-                <p>thoams@sd.com</p>
+                <p>{{ specific_data.current_status }}</p>
+                <p>{{ specific_data.r_country }}, {{ specific_data.r_status }}</p>
+                <p>+91 {{ specific_data.mobile }} </p>
+                <p>{{ specific_data.email }}</p>
               </div>
 
             </div>
@@ -145,9 +143,9 @@
               <h5>Other Details</h5>
 
               <div class="mt-4">
-                <p><i class="fa-regular fa-envelope"></i> xyz@gmail.com</p>
-                <p><i class="fa-solid fa-mobile-screen-button"></i> +9199999999</p>
-                <p><i class="fa-brands fa-square-whatsapp"></i> +9188888888</p>
+                <p><i class="fa-regular fa-envelope"></i> {{ specific_data.contact_email }}</p>
+                <p><i class="fa-solid fa-mobile-screen-button"></i> +91 {{ specific_data.contact_phone }}</p>
+                <p><i class="fa-brands fa-square-whatsapp"></i> +91 {{ specific_data.whatsapp }}</p>
               </div>
 
             </div>
@@ -164,7 +162,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Height(cm)</h6>
-                  <h4>180 - 190</h4>
+                  <h4>{{ specific_data.height }}</h4>
                 </div>
                 
               </div>
@@ -173,7 +171,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Weight(kg)</h6>
-                 <h4>75 - 80</h4>
+                 <h4>{{ specific_data.weight }}</h4>
                 </div>
                 
               </div>
@@ -182,7 +180,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Age</h6>
-                  <h4>25 - 30</h4>
+                  <h4>{{ specific_data.age }}</h4>
                 </div>
                 
               </div>
@@ -191,7 +189,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Blood Type</h6>
-                  <h4>B+</h4>
+                  <h4>{{ specific_data.blood_group }}</h4>
                 </div>
                 
               </div>
@@ -200,7 +198,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Civil Status</h6>
-                 <h4>Single</h4>
+                 <h4>{{ specific_data.marital_status }}</h4>
                 </div>
                 
               </div>
@@ -209,7 +207,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Religion</h6>
-                  <h4>Roman Catholic</h4>
+                  <h4>{{ specific_data.religion }}</h4>
                 </div>
                 
               </div>
@@ -218,7 +216,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Email</h6>
-                  <h4>thomas@sd.com</h4>
+                  <h4>{{ specific_data.primary_email }}</h4>
                 </div>
                 
               </div>
@@ -227,7 +225,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Phone</h6>
-                 <h4>+971553776176</h4>
+                 <h4>+97 {{ specific_data.primary_phone_number }}</h4>
                 </div>
                 
               </div>
@@ -236,7 +234,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Education & Qualification</h6>
-                  <h4>MBBS</h4>
+                  <h4>{{ specific_data.education_school_0 }}</h4>
                 </div>
                 
               </div>
@@ -245,7 +243,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Profession</h6>
-                  <h4>Doctor</h4>
+                  <h4>{{ specific_data.profession_0 }}</h4>
                 </div>
                 
               </div>
@@ -254,7 +252,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Orphan</h6>
-                  <h4>No</h4>
+                  <h4>{{ specific_data.orphan }}</h4>
                 </div>
                 
               </div>
@@ -273,7 +271,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Father Name</h6>
-                  <h4>Thomas Agustin</h4>
+                  <h4>{{ specific_data.father_name }}</h4>
                 </div>
                 
               </div>
@@ -282,7 +280,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Father Native Place*</h6>
-                 <h4>Kochi. Kerala</h4>
+                 <h4>{{ specific_data.father_country }}</h4>
                 </div>
                 
               </div>
@@ -291,7 +289,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Father Job*</h6>
-                  <h4>Bank Manager</h4>
+                  <h4>{{ specific_data.father_job }}</h4>
                 </div>
                 
               </div>
@@ -300,7 +298,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Mather Name*</h6>
-                  <h4>Any James</h4>
+                  <h4>{{ specific_data.mother_name }}</h4>
                 </div>
                 
               </div>
@@ -309,7 +307,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Mather Native Place*</h6>
-                 <h4>Palakkad, Kerala</h4>
+                 <h4>{{ specific_data.mother_country }}</h4>
                 </div>
                 
               </div>
@@ -318,7 +316,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Mather Job*</h6>
-                  <h4>Hose Wife</h4>
+                  <h4>{{ specific_data.mother_job }}</h4>
                 </div>
                 
               </div>
@@ -327,7 +325,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Father Family Name</h6>
-                  <h4>chalakattil</h4>
+                  <h4>{{ specific_data.father_family_name }}</h4>
                 </div>
                 
               </div>
@@ -336,7 +334,7 @@
 
                 <div class="local_adm_gen_det">
                   <h6>Mother Family Name</h6>
-                 <h4>kalathil</h4>
+                 <h4>{{ specific_data.mother_family_name }}</h4>
                 </div>
                 
               </div>
@@ -348,24 +346,33 @@
 
            <div class="local_adm_det6 my-4">
           <h5>Sibling Details</h5>
-
+          {% for specific_data in sibling %}
           <div class="row my-4 mx-3" style="border-radius:10px;border:2px solid rgba(110, 113, 122, 0.2);padding:10px;">
 
             <div class="col-lg-4 my-3">
               <h6>Name</h6>
-              <h4>Robin Matthew</h4>
+              <h4>{{ specific_data.sibling_name_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_name_1 }}
+              {% endif %}
             </div>
 
             <div class="col-lg-4 my-3">
               <h6>Type of relation</h6>
-              <h4>Cusin</h4>
+              <h4>{{ specific_data.sibling_relation_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_relation_1 }}
+              {% endif %}
             </div>
 
             <div class="col-lg-4 my-3">
               <h6>Job</h6>
-              <h4>Software Engineer</h4>
+              <h4>{{ specific_data.sibling_occupation_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_occupation_1 }}
+              {% endif %}
             </div>
-            
+            {% endfor %}
           </div>
         </div>
 
@@ -374,39 +381,44 @@
           <h5>Educations</h5>
 
           <div class="row">
-
+            {% for specific_data in education %}
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>School Name</p>
 
-              <p>University Of North</p>
+              <p>{{ specific_data.education_school_0 }}</p>
+              {% if key.education_school_1  %}
 
-              <p>American University</p>
-              
+              <p>{{ specific_data.education_school_1 }}</p>
+              {% endif %}
             </div>
 
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>School Year</p>
 
-              <p>2014</p>
+              <p>{{ specific_data.education_year_0 }}</p>
 
-              <p>2018</p>
-              
+              {% if key.education_school_1  %}
+
+              <p>{{ specific_data.education_year_1 }}</p>
+              {% endif %}              
             </div>
 
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>Course / Degree</p>
 
-              <p>Management</p>
+              <p>{{ specific_data.education_course_0 }}</p>
 
-              <p>Business</p>
-              
+              {% if key.education_school_1  %}
+
+              <p>{{ specific_data.education_course_1 }}</p>
+              {% endif %}              
             </div>
             
           </div>
-          
+          {% endfor %}
         </div>
 
         <div class="my-4 local_adm_det7">
@@ -414,39 +426,41 @@
           <h5>Work Experience</h5>
 
           <div class="row">
-
+            {% for specific_data in working %}
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>Company Name</p>
 
-              <p>Plaza</p>
-
-              <p>InfoPark</p>
-              
+              <p>{{ specific_data.company_name_0 }}</p>
+              {% if key.company_name_1%}
+              <p>{{ specific_data.company_name_1 }}</p>
+              {% endif %}
             </div>
 
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>Position</p>
 
-              <p>Assistant</p>
+              <p>{{ specific_data.position_0 }}</p>
 
-              <p>Manager</p>
-              
+              {% if key.company_name_1%}
+              <p>{{ specific_data.position_1 }}</p>
+              {% endif %}              
             </div>
 
             <div class="col-xl-4 my-4 local_adm_edu">
 
               <p>Tenure (month)</p>
 
-              <p>12</p>
+              <p>{{ specific_data.salary_range_0 }}</p>
 
-              <p>24</p>
-              
+              {% if key.company_name_1%}
+              <p>{{ specific_data.salary_range_1 }}</p>
+              {% endif %}              
             </div>
             
           </div>
-          
+          {% endfor %}
         </div>
 
         <div class="local_adm_det8 my-4">
@@ -454,12 +468,10 @@
           <h5>My interest</h5>
           
           <div class="local_adm_det_mylist my-4">
-
-            <h6>Travel</h6>
-            <h6>Watch Movie</h6>
-            <h6>Writing</h6>
-            <h6>Sports</h6>
-            <h6>Photography</h6>
+            {% for k in intrest %}
+            <h6>{{ k.intrest }}</h6>
+            
+            {% endfor %}
             
           </div>
 
@@ -470,24 +482,22 @@
           <h5>My Non-Interest</h5>
           
           <div class="local_adm_det_mylist my-4">
-
-            <h6>Gaming</h6>
-            <h6>Dance</h6>
-            <h6>Speaking</h6>
-           
+            {% for k in non_intrest %}
+            <h6>{{ k.non_intrest }}</h6>
+          
+            {% endfor %}
             
           </div>
 
         </div>
 
          <div class="local_adm_det8 my-4">
-
-          <h5>Complexion</h5>
           
+          <h5>Complexion</h5>
           <div class="local_adm_det_mylist my-4">
-
-            <h6>Fair</h6>   
-            
+            {% for k in lengthcomplexion %}
+            <h6>{{ k }}</h6>   
+            {% endfor %}
           </div>
 
         </div>
@@ -498,11 +508,10 @@
           <h5>Food Taste</h5>
           
           <div class="local_adm_det_mylist my-4">
-
-            <h6>Sweet</h6>
-            <h6>Sour</h6>
-            <h6>Spicy</h6> 
-            
+            {% for k in lengthfood_taste %}
+            <h6>{{ k }}</h6>
+           
+            {% endfor %}
           </div>
 
         </div>
@@ -512,7 +521,7 @@
          <div class="local_adm_det9">
 
           <h5>Head Size</h5>
-          <img src="{% static 'images/girl1.png'%}">
+          <img src="{{specific_data.selfie}}">
           
           </div>
 
@@ -520,7 +529,7 @@
 
           <h5>Full Size</h5>
           <div class="local_adm_imgcorr">
-            <img src="{% static 'images/girl1.png'%}">
+            <img src="{{specific_data.full_size_image}}">
           </div>
           
           </div>
@@ -532,22 +541,9 @@
           <h5>Gallery</h5>
 
           <div class="local_adm_images">
-
-            <img src="{% static 'images/girl2.png'%}">
-
-            <img src="{% static 'images/girl3.png'%}">
-
-            <img src="img/girl4.png">
-
-            <img src="img/girl5.png">
-
-            <img src="img/girl6.png">
-
-            <img src="img/girl2.png">
-
-            <img src="img/girl5.png">
-
-            <img src="img/girl3.png">
+            {% for key in lengthgallery %}
+            <img src="{{key}}">
+            {% endfor %}
             
           </div>
           

@@ -288,6 +288,7 @@
 	width:170px;
 	height:170px;
 	border-radius:50%;
+	object-fit: cover;
 }
 
 .local_adm_det1{
@@ -519,6 +520,7 @@ border-bottom:2px solid;
 .local_adm_det9 img{
 	width:200px;
 	height:200px;
+	object-fit: cover;
 }
 
 .local_adm_det9,.local_adm_det10{
@@ -572,6 +574,7 @@ border-bottom:2px solid;
 .local_adm_det10 img{
 	width:400px;
 	height:200px;
+	object-fit: contain;
 }
 .local_adm_imges{
 	display:flex;
@@ -583,7 +586,7 @@ border-bottom:2px solid;
 	display:flex;
 	flex-wrap:wrap;
 	justify-content:center;
-	gap:15px;
+	gap:69px;
 }
 .local_adm_gen_modal form{
 	padding:0 10px;
@@ -626,6 +629,7 @@ border-bottom:2px solid;
 .local_adm_images img{
 	width:150px;
 	height:150px;
+	object-fit: cover;
 }
 .local_adm_det11{
 	border-radius:10px;

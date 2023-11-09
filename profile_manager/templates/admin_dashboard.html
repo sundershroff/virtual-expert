@@ -85,7 +85,7 @@
            </div>
 
           <div>
-            <h4>1,800</h4>
+            <h4>{{all_profile_finder|length}}</h4>
             <h5>Profile Finders</h5>
           </div>
 
@@ -162,48 +162,31 @@
     <!-- over -->
 
     <!-- start -->
-     <div class="dash_bor_table px-4">
+     <div class="dash_bor_table px-4" style="
+     overflow-y: scroll;
+     height: 32rem;
+ " >
 
       <table class=" table table-borderless " >
 
-      <tr>
+      <tr style="
+      position: sticky;
+      top: 0;
+  ">
         
         <th class="py-4">User Name</th>
         <th class="py-4">Date of created</th>
         <th class="py-4">Location</th>
       </tr>
-
+{% for i in all_profile_finder %}
       <tr>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">18/09/2016</td>
-        <td class="py-4">Kochi</td>
+        <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.name}}</td>
+        <td class="py-4">{{i.created_date}}</td>
+        <td class="py-4">{{i.r_country}}</td>
       </tr>
+      {% endfor %}
+   
 
-       <tr>
-Dashboard
-Profile
-Profile Finder
-Complaints
-Users
-Settings
-© 2020 Marryoo. All rIghts reserved
-
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">18/09/2016</td>
-        <td class="py-4">Kochi</td>
-      </tr>
-
-        <tr>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">18/09/2016</td>
-        <td class="py-4">Kochi</td>
-      </tr>
-
-      <tr>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">18/09/2016</td>
-        <td class="py-4">Kochi</td>
-      </tr>
 
         <div class="py-4">
       
@@ -212,7 +195,11 @@ Settings
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va my-3" style="
+    height: auto;
+    position: sticky;
+    bottom: 0;
+">
       <a href="#" class="mx-3">View All</a>
     </div>
 

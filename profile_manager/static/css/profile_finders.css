@@ -9,7 +9,9 @@
  
 }
 
-
+ol, ul {
+    padding-left: 0rem !important;
+}
 
 .dash_par1{
 	display:flex;
