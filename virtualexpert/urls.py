@@ -80,7 +80,7 @@ urlpatterns = [
     path('hiring_manager/otp/<id>', hm_views.otp),
     path('hiring_manager/profile_picture/<id>', hm_views.profile_picture),
     path('hiring_manager/hm_upload_acc/<id>', hm_views.upload_acc),
-    path('hiring_manager/hm_dmin_dashboard/<id>', hm_views.admin_dashboard),
+    path('hiring_manager/hm_admin_dashboard/<id>', hm_views.admin_dashboard),
     path('hiring_manager/hm_profile/<id>', hm_views.profile),
     path('hiring_manager/hm_edit_acc/<id>', hm_views.edit_acc),
     path('hiring_manager/hm_local_admin/<id>', hm_views.local_admin),

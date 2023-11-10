@@ -94,15 +94,26 @@
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select" name="office_country">
+            <select id="countryone" class="form-select" name="office_country" onchange="fun1.call(this,event)">
               <option value="default">Select</option>
+              {% for j in all %}
+              <option value="{{j.name}}">{{j.name}}</option>
+              {% endfor %}
             </select>
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select" name="office_city">
+            <select id="res2" class="form-select" name="office_city">
               <option value="default">Select</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
             </select>
           </div>
           
@@ -134,15 +145,26 @@
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select class="form-select" name="personal_country">
+                  <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
               <option value="default">Select</option>
+              {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
             </select>
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select" name="personal_city">
+                  <select id="res3" class="form-select" name="personal_city">
               <option value="default">Select</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
             </select>
                 </div>
 
@@ -309,6 +331,42 @@ label.error{
 	color:red;
 }
 </style>
+<script type="text/javascript">
+  function fun1(event){
+  a = document.getElementById("countryone").value;
+  <!--document.getElementById("res").innerHTML=a;-->
+  c = {{ country|safe }};
+  position =c.indexOf(a);
+  <!--document.getElementById("res1").innerHTML=position;-->
+  stat = {{ states|safe }};
+  ttt = stat[position].states;
+  tt = "<select>";
+  for (i=0;i<ttt.length;i++){
+     tt += "<option>"+ttt[i].name+"</option>";
+  }
+       tt+="</select>";
+        document.getElementById("res2").innerHTML=tt;
+  }
+  
+  </script>
+  <script type="text/javascript">
+    function fun2(event){
+    a = document.getElementById("countrytwo").value;
+    <!--document.getElementById("res").innerHTML=a;-->
+    c = {{ country|safe }};
+    position =c.indexOf(a);
+    <!--document.getElementById("res1").innerHTML=position;-->
+    stat = {{ states|safe }};
+    ttt = stat[position].states;
+    tt = "<select>";
+    for (i=0;i<ttt.length;i++){
+       tt += "<option>"+ttt[i].name+"</option>";
+    }
+         tt+="</select>";
+          document.getElementById("res3").innerHTML=tt;
+    }
+    
+    </script>
       <script src="{% static 'js/main.js'%}"></script>
       
 

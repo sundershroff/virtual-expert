@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+import json
 # Create your views here.
 def dashboard(request):
     return render(request,"dashboard.html")
@@ -90,6 +91,20 @@ def profile_picture(request,id):
     return render(request,"hm_profilepicture.html")
 
 def upload_acc(request,id):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    # region = (requests.get('https://api.first.org/data/v1/countries').json())
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                          'country': countryname,'states': states}
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -101,48 +116,108 @@ def upload_acc(request,id):
         uidd = (response.text[1:-1])
         if response.status_code == 200:
         # if get["otp"] == data['user_otp']:
-            return redirect(f"/hiring_manager/admin_dashboard/{uidd}")
+            return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
         else:
             return HttpResponse("INVALId")
-    return render(request,"hm_upload_acc.html")
+    return render(request,"hm_upload_acc.html",context)
 
 def admin_dashboard(request,id):
-    return render(request,"hm_admin_dashboard.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_admin_dashboard.html",context)
 
 
 def profile(request,id):
-    return render(request,"hm_profile.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_profile.html",context)
 
 def edit_acc(request,id):
-    return render(request,"hm_edit_acc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_edit_acc.html",context)
 
 
 def local_admin(request,id):
-    return render(request,"hm_localadmin.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_localadmin.html",context)
 
 def local_admin_upload(request,id):
-    return render(request,"hm_LocaladminDoc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_LocaladminDoc.html",context)
 
 def ad_provider(request,id):
-    return render(request,"hm_ad_provider.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_ad_provider.html",context)
 
 def ad_provider_doc(request,id):
-    return render(request,"hm_adproviderdoc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_adproviderdoc.html",context)
 
 def sales(request,id):
-    return render(request,"hm_sales_person.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_sales_person.html",context)
 
 def sales_doc(request,id):
-    return render(request,"hm_sales_person_doc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_sales_person_doc.html",context)
 
 def hiring_manager(request,id):
-    return render(request,"hm_hiring_manager.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_hiring_manager.html",context)
 
 def hiring_manager_doc(request,id):
-    return render(request,"hm_hiring_manager_doc.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_hiring_manager_doc.html",context)
 
 def setting(request,id):
-    return render(request,"hm_acc_setting.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+    }
+    return render(request,"hm_acc_setting.html",context)
 
 
 

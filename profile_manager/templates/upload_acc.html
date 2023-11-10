@@ -95,7 +95,7 @@
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
             <select id="countryone" class="form-select" name="office_country" onchange="fun1.call(this,event)">
-              <option value="">Select</option>
+              <option value="default">Select</option>
               {% for j in all %}
               <option value="{{j.name}}">{{j.name}}</option>
               {% endfor %}
@@ -105,7 +105,7 @@
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
             <select id="res2" class="form-select" name="office_city">
-              <option value="">Select</option>
+              <option value="default">Select</option>
               <script>
                 stat = {{ states|safe }};
             ttt = stat[0].states;
@@ -146,7 +146,7 @@
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
                   <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
-                    <option value="">Select</option>
+                    <option value="default">Select</option>
                     {% for j in all %}
                     <option value="{{j.name}}">{{j.name}}</option>
                     {% endfor %}
@@ -156,7 +156,7 @@
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
                   <select id="res3" class="form-select" name="personal_city">
-                    <option value="">Select</option>
+                    <option value="default">Select</option>
                     <script>
                       stat = {{ states|safe }};
                   ttt = stat[0].states;
