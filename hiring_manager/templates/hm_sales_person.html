@@ -43,36 +43,13 @@
   
   </div>
 
-  <div class="dash_bor_main1">
-    <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <div class="dropdown">
-            <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
-             
-            </a>
-          
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
-              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
-              <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
-            </ul>
-          </div>         </div>
-
-    </div>
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
-    <!-- over -->
+  {% include "header.html" %}    <!-- over -->
 
     <!-- start -->
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">900 </span>Sales Person in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{sales_data|length}} </span>Sales Person in the list</h3>
       </div>
       
       <div class="locl_adm_form">
@@ -111,96 +88,29 @@
             </tr>
           </thead>
            <tbody>
+               {% for i in sales_data %}
             <tr>
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{{i.profile_picture}}"> {{i.first_name}} {{i.last_name}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">+91 {{i.mobile}}</td>
+             <td data-label = "Complaints">{{i.personal_country}}</td>
              <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><a href="/hiring_manager/hm_sales_person_doc/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></a></td>
+             <td data-label = "Actions">
+              <form method="POST">
+                {% csrf_token %}
+             <button type="submit" value="{{i.uid}}" name="uid" style="
+             border: 1px transparent;
+             background-color: transparent;
+         "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+              </form>
+            </td>
               
             </tr>
+            {% endfor %}
 
-
-             <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-              <td data-label = "Status"><strong class="reply">Verified</strong></i></td>
-             <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up  locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-            
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-            <td data-label = "Status"><strong class="reply">Verified</strong></i></td>
-             <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Iraq</td>
-             <td data-label = "Status"><strong class="reply">Verified</strong></i></td>
-            <td data-label = "Actions"><i class="fa-solid fa-cloud-arrow-up  locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
 
           </tbody>
         </table>

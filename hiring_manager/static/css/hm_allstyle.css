@@ -1170,7 +1170,7 @@ input:checked + .slider:before {
 }
 .local_admin_drag_area{
     border: 2px dashed rgba(110, 113, 122, 0.4);
-    height:300px;
+    height:73%;
     width:100%;
     border-radius: 5px;
     display: flex;
@@ -1195,8 +1195,9 @@ input:checked + .slider:before {
   }
 
   .local_admin_drag_area img{
-  	height:250px;
-  	width:250px
+	width: 100%;
+    height: inherit;
+    object-fit: contain;
   }
   .high_prof_cont {
 	display: inline-block;
