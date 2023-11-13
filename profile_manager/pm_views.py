@@ -98,35 +98,36 @@ def profile_picture(request,id):
     return render(request,"profilepicture.html")
 
 def upload_acc(request,id):
-    neww=[]
-    response = requests.get('https://api.first.org/data/v1/countries').json()
-    # region = (requests.get('https://api.first.org/data/v1/countries').json())
-    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
-    # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
-    states = json.dumps(all["data"])
-    al = (all["data"])
-    for x in al:
-       name = (x.get("name"))
-       neww.append(name)
-    countryname = json.dumps(neww)
-
-    context = {'response': response, 'region': response,'all':al,
-                                          'country': countryname,'states': states}
-    if request.method == "POST":
-        print(request.POST)
-        print(request.FILES)
-        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/pm_complete_account/{id}",   data = request.POST,files=request.FILES)
-        print(response)
-        print(response.status_code)
-        print(response.text)
-        uidd = (response.text[1:-1])
-        if response.status_code == 200:
-        # if get["otp"] == data['user_otp']:
-            return redirect(f"/profile_manager/admin_dashboard/{uidd}")
-        else:
-            return HttpResponse("INVALId")
-    return render(request,"upload_acc.html",context)
+    try:
+        neww=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        states = json.dumps(all["data"])
+        al = (all["data"])
+        for x in al:
+           name = (x.get("name"))
+           neww.append(name)
+        countryname = json.dumps(neww)
+    
+        context = {'response': response, 'region': response,'all':al,
+                                              'country': countryname,'states': states}
+        if request.method == "POST":
+            print(request.POST)
+            print(request.FILES)
+            # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+            response = requests.post(f"http://127.0.0.1:3000/pm_complete_account/{id}",   data = request.POST,files=request.FILES)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            if response.status_code == 200:
+            # if get["otp"] == data['user_otp']:
+                return redirect(f"/profile_manager/admin_dashboard/{uidd}")
+            else:
+               return redirect(f"/profile_manager/upload_acc/{uidd}")
+        return render(request,"upload_acc.html",context)
+    except:
+        return render(request,"upload_acc.html",context)
 
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  

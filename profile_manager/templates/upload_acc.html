@@ -25,7 +25,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
   <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-
+<style>
+  .error {
+    color: red !important;
+}
+</style>
 </head>
 <body style=" background-color:rgba(0, 0, 255, 0.1);">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -78,14 +82,14 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="local_admin_edi_acc px-3 py-4">
+    <div class="local_admin_edi_acc px-3 py-4" >
 
-      <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3>
+      {% comment %} <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3> {% endcomment %}
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
         <form method="POST" enctype="multipart/form-data" id="myform">
           {% csrf_token %}
-          <div class="row mb-3">
+         {% comment %}  <div class="row mb-3">
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
@@ -127,11 +131,11 @@
         </div> 
           
         </div>
-
+ {% endcomment %}
         <h4 class="my-4" style="color:#7B61FF;">Contact Person Details</h4>
           
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
               <div class="row">
 
                 <div class="col-lg-6 my-3">
@@ -185,7 +189,7 @@
               </div>
               
             </div>
-            <div class="col-lg-4">
+            {% comment %} <div class="col-lg-4">
               
               <div class="row">
                  <div class="col-12 my-3">
@@ -205,7 +209,7 @@
 
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
 
           </div>
 
@@ -259,7 +263,7 @@
           
         </div>
       </div>
-      <script>
+      {% comment %} <script>
         // just for the demos, avoids form submit
         jQuery.validator.setDefaults({
           debug: true,
@@ -281,7 +285,7 @@
             },
             office_address: {
               required: true
-            },
+            }, 
             first_name: {
               required: true
             },
@@ -319,7 +323,45 @@
                   }, 2000);
               });
           });
-      </script>
+      </script> {% endcomment %}
+      <script>
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+          debug: true,
+          success: "valid"
+        });
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+              return arg !== value;
+            }, "Select Any One");
+        $( "#myform" ).validate({
+          rules: {
+            first_name: {
+              required: true
+            },
+            last_name: {
+              required: true
+            },
+            personal_country: {
+              valueNotEquals: "default"
+            },
+            personal_city: {
+              valueNotEquals: "default"
+            },
+            personal_address: {
+              required: true
+            },
+            notary: {
+              required: true
+            },
+        
+
+          },
+          submitHandler: function (form) {
+                    console.log('test');
+                    form.submit();
+                }
+        });
+        </script>
 <style>
   label.valid {
     background: url(images/checked.gif) no-repeat;

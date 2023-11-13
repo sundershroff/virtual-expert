@@ -22,7 +22,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
  
   <!-- over -->
-
+<style>
+  ::-webkit-scrollbar {
+    display: none;
+}
+</style>
 </head>
 <body style=" background-color:#F4F2FF">
    
@@ -83,7 +87,7 @@
     <!-- start3 -->
       <div class="dash_par3 my-4 px-3"> 
          
-        <div class="dash_bor_box">
+        {% comment %} <div class="dash_bor_box">
            
            <div>
              
@@ -95,7 +99,7 @@
             <h5>Deioces</h5>
           </div>
 
-        </div>
+        </div> {% endcomment %}
 
           <div class="dash_bor_box">
 
@@ -104,8 +108,8 @@
             </div>
 
             <div>
-            <h4 style="color:#EB5757">300</h4>
-            <h5>Local Admin</h5>
+            <h4 style="color:#EB5757">{{pm_data|length}}</h4>
+            <h5>Profile Manager</h5>
           </div>
           
         </div>
@@ -121,7 +125,7 @@
            <div class="dash_ratstr">
            
             <div class="dash_strpos">
-               <h4 style="color:#2B3674">2,500</h4>
+               <h4 style="color:#2B3674">{{ad_pro_data|length}}</h4>
             </div>
             <h5>Ad Provider</h5>
           </div> 
@@ -136,7 +140,7 @@
            </div>
 
            <div>
-             <h4 style="color:#2B3674">₹ 2,500</h4>
+             <h4 style="color:#2B3674">{{sales_data|length}}</h4>
             <h5>Sales</h5>
            </div>
 
@@ -150,7 +154,7 @@
     <div class="dash_bor_rsp my-4 px-3">
 
       <div>
-        <h4>Recently Joined Local Admins</h4>
+        <h4>Recently Joined Profile Manager</h4>
       </div>
 
 
@@ -168,45 +172,34 @@
     <!-- over -->
 
     <!-- start -->
-     <div class="dash_bor_table px-4">
+     <div class="dash_bor_table px-4" style="
+     overflow-y: scroll;
+     height: 28rem;
+ ">
 
       <table class=" table table-borderless">
 
-      <tr>
+      <tr style="
+      top: 0;
+      position: sticky;
+  ">
         
         <th class="py-4 px-4">#No</th>
         <th class="py-4">User Id</th>
         <th class="py-4">Name</th>
         <th class="py-4">Email ID</th>
       </tr>
-
-      <tr>
-        <td class="py-4 px-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">frankd@funtap.vn</td>
+{% for i in pm_data %}
+      <tr >
+        <td class="py-4 px-4">{{forloop.counter}}</td>
+        <td class="py-4">{{i.uid}}</td>
+        <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+        <td class="py-4">{{i.email}}</td>
       </tr>
+      {% endfor %}
+     
 
-       <tr>
-        <td class="py-4 px-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
 
-        <tr>
-          <td class="py-4 px-4">1</td>
-          <td class="py-4">A0B1C036</td>
-          <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-          <td class="py-4">frankd@funtap.vn</td>
-        </tr>
-
-      <tr>
-        <td class="py-4 px-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
 
         <div class="py-4">
       
@@ -215,7 +208,11 @@
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va my-3" style="
+    height: auto;
+    position: sticky;
+    bottom: 0;
+">
       <a href="#" class="mx-3">View All</a>
     </div>
 
@@ -233,55 +230,41 @@
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
 
-        <div class="px-4 my-3">
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
           <table class="table table-borderless " >
 
-            <tr>
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
               <th class="py-4">User Name</th>
               <th class="py-4">Local Admin</th>
               <th class="py-4">Approved</th>
             </tr>
-
+{% for i in sales_data %}
             <tr>
               
             
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}">{{i.full_name}}</span></td>
               <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
+              <td class="py-4">{{i.created_date}}</td>
          
             </tr>
-
-        <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
+           {% endfor %}
+          
          
-            </tr>
 
- <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
-         
-            </tr>
-
-
-             <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
-         
-            </tr>
 
 
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
       <a href="#" class="mx-3">View All</a>
     </div>
         </div>
@@ -296,51 +279,42 @@
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
 
-        <div class="px-4 my-3" >
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
           
           <table class=" table table-borderless">
 
-            <tr>
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
               
               <th class="py-4 ">#No</th>
               <th class="py-4">User Id</th>
               <th class="py-4">Name</th>
               <th class="py-4">Email ID</th>
             </tr>
-      
+      {% for i in ad_pro_data %}
             <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">A0B1C036</td>
-              <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-              <td class="py-4">frankd@funtap.vn</td>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.uid}}</td>
+              <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+              <td class="py-4">{{i.email}}</td>
             </tr>
+            {% endfor %}
       
-             <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">A0B1C036</td>
-              <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-              <td class="py-4">frankd@funtap.vn</td>
-            </tr>
-      
-              <tr>
-                <td class="py-4">1</td>
-                <td class="py-4">A0B1C036</td>
-                <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-                <td class="py-4">frankd@funtap.vn</td>
-              </tr>
-      
-            <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">A0B1C036</td>
-              <td class="dash_bor_table_img"><img src="{% static 'images/girl2.png'%}" class="mx-2"> EnvIronmental Specialist</td>
-              <td class="py-4">frankd@funtap.vn</td>
-            </tr>
       
               
             
       
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
       <a href="#" class="mx-3">View All</a>
     </div>
         </div>

@@ -123,9 +123,20 @@ def upload_acc(request,id):
 
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    #profile manager
+    pm_data = requests.get("http://127.0.0.1:3000/all_pm_data").json()  
+    #ad provider
+    ad_pro_data = requests.get("http://127.0.0.1:3000/all_ad_pro_data").json()  
+    #sales
+    sales_data = requests.get("http://127.0.0.1:3000/all_sm_data").json()  
+
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
+        'pm_data':pm_data,
+        'ad_pro_data':ad_pro_data,
+        'sales_data':sales_data,
     }
     return render(request,"hm_admin_dashboard.html",context)
 
