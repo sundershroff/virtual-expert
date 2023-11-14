@@ -53,7 +53,7 @@
       </div>
       
       <div class="locl_adm_form">
-        <form>
+        <form method="POST" enctype="multipart/form-data" id="myform">
         
         <div class="locl_adm_align">
           <input type="text" autofocus>
@@ -97,15 +97,31 @@
              <td data-label = "Email ID">{{i.email}}</td>
              <td data-label = "Phone Number">+91 {{i.mobile}}</td>
              <td data-label = "Complaints">{{i.personal_country}}</td>
+             {% if i.id_card == None %}
              <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
+             {% else %}
+             <td data-label = "Status"><strong class="pending" style="
+              background-color: cornsilk;
+              color: green;
+          ">Complete</strong></i></td>
+          {% endif %}
+
              <td data-label = "Actions">
               <form method="POST">
                 {% csrf_token %}
+                {% if i.id_card == None %}
              <button type="submit" value="{{i.uid}}" name="uid" style="
              border: 1px transparent;
              background-color: transparent;
          "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
-              </form>
+         {% else %}    
+         <button style="
+         border: 1px transparent;
+         background-color: transparent;
+         opacity:30%;
+     "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+{% endif %}  
+        </form>
             </td>
               
             </tr>

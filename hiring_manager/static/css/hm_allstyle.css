@@ -9,7 +9,9 @@
  
 }
 
-
+label.error {
+    color: red !important;
+}
 
 .dash_par1{
 	display:flex;
@@ -168,7 +170,7 @@
 @media(max-width:1199px){
 	.dash_bor_sdbr{
 		left:-480px;
-		width:50%;
+		width:41%;
 		transition:0.5s;
 	}
 	.dash_bor_sdbr.actives{
@@ -811,6 +813,8 @@ input:checked + .slider:before {
 	font-weight: bold;
 	color: red;
 }
+
+
 .editpro_id{
 	border:2px dashed;
 	 border-radius:5px;
@@ -1170,7 +1174,7 @@ input:checked + .slider:before {
 }
 .local_admin_drag_area{
     border: 2px dashed rgba(110, 113, 122, 0.4);
-    height:73%;
+    height:100%;
     width:100%;
     border-radius: 5px;
     display: flex;

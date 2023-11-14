@@ -93,9 +93,7 @@ def profile_picture(request,id):
 def upload_acc(request,id):
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
-    # region = (requests.get('https://api.first.org/data/v1/countries').json())
     all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
-    # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
     states = json.dumps(all["data"])
     al = (all["data"])
     for x in al:
@@ -190,10 +188,15 @@ def local_admin(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
     pm_data = requests.get("http://127.0.0.1:3000/all_pm_data").json()  
     if request.method=="POST":
-        print(request.POST)
-        global uid 
-        uid = request.POST['uid']
-        return redirect(f"/hiring_manager/hm_local_admin_upload/{id}")
+        print("hello")
+        if 'uid' in request.POST:
+            print(request.POST)
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_local_admin_upload/{id}")
+        else:
+            print(request.POST)
+            print(request.FILES)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
@@ -204,23 +207,47 @@ def local_admin(request,id):
 def local_admin_upload(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     local_admin(request,id)
-    pm_data = requests.get(f"http://127.0.0.1:3000/pm_myid/{uid}").json()[0]  
-    
+    pm_data = requests.get(f"http://127.0.0.1:3000/pm_myid/{uid}").json()[0] 
+    #country api 
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'pm_data':pm_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
     }
+
+    if request.method == "POST":
+        response = requests.post(f"http://127.0.0.1:3000/profile_manager_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_local_admin/{id}")
     return render(request,"hm_LocaladminDoc.html",context)
 
 def ad_provider(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     ad_pro_data = requests.get("http://127.0.0.1:3000/all_ad_pro_data").json()  
     if request.method=="POST":
-        print(request.POST)
-        global uid 
-        uid = request.POST['uid']
-        return redirect(f"/hiring_manager/hm_adprovider_upload/{id}")
+        if 'uid' in request.POST:
+            print(request.POST)
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_adprovider_upload/{id}")
+        else:
+            print(request.POST)
+            print(request.FILES)
+        
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
@@ -231,13 +258,35 @@ def ad_provider(request,id):
 def ad_provider_doc(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     ad_provider(request,id)
+    print(uid)
     ad_pro_my_data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{uid}").json()[0]  
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
     
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'ad_pro_my_data':ad_pro_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
     }
+    
+    if request.method == "POST":
+        response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_ad_provider/{id}")
+
     return render(request,"hm_adproviderdoc.html",context)
 
 def sales(request,id):
