@@ -99,6 +99,8 @@ def profile_picture(request,id):
 
 def upload_acc(request,id):
     try:
+        #hiring manager list
+        hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
         neww=[]
         response = requests.get('https://api.first.org/data/v1/countries').json()
         all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
@@ -110,7 +112,7 @@ def upload_acc(request,id):
         countryname = json.dumps(neww)
     
         context = {'response': response, 'region': response,'all':al,
-                                              'country': countryname,'states': states}
+                    'country': countryname,'states': states,'hiring_manager':hiring_manager}
         if request.method == "POST":
             print(request.POST)
             print(request.FILES)
@@ -127,6 +129,8 @@ def upload_acc(request,id):
                return redirect(f"/profile_manager/upload_acc/{uidd}")
         return render(request,"upload_acc.html",context)
     except:
+        context = {'response': "response", 'region': "response",'all':"al",
+                    'country': "countryname",'states': "states",'hiring_manager':"hiring_manager"}
         return render(request,"upload_acc.html",context)
 
 def admin_dashboard(request,id):

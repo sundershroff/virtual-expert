@@ -120,14 +120,20 @@ def upload_acc(request,id):
     return render(request,"hm_upload_acc.html",context)
 
 def admin_dashboard(request,id):
+    jsondec = json.decoder.JSONDecoder()
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     #profile manager
-    pm_data = requests.get("http://127.0.0.1:3000/all_pm_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'] == None:
+        pm_data =""
+    else:
+        pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'])    
+
     #ad provider
     ad_pro_data = requests.get("http://127.0.0.1:3000/all_ad_pro_data").json()  
     #sales
     sales_data = requests.get("http://127.0.0.1:3000/all_sm_data").json()  
 
+    print(pm_data)
 
     context={
         'key':mydata,

@@ -181,6 +181,9 @@
             <label class="form-label">Notary<span>*</span></label>
             <select class="form-select" name="notary">
               <option value="default">Select</option>
+              {% for i in hiring_manager %}
+                 <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+              {% endfor %}
             </select>
           </div>
 
@@ -230,8 +233,8 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
-          
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#">Update</button>
+          {% comment %} exampleModal {% endcomment %}
         </div>
            
       </form>
@@ -351,7 +354,7 @@
               required: true
             },
             notary: {
-              required: true
+              valueNotEquals: "default"
             },
         
 
