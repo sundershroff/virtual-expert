@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+import json
 
 # Create your views here.
 def dashboard(request):
@@ -36,7 +37,7 @@ def signin(request):
         uidd = (response.text[1:-1])
         print(uidd)
         if response.status_code == 200:
-            return redirect(f"/ad_provider/dashboard/{uidd}")
+            return redirect(f"/ad_provider/ad_provider_admin_dashboard/{uidd}")
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
     context = {'error':error}
@@ -91,6 +92,21 @@ def profile_picture(request,id):
     return render(request,"ad_provider_profilepicture.html")
 
 def upload_acc(request,id):
+    #hiring manager list
+    hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                'country': countryname,'states': states,'hiring_manager':hiring_manager}
+
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -103,10 +119,10 @@ def upload_acc(request,id):
         if response.status_code == 200:
         # if get["otp"] == data['user_otp']:
 
-            return redirect(f"/ad_distributor/ad_provider_admin_dashboard/{uidd}")
+            return redirect(f"/ad_provider/ad_provider_admin_dashboard/{uidd}")
         else:
-            return HttpResponse("INVALId")
-    return render(request,"ad_ptovider_upload_acc.html")
+            pass
+    return render(request,"ad_ptovider_upload_acc.html",context)
 
 def admin_dashboard(request,id):
     return render(request,"ad_provider_admin_dashboard.html")

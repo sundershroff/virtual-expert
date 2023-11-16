@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+import json
 
 # Create your views here.
 def dashboard(request):
@@ -91,21 +92,38 @@ def profile_picture(request,id):
     return render(request,"sm_profilepicture.html")
 
 def upload_acc(request,id):
-    if request.method == "POST":
-        print(request.POST)
-        print(request.FILES)
-        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/sm_upload_account/{id}",   data = request.POST,files=request.FILES)
-        print(response)
-        print(response.status_code)
-        print(response.text)
-        uidd = (response.text[1:-1])
-        if response.status_code == 200:
-        # if get["otp"] == data['user_otp']:
-            return redirect(f"/sales_manager/sm_verification_fee/{uidd}")
-        else:
-            return HttpResponse("INVALId")
-    return render(request,"sm_upload_profile.html")
+    try:
+        #hiring manager list
+        hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+        neww=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        states = json.dumps(all["data"])
+        al = (all["data"])
+        for x in al:
+           name = (x.get("name"))
+           neww.append(name)
+        countryname = json.dumps(neww)
+    
+        context = {'response': response, 'region': response,'all':al,
+                    'country': countryname,'states': states,'hiring_manager':hiring_manager}
+        if request.method == "POST":
+            print(request.POST)
+            print(request.FILES)
+            # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+            response = requests.post(f"http://127.0.0.1:3000/sm_upload_account/{id}",   data = request.POST,files=request.FILES)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            if response.status_code == 200:
+            # if get["otp"] == data['user_otp']:
+                return redirect(f"/sales_manager/sm_salesdashboard/{uidd}")
+            else:
+                pass
+        return render(request,"sm_upload_profile.html",context)
+    except:
+        return render(request,"sm_upload_profile.html")
 
 def verification_fee(request,id):
     return render(request,"sm_verification_fee.html")

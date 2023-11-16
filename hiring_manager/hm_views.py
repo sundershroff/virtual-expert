@@ -3,6 +3,7 @@ from django.http import JsonResponse,HttpResponse
 import requests
 import json
 # Create your views here.
+jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
     return render(request,"dashboard.html")
 
@@ -91,6 +92,8 @@ def profile_picture(request,id):
     return render(request,"hm_profilepicture.html")
 
 def upload_acc(request,id):
+    #hiring manager list
+    hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
     all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
@@ -102,7 +105,7 @@ def upload_acc(request,id):
     countryname = json.dumps(neww)
 
     context = {'response': response, 'region': response,'all':al,
-                                          'country': countryname,'states': states}
+                                          'country': countryname,'states': states,'hiring_manager':hiring_manager}
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -116,11 +119,10 @@ def upload_acc(request,id):
         # if get["otp"] == data['user_otp']:
             return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
         else:
-            return HttpResponse("INVALId")
+            pass
     return render(request,"hm_upload_acc.html",context)
 
 def admin_dashboard(request,id):
-    jsondec = json.decoder.JSONDecoder()
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     #profile manager
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'] == None:
@@ -129,9 +131,17 @@ def admin_dashboard(request,id):
         pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'])    
 
     #ad provider
-    ad_pro_data = requests.get("http://127.0.0.1:3000/all_ad_pro_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_provider'] == None:
+        ad_pro_data =""
+    else:
+        ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_provider']) 
+
+
     #sales
-    sales_data = requests.get("http://127.0.0.1:3000/all_sm_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
+        sales_data =""
+    else:
+        sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
 
     print(pm_data)
 
@@ -158,9 +168,7 @@ def edit_acc(request,id):
     try:
        neww=[]
        response = requests.get('https://api.first.org/data/v1/countries').json()
-       # region = (requests.get('https://api.first.org/data/v1/countries').json())
        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
-       # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
        states = json.dumps(all["data"])
        al = (all["data"])
        for x in al:
@@ -192,7 +200,10 @@ def edit_acc(request,id):
 
 def local_admin(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
-    pm_data = requests.get("http://127.0.0.1:3000/all_pm_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'] == None:
+        pm_data =""
+    else:
+        pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['my_profile_manager'])    
     if request.method=="POST":
         print("hello")
         if 'uid' in request.POST:
@@ -243,7 +254,11 @@ def local_admin_upload(request,id):
 
 def ad_provider(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
-    ad_pro_data = requests.get("http://127.0.0.1:3000/all_ad_pro_data").json()  
+    #ad provider
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_provider'] == None:
+        ad_pro_data =""
+    else:
+        ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json() [0]['ad_provider']) 
     if request.method=="POST":
         if 'uid' in request.POST:
             print(request.POST)
@@ -297,7 +312,10 @@ def ad_provider_doc(request,id):
 
 def sales(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
-    sales_data = requests.get("http://127.0.0.1:3000/all_sm_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
+        sales_data =""
+    else:
+        sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
     if request.method=="POST":
         print(request.POST)
         global uid 
@@ -325,7 +343,11 @@ def sales_doc(request,id):
 
 def hiring_manager(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
-    hirinng_data = requests.get("http://127.0.0.1:3000/all_hm_data").json()  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['hiring_manager'] == None:
+        hirinng_data =""
+    else:
+        hirinng_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['hiring_manager'])
+
     if request.method=="POST":
         print(request.POST)
         global uid 

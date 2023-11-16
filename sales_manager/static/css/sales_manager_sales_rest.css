@@ -760,7 +760,7 @@ input:checked + .slider:before {
 	margin-bottom:10px;
 }
 .rowbg1{
-	background-color:#fff;
+	/* background-color:#fff; */
 	margin-top:15px;
 	height:auto;
 	padding:17px;
