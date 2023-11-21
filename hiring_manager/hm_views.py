@@ -317,10 +317,12 @@ def sales(request,id):
     else:
         sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
     if request.method=="POST":
-        print(request.POST)
-        global uid 
-        uid = request.POST['uid']
-        return redirect(f"/hiring_manager/hm_sales_person_doc/{id}")
+        if 'uid' in request.POST:
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_sales_person_doc/{id}")
+        else:
+            pass
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
@@ -333,12 +335,32 @@ def sales_doc(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
     sales(request,id)
     sales_my_data = requests.get(f"http://127.0.0.1:3000/sm_my_data/{uid}").json()[0]  
-    
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'sales_my_data':sales_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
     } 
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/sales_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_sales_person/{id}")
+
     return render(request,"hm_sales_person_doc.html",context)
 
 def hiring_manager(request,id):
@@ -364,12 +386,31 @@ def hiring_manager_doc(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     hiring_manager(request,id)
     hiring_my_data = requests.get(f"http://127.0.0.1:3000/hm_my_data/{uid}").json()[0]  
-    
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'hiring_my_data':hiring_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
     } 
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
     return render(request,"hm_hiring_manager_doc.html",context)
 
 def setting(request,id):
