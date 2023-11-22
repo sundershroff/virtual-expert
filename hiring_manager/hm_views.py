@@ -92,35 +92,39 @@ def profile_picture(request,id):
     return render(request,"hm_profilepicture.html")
 
 def upload_acc(request,id):
-    #hiring manager list
-    hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
-    neww=[]
-    response = requests.get('https://api.first.org/data/v1/countries').json()
-    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
-    states = json.dumps(all["data"])
-    al = (all["data"])
-    for x in al:
-       name = (x.get("name"))
-       neww.append(name)
-    countryname = json.dumps(neww)
+    try:
+        #hiring manager list
+        hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+        neww=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        states = json.dumps(all["data"])
+        al = (all["data"])
+        for x in al:
+           name = (x.get("name"))
+           neww.append(name)
+        countryname = json.dumps(neww)
+    
+        context = {'response': response, 'region': response,'all':al,
+                                              'country': countryname,'states': states,'hiring_manager':hiring_manager}
+        if request.method == "POST":
+            print(request.POST)
+            print(request.FILES)
+            # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+            response = requests.post(f"http://127.0.0.1:3000/hm_upload_account/{id}",   data = request.POST,files=request.FILES)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            if response.status_code == 200:
+            # if get["otp"] == data['user_otp']:
+                return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
+            else:
+                pass
+        return render(request,"hm_upload_acc.html",context)
+    except:
+        return render(request,"hm_upload_acc.html")
 
-    context = {'response': response, 'region': response,'all':al,
-                                          'country': countryname,'states': states,'hiring_manager':hiring_manager}
-    if request.method == "POST":
-        print(request.POST)
-        print(request.FILES)
-        # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/hm_upload_account/{id}",   data = request.POST,files=request.FILES)
-        print(response)
-        print(response.status_code)
-        print(response.text)
-        uidd = (response.text[1:-1])
-        if response.status_code == 200:
-        # if get["otp"] == data['user_otp']:
-            return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
-        else:
-            pass
-    return render(request,"hm_upload_acc.html",context)
 
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  

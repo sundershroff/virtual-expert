@@ -108,7 +108,7 @@
                  <td data-label = "Actions">
               <form method="POST">
                 {% csrf_token %}
-                {% if i.id_card == None %}
+                {% if i.id_card == "None" %}
                 
                 <button type="submit" value="{{i.uid}}" name="uid" style="
                 border: 1px transparent;
