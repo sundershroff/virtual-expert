@@ -47,9 +47,11 @@
   </div>
 
   <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
+    <!-- <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -59,7 +61,7 @@
          </div>
 
     </div>
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
     <!-- over -->
 
     <!-- start -->
@@ -87,64 +89,83 @@
 <!-- start -->
 <div class="locl_adm_sec2 px-4 my-5">
   <div style="background-color:#fff;margin-top:15px;height:60px;padding:17px;">
-    <a href="/sales_manager/sm_hand_list/ugy" style="
+    <a href="/sales_manager/sm_hand_list/{{key.uid}}" style="
     text-decoration: none;
-"><span style="color: #6E717A;" class="p-3">Clients</span></a><button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Activities</b> </button> 
+"><span style="color: #6E717A;" class="p-3"> Clients</span></a><button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Activities</b> </button> 
     </div>
 </div>
  <!-- over -->
+
     <!-- start -->
     
     <div class="locl_adm_sec2 px-4 my-5">
       <h5 style="color:#6E717A">Upcoming Tasks</h5>
+      {% for i in all_client_data %}
+
       <div class="row rowbg">
-      <div class="col-lg-2 col-md-2">
-        <center><button class="task_button"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
-      </div>
-      <div class="col-lg-4 col-md-4">
-        <span ><b>ABCD</b><br>
-          <span class="task_button_text">Phone Call<br>
-            10 Janduary, 2021 | 10:00am</span>
+
+        {% if i.types_of_activities == "Phone Call"  %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br>  
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+          
+        </div>  
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <button class="btn_end">Call Now</button>
+        </div>
+        {% elif i.types_of_activities == "Meeting" %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br>  
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+          
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <button class="btn_end">View Location</button>
+        </div>
+        {% elif i.types_of_activities == "Email" %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br>  
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <button class="btn_end">Send Email</button>
+        </div>
+          {%endif%} 
+      <!-- <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.client_name}}</b><br>  
+          <span class="task_button_text">{{i.types_of_activities}}<br>
+            {{i.date}}| {{i.time}}</span>
         </span>
         
-      </div>
-      <div class="col-lg-4 col-md-4"></div>
-      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-        <button class="btn_end">Call Now</button>
-      </div>
+      </div> -->
+      
+      <!-- <div class="col-lg-4 col-md-4"></div> -->
+
     </div>
-    <div class="row rowbg">
-      <div class="col-lg-2 col-md-2">
-        <center><button class="task_button"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
-      </div>
-      <div class="col-lg-4 col-md-4">
-        <span ><b>ABCD</b><br>
-          <span class="task_button_text">Meeting<br>
-            10 Janduary, 2021 | 10:00am</span>
-        </span>
-        
-      </div>
-      <div class="col-lg-4 col-md-4"></div>
-      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-        <button class="btn_end">View Location</button>
-      </div>
-    </div>
-    <div class="row rowbg">
-      <div class="col-lg-2 col-md-2">
-        <center><button class="task_button"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
-      </div>
-      <div class="col-lg-4 col-md-4">
-        <span ><b>ABCD</b><br>
-          <span class="task_button_text">Email<br>
-            10 Janduary, 2021 | 10:00am</span>
-        </span>
-        
-      </div>
-      <div class="col-lg-4 col-md-4"></div>
-      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-        <button class="btn_end">Send Email</button>
-      </div>
-    </div><br>
+    {%endfor%}<br>
+
+    
     <h5 style="color:#6E717A">Completed Tasks</h5><br>
       <div class="row rowbg">
       <div class="col-lg-2 col-md-2">
@@ -158,6 +179,7 @@
         
       </div>
       <div class="col-lg-4 col-md-4"></div>
+
       <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
         <span><b>Called</b></span>
       </div>
@@ -225,33 +247,36 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action="" enctype="multipart/form-data">
+              {%csrf_token%}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <input type="text" name="uid" class="form-control">
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="client_name" class="form-control">
              </div>
             
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="email" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="phone_number" class="form-control">
              </div>
   
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
                <select class="form-select py-3">
-                <option selected>Select</option>
+                <option {{key.client_location}}>{{key.client_location}}</option>
+                <option value="guruvayur">guruvayur</option>
+                <option value="cochin">cochin</option>
+                <option value="kollam">kollam</option>
               </select>
              </div>
   
@@ -288,20 +313,28 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action="" enctype="multipart/form-data">
+            {%csrf_token%}
             <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Client</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="client_name">
+                <!-- <option value="{{client_activities.uid}}">{{client_activities.client}}</option> -->
+                {% for i in all_client_data %}
+                <option value="{{i.uid}}">{{i.client_name}}</option>
+                {% endfor %}
+               
               </select>
              </div>
               <span><b>Activities Details</b></span>
            
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Types of Activities</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="types_of_activities">
+                <option {{client_activities.types_of_activities}}>{{client_activities.types_of_activities}}</option>
+                <option value="Phone Call">Phone Call</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Email">Email</option>
+                
               </select>
              </div>
             
@@ -309,17 +342,17 @@
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Date</label>
-               <input type="date" name="" class="form-control">
+               <input type="date" name="date" class="form-control" >
 
              </div>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Time</label>
-               <input type="time" name="" class="form-control">
+               <input type="time" name="time" class="form-control">
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Notes</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="notes" class="form-control">
              </div>  
   
                 

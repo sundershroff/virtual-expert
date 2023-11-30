@@ -40,15 +40,17 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
   </header>
   
   </div>
 
   <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
+    <!-- <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -58,7 +60,7 @@
          </div>
 
     </div>
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
     <!-- over -->
 
     <!-- start -->
@@ -86,7 +88,7 @@
 <!-- start -->
 <div class="locl_adm_sec2 px-4 my-5">
   <div style="background-color:#fff;margin-top:15px;height:60px;padding:17px;">
-    <button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Clients</b> </button> <a href="/sales_manager/sm_ads_list/ugy" style="
+    <button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Clients</b> </button> <a href="/sales_manager/sm_ads_list/{{key.uid}}" style="
     text-decoration: none;
 "><span style="color: #6E717A;" class="p-3">Activities</span></a>
     </div>
@@ -102,33 +104,40 @@
             <tr>
               <th>No</th>
               <th>ID</th>
-              <th>Clinet Name</th>
+              <th>Client Name</th>
               <th>Type</th>
               <th>Email ID</th>
               <th>Phone Number</th>
               <th>Location</th>
-              
+              <!-- <th>Google map</th>
+              <th>Category</th> -->
               <th>Actions</th>
               
             </tr>
           </thead>
            <tbody>
+            {% for i in all_client_data %}
             <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Actions"><a href="/sales_manager/sm_ad_details/hgv"><img src="{% static 'images/More.png'%}"></a><span class="pe-3"></span><button data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;"> Activate </button>
-             </td>
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{{i.picture}}">{{i.client_name}}</td>
+             <td>{{i.client_type}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">{{i.phone_number}}</td>
+             <td data-label = "Location">{{i.client_location}}</td>
+             <!-- <td data-label = "google_map">{{i.google_map}}</td> -->
+             <!-- <td data-label = "category">{{i.category}}</td> -->
+            
+             <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_ad_details/{{i.uid}}"> <button type="submit" name="view" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span> </form>
+              <button data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;"> Activate </button>
+           </td>
                            
             </tr>
+            {%endfor%}
 
+            </tr>
 
-             <tr>
+            <!-- <tr>
 
              <td data-label = "No">1</td>
              <td data-label = "User ID">A0B1C036</td>
@@ -140,83 +149,12 @@
              <td data-label = "Actions"><img src="{% static 'images/More.png'%}" class="mx-2"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
 
               
-            </tr>
+            </tr> -->
 
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Actions"><img src="{% static 'images/More.png'%}" class="mx-2"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
-
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Actions"><img src="{% static 'images/More.png'%}" class="mx-2"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
-
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Actions"><img src="{% static 'images/More.png'%}"><span class="pe-3"></span><button data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;"> Activate </button>
-             </td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             
-           
-             <td data-label = "Actions"><img src="{% static 'images/More.png'%}" class="mx-2"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
-
-            </tr>
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td>Local Admin</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Actions"><img src="{% static 'images/More.png'%}"><span class="pe-3"></span><button data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;"> Activate </button>
-             </td>
-              
-            </tr>
 
           </tbody>
         </table>
 
- 
-        
       </div>
       
     </div>
@@ -235,40 +173,46 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action="" enctype="multipart/form-data">
+            {%csrf_token%}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <input type="text" name="uid" class="form-control" value="{{key.uid}}">
              </div>
-  
+
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="client_name" class="form-control">
              </div>
             
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="email" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="phone_number" class="form-control">
              </div>
   
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="google_map">
+                <option {{key.google_map}}>{{key.google_map}}</option>
+                <option value="kollam">kollam</option>
+                <option value="nagercoil">nagercoil</option>
               </select>
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="status">
+                <option {{key.status}}>{{key.status}}</option>
+                <option value="Activate">Activate</option>
+                <option value="Deactivate">Deactivate</option>
+                <option value="Pending">Pending</option>
+                <option value="Cancel">Cancel</option>
               </select>
              </div>
 
@@ -298,49 +242,55 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
+           <form method="POST" action="" enctype="multipart/form-data">
+            {%csrf_token%}
          
             <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Client Type</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="client_type">
+                <option {{key.client_type}}>{{key.client_type}}</option>
+                <option value="AD Provider">AD Provider</option>
+                <option value="AD Distributor">AD Distributor</option>
+                <option value="Affiliate Marketing">Affiliate Marketing</option>
+                <option value="Local Admin">Local Admin</option>
               </select>
              </div>
               <span><b>Client Details</b></span>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="client_name" class="form-control">
+                <input type="file" name="picture" class="form-control">
+
              </div>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Location</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="client_location">
+                <option {{key.client_location}}>{{key.client_location}}</option>
+                <option value="cochin">cochin</option>
+                <option value="kollam">kollam</option>
               </select>
              </div>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Catagory</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="category">
+                <option {{key.category}}>{{key.category}}</option>
+                <option value="hotel">hotel</option>
+                <option value="resort">resort</option>
               </select>
              </div>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Google Map</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="google_map" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="phone_number" class="form-control">
              </div>
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
+               <input type="email" name="email" class="form-control">
              </div>
-  
-                  
-  
-                
-
   
              <div class="prof_personal_savefilt1 text-center mb-5">
                <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>

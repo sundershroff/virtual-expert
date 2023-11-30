@@ -254,22 +254,22 @@ opacity: 0;
         }
         
         </script>
-        <script type="text/javascript">
-          function fun2(event){
-          a = document.getElementById("countrytwo").value;
-          <!--document.getElementById("res").innerHTML=a;-->
-          c = {{ country|safe }};
-          position =c.indexOf(a);
-          <!--document.getElementById("res1").innerHTML=position;-->
-          stat = {{ states|safe }};
-          ttt = stat[position].states;
-          tt = "<select>";
-          for (i=0;i<ttt.length;i++){
-             tt += "<option>"+ttt[i].name+"</option>";
-          }
-               tt+="</select>";
-                document.getElementById("res3").innerHTML=tt;
-          }
+          <script type="text/javascript">
+            function fun2(event){
+            a = document.getElementById("countrytwo").value;
+            <!--document.getElementById("res").innerHTML=a;-->
+            c = {{ country|safe }};
+            position =c.indexOf(a);
+            <!--document.getElementById("res1").innerHTML=position;-->
+            stat = {{ states|safe }};
+            ttt = stat[position].states;
+            tt = "<select>";
+            for (i=0;i<ttt.length;i++){
+              tt += "<option>"+ttt[i].name+"</option>";
+            }
+                tt+="</select>";
+                  document.getElementById("res3").innerHTML=tt;
+            }
           
           </script>
       <script src="{% static 'js/main.js'%}"></script>

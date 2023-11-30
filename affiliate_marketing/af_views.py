@@ -107,6 +107,11 @@ def upload_acc(request,id):
     return render(request,"af_uploadprofile.html")
 
 def profile(request,id):
+    # mydata = requests.get(f"http://127.0.0.1:3000/af_profile/{id}").json()[0]  
+    # context={
+    #     'key':mydata,
+    #     'current_path':request.get_full_path()
+    # }
     return render(request,"af_profile.html")
 
 def edit_profile(request,id):
