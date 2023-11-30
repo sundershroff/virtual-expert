@@ -414,7 +414,7 @@ def hiring_manager_doc(request,id):
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
+        # return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
     return render(request,"hm_hiring_manager_doc.html",context)
 
 def setting(request,id):
