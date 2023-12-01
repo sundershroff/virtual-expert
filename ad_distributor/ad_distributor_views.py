@@ -216,41 +216,72 @@ def ads_list_all(request,id):
 
     context={
         'key':mydata,
-        'current_path':request.get_full_path(),'all_data':new
+        'current_path':request.get_full_path(),
+        'all_data':new,
 
           }
     
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
     return render(request,"ad_dis_list.html",context)
 
 def ads_active(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
+    all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Active" or status == "active":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
 
-    }
-
+            }
+            return render(request,"ad_dis_active.html",context1)
+    else:
+        print("no data")
     return render(request,"ad_dis_active.html",context)
 
 def ads_pending(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Pending" or status == "pending":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
 
-    }
-
+            }
+            return render(request,"ad_dis_pending.html",context1)
     return render(request,"ad_dis_pending.html",context)
 
 def ads_deactive(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
+    all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']        
+        if status == "deactive" or status == "Deactive":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
 
-    }
-
-
+            }
+            return render(request,"ad_dis_deactive.html",context1)
     return render(request,"ad_dis_deactive.html",context)
 
 def ads_closed(request,id):
@@ -355,15 +386,20 @@ def ad_dis_editAd(request,id):
     return render(request,"ad_dis_editad.html",context)
 
 def ad_dis_adDetails(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    ads_list_all(request,id)
+    print(ads_id)
+    ads_data=requests.get(f"http://127.0.0.1:3000/ad_dis_ad_details/{ads_id}").json()
+    print(ads_data)
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'ad_data':ads_data
 
-    }
+         }
 
-    if request.POST:
-        return redirect("/ad_distributor/ad_dis_payment/<id>")
+    # if request.POST:
+    #     return redirect(f"/ad_distributor/ad_dis_payment/{id}")
     
     return render(request,"ad_dis_adDetails.html",context)
 
