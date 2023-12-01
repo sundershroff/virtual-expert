@@ -553,14 +553,18 @@
         </div>
 
         
+<form method = "POST">
+{% csrf_token %}
 
         <div class="local_adm_chi3">
 
-          <button>Approve</button>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
+          <button type="submit" name="Approve" value="Approve">Approve</button>
+          <button type="submit" name="Reject" value="Reject" >Reject</button>
+                    {% comment %} <button data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button> {% endcomment %}
+
           
         </div>
-        
+        </form>
       </div>
       
     </div>

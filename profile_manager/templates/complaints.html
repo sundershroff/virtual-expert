@@ -90,96 +90,74 @@
             </tr>
           </thead>
            <tbody>
+            {% for i in my_profile_finder %}
+            {% if i.complaints == "empty" %}
+            
+            {% else %}
             <tr>
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{{i.profile_picture}}"> {{i.name}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">+91 {{i.mobile}}</td>
              <td data-label = "Complaints">Not responding last 3 weeks...</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
+             {% if i.complaints_replay == "empty"  %}
+                  <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
+
+             {% else %}
+                               <td data-label = "Status"><strong class="pending" style="color: green;background-color: lightgreen;">Complete</strong></i></td>
+             {% endif %}
+             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
               
             </tr>
+            {% comment %} <-- model start --> {% endcomment %}
+            <div class="modal fade" id="compmodal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none;">
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="locl_adm_comp_modal">
+            <h5>View Complaints</h5>
+            <h6>{{i.complaints}}</h6>
 
+           <form method = "POST">
+           {% csrf_token %}
+             <div>
+               <label class="form-label">Replay</label>
+             </div>
+             <div>
+                          {% if i.complaints_replay == "empty"  %}
+               <input name = "complaints_replay" class="form-control" style="height: 85px;">
+             <input type="text" name="uid" value="{{i.uid}}" style = "display:none;">
+               
+               {% else %}
+                <input name = "complaints_replay" value="{{i.complaints_replay}}" class="form-control" style="height: 85px;">
+               <input type="text" name="uid" value="{{i.uid}}" style = "display:none;">
 
-             <tr>
+               {% endif %}
+             </textarea>
+             </div>
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-              <td data-label = "Status"><strong class="reply">Replayed</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
+          </div>
+      </div>
+      <div class="modal-footer locl_adm_comp_modal_fotter" style="background:rgba(102, 102, 102,0.1);">
+        <button type="button"  data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" value="{{i.complaints}}" name = "pf_complaints" c1lass="btn btn-primary">Submit</button>
+      </div>
+                 </form>
 
-            <tr>
+    </div>
+  </div>
+</div>
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
+                        {% endif %}
 
-            <tr>
+{% endfor %}
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-            <td data-label = "Status"><strong class="reply">Replayed</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
-             <td data-label = "Status"><strong class="reply">Replayed</strong></i></td>
-            <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></td>
-              
-            </tr>
 
           </tbody>
         </table>
@@ -218,39 +196,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="compmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="border:none;">
-       
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div class="locl_adm_comp_modal">
-            <h5>View Complaints</h5>
-            <h6>Not responding last 3 weeks...</h6>
-
-           <form>
-             <div>
-               <label class="form-label">Replay</label>
-             </div>
-             <div>
-               <textarea class="form-control" rows="5">
-               
-             </textarea>
-             </div>
-           </form>
-
-          </div>
-      </div>
-      <div class="modal-footer locl_adm_comp_modal_fotter" style="background:rgba(102, 102, 102,0.1)
-;">
-        <button type="button"  data-bs-dismiss="modal">Cancel</button>
-        <button type="button" c1lass="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
   <!-- over -->

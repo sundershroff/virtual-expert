@@ -135,11 +135,11 @@ def upload_acc(request,id):
 
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
-    all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+    my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'all_profile_finder':all_profile_finder[::-1],
+        'all_profile_finder':my_profile_finder,
 
     }
     return render(request,"admin_dashboard.html",context)
@@ -195,11 +195,11 @@ def acc_balance(request,id):
 
 def profile_finders(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
-    all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+    my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'all_profile_finder':all_profile_finder,
+        'all_profile_finder':my_profile_finder,
     }
     if request.method == "POST":
         print(request.POST)
@@ -238,7 +238,7 @@ def view_details(request,id):
     
     print(sib)
 
-#education
+    #education
     education_school_value=[]
     education_year_value=[]
     education_course_value=[]
@@ -262,7 +262,7 @@ def view_details(request,id):
     
     # print(edu)
 
-#working experience
+     #working experience
     company_name_value=[]
     position_value=[]
     salary_range_value=[]
@@ -291,7 +291,7 @@ def view_details(request,id):
             working[f'profession_{i}'] = profession_data
     # print(wor)
 
-#intrest
+   #intrest
     
     
     your_intrest_value=[]
@@ -310,7 +310,7 @@ def view_details(request,id):
     interestlist = ["Music","Travel","Gaming","Reading","Photograph","Writing","Sports","Artist",
                     "Singing","Custom","Dancer","Speaking"]
 
-#non intrest
+    #non intrest
     
     
     non_intrest_value=[]
@@ -325,7 +325,7 @@ def view_details(request,id):
     non = yournoninterest.replace("[", "").replace("]","").replace("'","").replace(" ","")
     lengthyournoninterest = non.split(",")
 
-#complexion
+    #complexion
     complexion = my['complexion']
     com = complexion.replace("[", "").replace("]","").replace("'","").replace(" ","")
     lengthcomplexion= com.split(",")
@@ -333,7 +333,7 @@ def view_details(request,id):
 
     complexionlist = ["Dark","Medium","ModerateFaIr","FaIr","VeryFair"]
 
-#food taste
+    #food taste
     food_taste = my['food_taste']
     ft = food_taste.replace("[", "").replace("]","").replace("'","").replace(" ","")
     lengthfood_taste= ft.split(",")
@@ -341,7 +341,7 @@ def view_details(request,id):
 
     food_tastelist = ["Sweezt","Bitter","UmamI","Salt","Sour","Spicy"]
 
-#gallery
+    #gallery
 
     gall = my['gallery']
     ga = gall.replace("[", "").replace("]","").replace("'","").replace(" ","")
@@ -365,18 +365,30 @@ def view_details(request,id):
       'lengthfood_taste':lengthfood_taste,
       'food_tastelist':food_tastelist,
         'lengthgallery':lengthgallery,
-
     }
-    
+    if request.method == "POST":
+        print(request.POST)
+        return redirect(f"profile_manager/profile_finders/{id}")
     return render(request,"view_details.html",context)
 
 def complaints(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0] 
+    my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id] 
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'my_profile_finder':my_profile_finder,
 
     }
+    if request.method == "POST":
+        print(request.POST)
+        data = {
+            'complaints_replay': request.POST['complaints_replay'],
+             'pf_complaints': request.POST['pf_complaints'],
+             'my_manager':id
+        }
+        response = requests.post(f"http://127.0.0.1:3000/my_complaints/{request.POST['uid']}",data = data)
+        print(data)
     return render(request,"complaints.html",context)
 
 def users(request,id):
