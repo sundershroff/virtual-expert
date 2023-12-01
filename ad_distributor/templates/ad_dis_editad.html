@@ -51,8 +51,8 @@
 
   <div class="dash_bor_main1" >
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -71,17 +71,17 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
     <!-- start -->
     <div class="local_admin_edi_acc px-3 py-4">
 
-      <a href="/ad_distributor/ad_dis_list/<id>" style="text-decoration: none;"><h3 class="mb-4"><span style="color: #6E717A;font-weight:500;">Ad ></a></span><span style="color:#7B61FF;font-weight:500;">Edi Ad</span></h3>
+      <a href="/ad_distributor/ad_dis_list/{{key.uid}}" style="text-decoration: none;"><h3 class="mb-4"><span style="color: #6E717A;font-weight:500;">Ad ></a></span><span style="color:#7B61FF;font-weight:500;">Edi Ad</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" action="">
           {% csrf_token %}
           <div class="row mb-3">
 

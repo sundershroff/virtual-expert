@@ -34,7 +34,7 @@
 
    
  <div class="dash_bor_sec1">
-
+   {% include "ad_pro_nav.html" %}
   <!-- <div class="dash_bor_sdbr" id="dashsidebar" >
 
       <header id="header">
@@ -83,7 +83,7 @@
       {% comment %} <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3> {% endcomment %}
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="POST" enctype="multipart/form-data" id="myform">
+        <form method="POST" enctype="multipart/form-data" id="myform" action="">
           {% csrf_token %}
           {% comment %} <div class="row mb-3"> {% endcomment %}
 
@@ -219,7 +219,7 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#">Update</button>
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
           {% comment %} exampleModal {% endcomment %}
         </div>
            

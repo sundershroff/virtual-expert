@@ -43,8 +43,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -63,7 +63,7 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -84,7 +84,7 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <a href="/ad_distributor/ad_dis_createAd/<id>" ><button data-bs-toggle="modal" data-bs-target="#" style="
+        <a href="/ad_distributor/ad_dis_createAd/{{key.uid}}" ><button data-bs-toggle="modal" data-bs-target="#" style="
           border: 1px solid white;
           background-color: rgba(123, 97, 255, 1);
           color: white;
@@ -96,13 +96,13 @@
 <!-- start -->
 <div class="locl_adm_sec2 px-4 my-5">
   <div style="background-color:#fff;margin-top:15px;height:auto;padding:17px;">
-    <a href="/ad_distributor/ad_dis_list/<id>" class="ad_nonactive_menu p-2"><b>All</b> </a> 
-      <a href="/ad_distributor/ad_dis_active/<id>" class="ad_nonactive_menu p-3">Active</a>
-        <a href="/ad_distributor/ad_dis_pending/<id>" class="ad_active_menu p-3" style="
+    <a href="/ad_distributor/ad_dis_list/{{key.uid}}" class="ad_nonactive_menu p-2"><b>All</b> </a> 
+      <a href="/ad_distributor/ad_dis_active/{{key.uid}}" class="ad_nonactive_menu p-3">Active</a>
+        <a href="/ad_distributor/ad_dis_pending/{{key.uid}}" class="ad_active_menu p-3" style="
           font-weight: 700;
       ">Pending</a>
-          <a href="/ad_distributor/ad_dis_deactive/<id>" class="ad_nonactive_menu p-3">Deactive</a>
-            <a href="/ad_distributor/ad_dis_closed/<id>" class="ad_nonactive_menu p-3">Closed</a>
+          <a href="/ad_distributor/ad_dis_deactive/{{key.uid}}" class="ad_nonactive_menu p-3">Deactive</a>
+            <a href="/ad_distributor/ad_dis_closed/{{key.uid}}" class="ad_nonactive_menu p-3">Closed</a>
 
     </div>
 </div>
@@ -234,8 +234,8 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action=" " enctype="multipart/form-data">
+             {% csrf_token %}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
               <input type="text" name="" class="form-control">

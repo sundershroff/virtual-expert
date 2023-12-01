@@ -139,7 +139,7 @@ urlpatterns = [
     path('ad_distributor/ad_dis_account/<id>', ad_distributor_views.account),
     path('ad_distributor/ad_dis_editAccount/<id>', ad_distributor_views.edit_account),
     path('ad_distributor/ad_dis_acc_balance/<id>', ad_distributor_views.acc_balance),
-    path('ad_distributor/ad_dis_adFunds.html/<id>', ad_distributor_views.add_funds),
+    path('ad_distributor/ad_dis_adFunds/<id>', ad_distributor_views.add_funds),
     path('ad_distributor/ad_dis_list/<id>', ad_distributor_views.ads_list_all),
     path('ad_distributor/ad_dis_active/<id>', ad_distributor_views.ads_active),
     path('ad_distributor/ad_dis_pending/<id>', ad_distributor_views.ads_pending),

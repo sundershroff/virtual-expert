@@ -51,8 +51,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -71,7 +71,7 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -89,8 +89,8 @@
 
         <h4 class="my-5">Update Email ID?</h4>
 
-        <form class="my-5">
-
+        <form class="my-5" method="POST" action="" enctype="multipart/form-data">
+          {% csrf_token %}
           <label class="form-label">Email Id<span>*</span></label>
 
           <div class="local_adm_sett_inp">
