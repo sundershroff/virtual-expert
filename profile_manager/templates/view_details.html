@@ -553,13 +553,11 @@
         </div>
 
         
-<form method = "POST">
+<form method = "POST" action = "/profile_manager/profile_finders/{{key.uid}}">
 {% csrf_token %}
-
         <div class="local_adm_chi3">
-
-          <button type="submit" name="Approve" value="Approve">Approve</button>
-          <button type="submit" name="Reject" value="Reject" >Reject</button>
+          <button type="submit" name="Approve" value="{{specific_data.uid}}">Approve</button>
+          <button type="button" name="Reject" value="{{specific_data.uid}}" data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
                     {% comment %} <button data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button> {% endcomment %}
 
           
@@ -571,8 +569,6 @@
     <!-- over -->
 
 
-   </div>
-
     <!--Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered">
@@ -582,18 +578,19 @@
         <div class="local_adm_gen_modal"> 
           
 
-          <form>
+          <form method="POST" action = "/profile_manager/profile_finders/{{key.uid}}">
+          {% csrf_token %}
             <h5>Reason</h5>
             <label class="form-label my-4">Reason For Reject</label>
-            <textarea class="form-control" rows="7" autofocus></textarea>
-          </form>
+            <textarea class="form-control" name="reason" rows="7" autofocus></textarea>
 
         </div>
       </div>
       <div class="modal-footer local_adm_gen_footer">
-        <button type="button" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" >Submit</button>
+        <button type="button"  data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="Reject" value="{{specific_data.uid}}" >Submit</button>
       </div>
+                </form>
     </div>
   </div>
 </div>

@@ -51,7 +51,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">1200 </span>Complaints in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{complaints_list|length}} </span>Complaints in the list</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -101,7 +101,7 @@
              <td data-label = "Name"><img src="{{i.profile_picture}}"> {{i.name}}</td>
              <td data-label = "Email ID">{{i.email}}</td>
              <td data-label = "Phone Number">+91 {{i.mobile}}</td>
-             <td data-label = "Complaints">Not responding last 3 weeks...</td>
+             <td data-label = "Complaints">{{i.complaints}}...</td>
              {% if i.complaints_replay == "empty"  %}
                   <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
 

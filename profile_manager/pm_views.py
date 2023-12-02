@@ -136,10 +136,21 @@ def upload_acc(request,id):
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
     my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
+    complaints_list = []
+    for i in my_profile_finder:
+         if i['complaints'] != "empty":
+              complaints_list.append(i)
+    #approve or Reject
+    approve_list = []
+    for i in my_profile_finder:
+         if i['status'] == "Approve":
+              approve_list.append(i)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'all_profile_finder':my_profile_finder,
+        'complaints_list':complaints_list,
+        'approve_list':approve_list,
 
     }
     return render(request,"admin_dashboard.html",context)
@@ -202,10 +213,29 @@ def profile_finders(request,id):
         'all_profile_finder':my_profile_finder,
     }
     if request.method == "POST":
-        print(request.POST)
-        global uid
-        uid = request.POST['uid']
-        return redirect(f"/profile_manager/view_details/{mydata['uid']}")
+        if 'uid' in request.POST:
+            print(request.POST)
+            global uid
+            uid = request.POST['uid']
+            return redirect(f"/profile_manager/view_details/{mydata['uid']}")
+        else:
+            print(request.POST)
+            print("ok")
+            if "Approve" in request.POST:
+                 data={
+                      'uid':request.POST["Approve"],
+                      'status':"Approve",
+                      'reason':"empty"
+                 }
+            elif "Reject" in request.POST:
+                 data={
+                      'uid':request.POST["Reject"],
+                      'status':"Reject",
+                      'reason':request.POST['reason']
+                 }
+            print(data)
+            response = requests.post(f"http://127.0.0.1:3000/status/{id}",data = data)
+            print(response)
     return render(request,"profile_finders.html",context)
     
 def view_details(request,id):
@@ -368,16 +398,27 @@ def view_details(request,id):
     }
     if request.method == "POST":
         print(request.POST)
+        print("yes")
+        response = requests.post(f"http://127.0.0.1:3000/status/{id}",data = request.POST)
+        print(response)
         return redirect(f"profile_manager/profile_finders/{id}")
+    
+    else:
+         pass
     return render(request,"view_details.html",context)
 
 def complaints(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0] 
     my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id] 
+    complaints_list = []
+    for i in my_profile_finder:
+         if i['complaints'] != "empty":
+              complaints_list.append(i)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'my_profile_finder':my_profile_finder,
+        'complaints_list':complaints_list,
 
     }
     if request.method == "POST":

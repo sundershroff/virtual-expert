@@ -98,7 +98,8 @@
             </div>
 
             <div>
-            <h4>300</h4>
+            
+            <h4>{{complaints_list|length}}</h4>
             <h5>Total Complaints</h5>
           </div>
           
@@ -115,7 +116,7 @@
            <div class="dash_ratstr">
            
             <div class="dash_strpos">
-               <h4>2,500</h4>
+               <h4>{{approve_list|length}}</h4>
             </div>
             <h5>Total Profile Approved</h5>
           </div> 
@@ -226,36 +227,15 @@
               <th class="py-4">Date of Posted</th>
               <th class="py-4">Complaints</th>
             </tr>
+{% for i in complaints_list %}
 
             <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">Albert Flores</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">Not responding last 3 weeks...</td>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.name}}</td>
+              <td class="py-4">{{i.created_date}}</td>
+              <td class="py-4">{{i.complaints}}</td>
             </tr>
-
-          
-            <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">Albert Flores</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">Not responding last 3 weeks...</td>
-            </tr>
-
-            <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">Albert Flores</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">Not responding last 3 weeks...</td>
-            </tr>
-
-           
-            <tr>
-              <td class="py-4">1</td>
-              <td class="py-4">Albert Flores</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">Not responding last 3 weeks...</td>
-            </tr>
+{% endfor %}
 
           </table>
              <div class="dash_bor_rsp_va my-3">
@@ -277,48 +257,22 @@
           <table class="table table-borderless " >
 
             <tr>
+              <th class="py-4">Sno</th>
               <th class="py-4">User Name</th>
               <th class="py-4">Local Admin</th>
               <th class="py-4">Approved</th>
             </tr>
+{% for i in approve_list %}
 
             <tr>
               
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}"> {{i.name}}</span></td>
+              <td  class="py-4"></td>
+              <td class="py-4">{{i.created_date}}</td>
          
             </tr>
-
-        <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
-         
-            </tr>
-
- <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
-         
-            </tr>
-
-
-             <tr>
-              
-            
-              <td class="py-4"><span class="dash_bor_table_img1"><img src="{% static 'images/girl1.png'%}"> Albert Flores</span></td>
-              <td  class="py-4">Environmental Specialist</td>
-              <td class="py-4">18/09/2016</td>
-         
-            </tr>
-
+{% endfor %}
 
           </table>
              <div class="dash_bor_rsp_va my-3">

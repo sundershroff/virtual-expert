@@ -314,6 +314,65 @@ def ad_provider_doc(request,id):
 
     return render(request,"hm_adproviderdoc.html",context)
 
+def ad_distributor(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    #ad provider
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_provider'] == None:
+        ad_pro_data =""
+    else:
+        ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json() [0]['ad_provider']) 
+    if request.method=="POST":
+        if 'uid' in request.POST:
+            print(request.POST)
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_adprovider_upload/{id}")
+        else:
+            print(request.POST)
+            print(request.FILES)
+        
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'ad_pro_data':ad_pro_data,
+    }
+    return render(request,"hm_ad_distributor.html",context)
+
+def ad_distributor_doc(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    ad_provider(request,id)
+    print(uid)
+    ad_pro_my_data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{uid}").json()[0]  
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+
+    
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'ad_pro_my_data':ad_pro_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
+    }
+    
+    if request.method == "POST":
+        response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_ad_provider/{id}")
+
+    return render(request,"hm_addistributordoc.html",context)
+
+
 def sales(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
@@ -366,6 +425,113 @@ def sales_doc(request,id):
         return redirect(f"/hiring_manager/hm_sales_person/{id}")
 
     return render(request,"hm_sales_person_doc.html",context)
+
+def affiliate_marketing(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
+        sales_data =""
+    else:
+        sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
+    if request.method=="POST":
+        if 'uid' in request.POST:
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_sales_person_doc/{id}")
+        else:
+            pass
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'sales_data':sales_data,
+    }
+    
+    return render(request,"hm_affiliate_marketing.html",context)
+
+def affiliate_marketing_doc(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
+    sales(request,id)
+    sales_my_data = requests.get(f"http://127.0.0.1:3000/sm_my_data/{uid}").json()[0]  
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'sales_my_data':sales_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
+    } 
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/sales_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_sales_person/{id}")
+
+    return render(request,"hm_affiliate_marketing_upload.html",context)
+
+def private_investigator(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
+        sales_data =""
+    else:
+        sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
+    if request.method=="POST":
+        if 'uid' in request.POST:
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_sales_person_doc/{id}")
+        else:
+            pass
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'sales_data':sales_data,
+    }
+    
+    return render(request,"hm_private_investigator.html",context)
+
+def private_investigator_doc(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
+    sales(request,id)
+    sales_my_data = requests.get(f"http://127.0.0.1:3000/sm_my_data/{uid}").json()[0]  
+    #country api
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+       name = (x.get("name"))
+       neww.append(name)
+    countryname = json.dumps(neww)
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'sales_my_data':sales_my_data,
+        'response': response,
+        'region': response,
+        'all':al,
+        'country': countryname,'states': states
+    } 
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/sales_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+        print(response.status_code)
+        return redirect(f"/hiring_manager/hm_sales_person/{id}")
+
+    return render(request,"hm_private_investigator_upload.html",context)
+
 
 def hiring_manager(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
