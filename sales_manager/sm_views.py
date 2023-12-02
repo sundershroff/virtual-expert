@@ -143,7 +143,8 @@ def admin_dashboard(request,id):
 
 
 def profile(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]  
+    mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
+    print(mydata)  
     context={
         'key':mydata,
         'current_path':request.get_full_path()
@@ -207,7 +208,7 @@ def coin_details(request,id):
 def hand_list(request,id):
 
     jsondec = json.decoder.JSONDecoder()
-    # s=[]
+
     c=[]
     mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0] 
     all_client_data= requests.get("http://127.0.0.1:3000/all_client_data/").json()
@@ -221,12 +222,7 @@ def hand_list(request,id):
         id_value = uid["uid"]
         if id_value==id:
             c.append(i)
-        # print(c)
-    #     uid=jsondec.decode(i.get("sales_id"))
 
-    #     if id == uid["uid"]:
-    #         c.append(uid)
-    # print(c)
 
    
     context={
@@ -236,7 +232,7 @@ def hand_list(request,id):
         
     }
    
-
+   
     if request.method == "POST":
         
         if 'view' in request.POST:
@@ -244,6 +240,13 @@ def hand_list(request,id):
             global uid_view
             uid_view = request.POST['view']
             return redirect(f"/sales_manager/sm_ad_details/{id}")
+        
+        elif 'active' in request.POST:
+            a=request.POST["active"]
+            print(a)
+            response = requests.post(f"http://127.0.0.1:3000/add_client_data/{id}",data=request.POST )
+
+            
         else:     
             print(request.POST)
             print(request.FILES)
@@ -258,10 +261,12 @@ def hand_list(request,id):
                 'email':request.POST['email'],
                 'picture':request.FILES
 
+
             }
 
-            print(data)
+           
             response = requests.post(f"http://127.0.0.1:3000/add_client_data/{id}", data =data,files=request.FILES)
+
             print(response.status_code)
             print(response.text)
             uidd = (response.text[1:-1])
@@ -273,22 +278,50 @@ def hand_list(request,id):
             else:
                 print("invalid")
                 return render(request,"sm_hand_list.html",context)
+        
     return render(request,"sm_hand_list.html",context)
 
 
 
 
 
-# def hand_list(request,id):
+
+def otp_client(request,id):
+    context = {'invalid':"invalid"}
+    new=[]
+    if request.method == "POST":
+        new.append(request.POST["otp1"])
+        new.append(request.POST["otp2"])
+        new.append(request.POST["otp3"])
+        new.append(request.POST["otp4"])
+        new.append(request.POST["otp5"])
+        new.append(request.POST["otp6"])
+
+        data = {
+            'user_otp':int(''.join(new).strip())
+           
+        }
+        print(data)
+        response = requests.post(f"http://127.0.0.1:3000/client_otp/{id}", data=data)
+
+       
+        print(response)
+        print(response.status_code)
+        print(data['user_otp'])
+        print(response.text)
+        uidd = (response.text[1:-1])
         
-#     mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0] 
-#     # all_client_data= requests.get("http://127.0.0.1:3000/all_client_data/").json() 
-#     context={
-#         'key':mydata,
-#         'current_path':request.get_full_path(),
-#         # 'all_client_data':all_client_data[::-1],
-#     }
-#     return render(request,"sm_hand_list.html",context)
+        if response.status_code == 200:
+        # if get["otp"] == data['user_otp']:
+            # return redirect(f"/profileidcard/{uidd}")
+            return redirect(f"/sales_manager/sm_hand_list/{uidd}")
+
+        else:
+            invalid = "Invalid OTP"
+            context = {'invalid':invalid}
+    return render(request,"sm_hand_list.html",context)
+
+
      
 def ads_list(request,id):
     jsondec = json.decoder.JSONDecoder()
@@ -318,7 +351,8 @@ def ads_list(request,id):
             'types_of_activities':request.POST['types_of_activities'],
             'date':request.POST['date'],
             'time':request.POST['time'],
-            'notes':request.POST['notes']
+            'notes':request.POST['notes'],
+            
             
         }
     

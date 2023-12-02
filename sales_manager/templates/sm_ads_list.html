@@ -101,8 +101,10 @@
     <div class="locl_adm_sec2 px-4 my-5">
       <h5 style="color:#6E717A">Upcoming Tasks</h5>
       {% for i in all_client_data %}
-
+      {% if i.types_of_activities %}
+     
       <div class="row rowbg">
+        
 
         {% if i.types_of_activities == "Phone Call"  %}
         <div class="col-lg-2 col-md-2">
@@ -141,7 +143,7 @@
           <center><button class="task_button"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
         </div>
         <div class="col-lg-4 col-md-4">
-          <span ><b>{{i.client_name}}</b><br>  
+          <span ><b>{{i.client_name}}</b><br> 
             <span class="task_button_text">{{i.types_of_activities}}<br>
               {{i.date}}| {{i.time}}</span>
           </span>
@@ -163,16 +165,21 @@
       <!-- <div class="col-lg-4 col-md-4"></div> -->
 
     </div>
+    {%endif%}
     {%endfor%}<br>
 
     
     <h5 style="color:#6E717A">Completed Tasks</h5><br>
+    {% for i in all_client_data %}
+    
+      
       <div class="row rowbg">
       <div class="col-lg-2 col-md-2">
         <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
       </div>
       <div class="col-lg-4 col-md-4">
-        <span ><b>ABCD</b><br>
+        <span ><b>{{i.client_name}}</b><br>
+
           <span class="task_button_text">Phone Call<br>
             10 Janduary, 2021 | 10:00am</span>
         </span>
@@ -184,6 +191,7 @@
         <span><b>Called</b></span>
       </div>
     </div>
+    {% endfor %}
     <div class="row rowbg">
       <div class="col-lg-2 col-md-2">
         <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
@@ -251,28 +259,28 @@
               {%csrf_token%}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="uid" class="form-control">
+              <input type="text" name="uid" value="{{key.uid}}" class="form-control">
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="client_name" class="form-control">
+                <input type="text" name="client_name" value="{{all_client_data.client_name}}" class="form-control">
              </div>
             
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="email" class="form-control">
+               <input type="text" name="email" value="{{all_client_data.email}}" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="phone_number" class="form-control">
+               <input type="text" name="phone_number"  class="form-control">
              </div>
   
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
+               <select class="form-select py-3" name="client_location">
                 <option {{key.client_location}}>{{key.client_location}}</option>
                 <option value="guruvayur">guruvayur</option>
                 <option value="cochin">cochin</option>
@@ -282,8 +290,13 @@
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="status">
+                <option {{key.status}}>{{key.status}}</option>
+                <option value="Completed Task">Completed Task</option>
+                <option value="Pending Task">Pending Task</option>
+
+
+
               </select>
              </div>
 

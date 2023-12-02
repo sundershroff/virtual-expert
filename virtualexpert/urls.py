@@ -64,6 +64,8 @@ urlpatterns = [
     path('sales_manager/sm_accountsetting/<id>', sm_views.setting),
     path('sales_manager/sm_users/<id>', sm_views.users),
     path('sales_manager/sm_addusers/<id>', sm_views.add_users),
+    path('sales_manager/otp_client/<id>',sm_views.otp_client),
+
     # path('sales_manager/add_client/<id>',sm_views.add_client),
 
 

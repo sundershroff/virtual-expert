@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+import json
+
 # Create your views here.
 def dashboard(request):
     return render(request,"dashboard.html")
@@ -107,18 +109,70 @@ def upload_acc(request,id):
     return render(request,"af_uploadprofile.html")
 
 def profile(request,id):
-    # mydata = requests.get(f"http://127.0.0.1:3000/af_profile/{id}").json()[0]  
-    # context={
-    #     'key':mydata,
-    #     'current_path':request.get_full_path()
-    # }
-    return render(request,"af_profile.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+    }
+    return render(request,"af_profile.html",context)
 
 def edit_profile(request,id):
-    return render(request,"af_editprofile.html")
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]       
+        neww=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        states = json.dumps(all["data"])
+        al = (all["data"])
+        for x in al:
+            name = (x.get("name"))
+            neww.append(name)
+        countryname = json.dumps(neww)
+            
+
+        context = {"key":mydata,
+                'current_path':request.get_full_path(),'response': response, 'region': response,'all':al,
+                    'country': countryname,'states': states,'key':mydata,
+                    'current_path':request.get_full_path()}
+        
+        if request.method=="POST":
+            print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/am_edit_account/{id}", data = request.POST,files=request.FILES)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            return render(request,"af_editprofile.html",context)
+
+        return render(request,"af_editprofile.html",context)
+        
+            
+    except:
+        return render(request,"af_editprofile.html")
+
 
 def commisions(request,id):
-    return render(request,"af_commisions.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+    }
+    return render(request,"af_commisions.html",context)
 
 def setting(request,id):
-    return render(request,"af_setting.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+    }
+    if request.method=="POST":
+        print(request.POST)
+        response = requests.post(f"http://127.0.0.1:3000/aff_email_update/{id}", data = request.POST)
+        print(response)
+        print(response.status_code)
+        print(response.text)
+        return render(request,"af_setting.html",context)
+
+
+    return render(request,"af_setting.html",context)
+

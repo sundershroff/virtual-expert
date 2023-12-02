@@ -35,7 +35,7 @@
        <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
       <nav id="navbar" class="nav-menu navbar">
        
-        {% include 'af_nav.html'%}
+        {% include 'af_nav.html' %}
 
       </nav>
       <!-- .nav-menu -->
@@ -48,16 +48,7 @@
   <div class="dash_bor_main1">
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <i class="fa-solid fa-caret-down"></i>
-         </div>
-
-    </div>
+   {% include 'af_header.html' %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -72,15 +63,15 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                    <div class="sa_profile_paintads">
-<img src="{% static 'images/Group 4109 (1).png'%}" height="60px" width="60px">
+<img src="{{key.id_card}}" height="60px" width="60px">
                    </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
                   <span style="color:#2B3674"><b>Thomas Miller</b><br>
-                    <span class="task_button_text">Sales Person<br>
-                     Created On:<span style="color:#3247CE">10 January, 2021 </span> </span>
+                    <span class="task_button_text">{{key.full_name}}<br>
+                     Created On:<span style="color:#3247CE">{{key.created_date}} </span> </span>
                   </span>
-                  <a href="/affiliate_marketing/af_editprofile/hgvhgv"><button class="btn_end ">Edit Profile</button></a>
+                  <a href="/affiliate_marketing/af_editprofile/{{key.uid}}"><button class="btn_end ">Edit Profile</button></a>
                 </div>
                 <div class="col-lg-3 col-md-3"></div>
               
@@ -103,11 +94,11 @@
             <div class="row py-3 justify-content-around">
               <div class="col-lg-6 col-md-6 pt-3 px-4" style="background-color: white;border-radius:10px;    margin-bottom: 10px;">
                  <p style="color:#2B3674"><b>Office Details</b></p>
-                 <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">ABCD Associate</span></p>
-                 <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+971 553776176</span></p>
-                 <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">jacob@gmail.com</span></p>
-                 <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">Kochi, India</span></p>
-                 <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">Building 304, Office 12, palarivattom, Kochi</span></p>
+                 <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">{{key.office_name}}</span></p>
+                 <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">{{key.mobile}}</span></p>
+                 <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">{{key.email}}</span></p>
+                 <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">{{key.office_city}},{{key.office_country}}</span></p>
+                 <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">{{key.office_address}}</span></p>
               </div>
 
               
