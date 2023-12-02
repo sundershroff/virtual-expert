@@ -90,11 +90,14 @@ def profile_picture(request,id):
     return render(request,"ad_dis_profilepicture.html")
 
 def upload_acc(request,id):
+    #hiring manager list
+    hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+    context = {'hiring_manager':hiring_manager}
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
         # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/ad_dis_upload_account/{id}",   data = request.POST,files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/ad_dis_upload_account/{id}",   data = request.POST)
         print(response)
         print(response.status_code)
         print(response.text)
@@ -103,8 +106,8 @@ def upload_acc(request,id):
         # if get["otp"] == data['user_otp']:
             return redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uidd}")
         else:
-            return HttpResponse("INVALId")
-    return render(request,"ad_dis_upload_acc.html")
+            pass
+    return render(request,"ad_dis_upload_acc.html",context)
 
 
 def admin_dashboard(request,id):
