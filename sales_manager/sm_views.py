@@ -245,7 +245,7 @@ def hand_list(request,id):
             a=request.POST["active"]
             print(a)
             response = requests.post(f"http://127.0.0.1:3000/add_client_data/{id}",data=request.POST )
-
+        
             
         else:     
             print(request.POST)
@@ -341,25 +341,40 @@ def ads_list(request,id):
         'current_path':request.get_full_path(),
         'all_client_data':c,
         'client_activities':client_activities,
-        
-        
-        }
-    if request.method == "POST":     
-        print(request.POST)
-        data={
-            
-            'types_of_activities':request.POST['types_of_activities'],
-            'date':request.POST['date'],
-            'time':request.POST['time'],
-            'notes':request.POST['notes'],
-            
-            
-        }
     
-        response = requests.post(f"http://127.0.0.1:3000/add_client_activities/{request.POST['client_name']}", data =data)
-        print(response.status_code)
-        print(response.text)
-        return redirect(f"/sales_manager/sm_ads_list/{id}")
+        
+        
+        }
+    if request.method == "POST":
+        if 'semail' in request.POST:
+            print(request.POST['semail'])
+
+            response=requests.post(f"http://127.0.0.1:3000/sendmail/{request.POST['semail']}",data=request.POST)
+
+        elif 'location' in request.POST:
+            response=requests.post(f"http://127.0.0.1:3000/sendmeet/{request.POST['location']}",data=request.POST)
+
+        elif 'callnow' in request.POST:
+            response=requests.post(f"http://127.0.0.1:3000/sendphone/{request.POST['callnow']}",data=request.POST)
+
+
+        else:        
+            print(request.POST)
+            data={
+                
+                'types_of_activities':request.POST['types_of_activities'],
+                'date':request.POST['date'],
+                'time':request.POST['time'],
+                'notes':request.POST['notes'],
+                # 'status':request.POST['status'],
+                
+                
+            }
+        
+            response = requests.post(f"http://127.0.0.1:3000/add_client_activities/{request.POST['client_name']}", data =data)
+            print(response.status_code)
+            print(response.text)
+            return redirect(f"/sales_manager/sm_ads_list/{id}")
     return render(request,"sm_ads_list.html",context)
 
 
