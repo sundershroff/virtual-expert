@@ -86,28 +86,41 @@
                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Country</b><sup style="color: #9B51E0">*</sup></label>
                      <select class="form-select" name="personal_country">
                         <option value="default">Select</option>
+                                                <option value="india">India</option>
+
                       </select>
                       </div>
                      <div class="col-lg-4 col-md-4">
                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>City</b><sup style="color: #9B51E0">*</sup></label>
                      <select class="form-select " name="personal_city">
                         <option value="default">Select</option>
+                                                <option value="kk">KK</option>
+
                       </select>
                     </div>
                 </div>
+               
                 <div class="py-3">
                 <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Address</b><sup style="color: #9B51E0">*</sup></label>
                      <input type="text" name="personal_address" class="form-control" placeholder="Enter" required>
                      </div>
                      <div>
-                     <label for="exampleFormControlInput1" class="form-label editpro_formhed py-3"><b>ID Card</b><sup style="color: #9B51E0">*</sup></label>
-         <div class="editpro_id">
+                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Hiring Manager</b><sup style="color: #9B51E0">*</sup></label>
+                      <select class="form-select " name="hiring_manager">
+                        <option value="default">Select</option>
+                        {% for i in hm_data %}
+                         <option value="{{i.uid}}">{{i.first_name}}</option>
+                        {% endfor %}
+                                               
+
+                      </select>
+                     {% comment %} <label for="exampleFormControlInput1" class="form-label editpro_formhed py-3"><b>ID Card</b><sup style="color: #9B51E0">*</sup></label> {% endcomment %}
+         {% comment %} <div class="editpro_id">
           <input type="file" name="id_card" id="" style="
           max-width: 100%;
           height: 10rem;
           position: absolute;
-          opacity: 0;
-      ">
+          opacity: 0;">
 
                    <center><div class="editpro_id_inner">
                     
@@ -115,7 +128,7 @@
                    </div></center>
                    <p style="color:#6E717A">Drag Or Click here to Upload Yout ID</p>
                    
-         </div>
+         </div> {% endcomment %}
                     </div>
                    
                     <div class="row py-3">
@@ -172,9 +185,9 @@
         personal_address: {
           required: true
         },
-        // hiring_manager: {
-        //   valueNotEquals: "default"
-        // },
+         hiring_manager: {
+           valueNotEquals: "default"
+         },
         id_card: {
           required: true
         }
