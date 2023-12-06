@@ -34,7 +34,7 @@
         <img src="{% static 'images/Logo.png' %}" alt="" class="Logo mt-4 ms-3">
 
       <nav id="navbar" class="nav-menu navbar">
-        {% include "sm_nav.html" %}
+        {% include "af_nav.html" %}
 
       </nav>
       <!-- .nav-menu -->
@@ -45,7 +45,7 @@
   </div>
 
   <div class="dash_bor_main1">
-    {% include 'sm_header.html' %}
+    {% include 'af_header.html' %}
     <!-- start1-->
 <!-- 
     <div class="dash_par1" style="background:white;">
@@ -92,7 +92,7 @@
 
           <div>
             <h4 style="color:#3247CE">1,800</h4>
-            <h5>Total Clients</h5>
+            <h5>Total EmeraCoin</h5>
           </div>
 
         </div>
@@ -176,21 +176,43 @@
 
       <tr class="me-5">
         
-        <th class="py-4">No</th>
+        <th class="py-4">#No</th>
         <th class="py-4">User Id</th>
         <th class="py-4">Name</th>
         <th class="py-4">Email Id</th>
       </tr>
-      {% for i in all_client_data %}
+
       <tr>
-        <td class="py-4">{{forloop.counter}}</td>
-        <td class="py-4">{{i.uid}}</td>
-        <td class="dash_bor_table_img"><img src="{{i.picture}}" class="mx-2">{{i.client_name}}</td>
+        <td class="py-4">1</td>
+        <td class="py-4">A0B1C036</td>
+        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
         
-        <td class="py-4">{{i.email}}</td>
+        <td class="py-4">frankd@funtap.vn</td>
       </tr>
-      {%endfor%}
-  
+      <tr>
+        <td class="py-4">1</td>
+        <td class="py-4">A0B1C036</td>
+        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
+        
+        <td class="py-4">frankd@funtap.vn</td>
+      </tr>
+      <tr>
+        <td class="py-4">1</td>
+        <td class="py-4">A0B1C036</td>
+        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
+        
+        <td class="py-4">frankd@funtap.vn</td>
+      </tr>
+   <tr>
+        <td class="py-4">1</td>
+        <td class="py-4">A0B1C036</td>
+        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
+        
+        <td class="py-4">frankd@funtap.vn</td>
+      </tr>
+
+       
+
         <div class="py-4">
       
 
@@ -199,7 +221,7 @@
   
 
     <div class="dash_bor_rsp_va my-3">
-      <a href="" class="mx-3">View All</a>
+      <a href="#" class="mx-3">View All</a>
     </div>
 
      </div>

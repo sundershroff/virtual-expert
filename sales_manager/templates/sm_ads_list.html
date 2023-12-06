@@ -122,7 +122,7 @@
 
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
           <form action="" method="POST" > {%csrf_token%} 
-            <button class="btn_end" type="submit" name="callnow" value="{{i.uid}}" >Call Now</button>
+            <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >Call Now</button>
           </form>
         </div>
         {% elif i.types_of_activities == "Meeting" %}
@@ -139,7 +139,7 @@
 
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
           <form action="" method="POST" > {%csrf_token%} 
-            <button class="btn_end" type="submit" name="location" value="{{i.uid}}" >View Location</button>
+            <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >View Location</button>
           </form>
         </div>
         {% elif i.types_of_activities == "Email" %}
@@ -200,7 +200,7 @@
       </div>
       {% elif i.types_of_activities == "Meeting" %}
       <div class="col-lg-2 col-md-2">
-        <center><button class="task_button"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
+        <center><button class="task_button2"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
       </div>
       <div class="col-lg-4 col-md-4">
         <span ><b>{{i.client_name}}</b><br>
@@ -216,7 +216,7 @@
       </div>
       {% elif i.types_of_activities == "Email" %}
       <div class="col-lg-2 col-md-2">
-        <center><button class="task_button"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
+        <center><button class="task_button2"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
       </div>
       <div class="col-lg-4 col-md-4">
         <span ><b>{{i.client_name}}</b><br>

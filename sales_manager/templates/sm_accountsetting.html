@@ -79,21 +79,25 @@
 
         <h4 class="my-4">Want to reset your password?</h4>
 
-        <button class="my-4" data-bs-toggle="modal" data-bs-target="#emailsucc">send reset link to email</button>
+        <form class="my-5" method="POST">
+          {%csrf_token%}
+        <button class="my-4" data-bs-toggle="modal" data-bs-target="#emailsucc" name="pass_reset"  value="{{key.email}}">send reset link to email</button>
+        </form>
 
         <h4 class="my-5">Update Email ID?</h4>
 
-        <form class="my-5">
+        <form class="my-5" method="POST">
+          {%csrf_token%}
 
           <label class="form-label">Email Id<span>*</span></label>
 
-          <div class="local_adm_sett_inp">
+          <div class="local_adm_sett_inp" >
             <div>
-              <input type="text" class="form-control" autofocus>
+              <input type="email" class="form-control" name="email" value="{{key.email}}"   autofocus>
             </div>
             <div>
-              <button class="prof_personal_filbtn2 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Update</button>
-
+              <button type="submit">Update</button>
+              <!-- class="prof_personal_filbtn2 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal"  -->
             </div>
           </div>
           

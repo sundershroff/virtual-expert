@@ -3,6 +3,7 @@ from django.http import JsonResponse,HttpResponse
 import requests
 import json
 from rest_framework.response import Response
+from django.contrib import messages
 
 # Create your views here.
 def dashboard(request):
@@ -132,12 +133,21 @@ def verification_fee(request,id):
     return render(request,"sm_verification_fee.html")
 
 def admin_dashboard(request,id):
+    jsondec = json.decoder.JSONDecoder()
+    c=[]
     mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]  
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+    all_client_data=requests.get("http://127.0.0.1:3000/all_client_data/").json()
+    for i in all_client_data:
+        uid=jsondec.decode(i.get("sales_id"))
+        id_value = uid["uid"]
+        if id_value==id:
+            c.append(i)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'all_profile_finder':all_profile_finder[::-1],
+        'all_client_data':c,
     }
     return render(request,"sm_salesdashboard.html",context)
 
@@ -351,13 +361,7 @@ def ads_list(request,id):
 
             response=requests.post(f"http://127.0.0.1:3000/sendmail/{request.POST['semail']}",data=request.POST)
 
-        elif 'location' in request.POST:
-            response=requests.post(f"http://127.0.0.1:3000/sendmeet/{request.POST['location']}",data=request.POST)
-
-        elif 'callnow' in request.POST:
-            response=requests.post(f"http://127.0.0.1:3000/sendphone/{request.POST['callnow']}",data=request.POST)
-
-
+        
         else:        
             print(request.POST)
             data={
@@ -427,5 +431,39 @@ def setting(request,id):
         'key':mydata,
         'current_path':request.get_full_path()
     }
+
+
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            
+            a=request.POST["pass_reset"]
+            print(a)
+       
+            response = requests.post(f"http://127.0.0.1:3000/password_reset/{id}",data=request.POST )
+        else:
+            # print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/sm_email_update/{id}", data = request.POST)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            return render(request,"sm_accountsetting.html",context)
+
     return render(request,"sm_accountsetting.html",context)
 
+
+def password_rest(request,id):
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            
+            a=request.POST["pass_reset"]
+            print(a)
+        if request.POST['password'] == request.POST['confirm_password']:
+
+            response = requests.post(f"http://127.0.0.1:3000/pass_update/{id}",data=request.POST )
+            messages.info(request,"Password Successfully Updated")
+        else:
+            messages.info(request,"Password Incorrect")
+    return render(request,"password_reset.html")

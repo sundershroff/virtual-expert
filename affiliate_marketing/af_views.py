@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
 import json
-
+from django.contrib import messages
 # Create your views here.
 def dashboard(request):
     return render(request,"dashboard.html")
@@ -108,6 +108,16 @@ def upload_acc(request,id):
             return HttpResponse("INVALId")
     return render(request,"af_uploadprofile.html")
 
+def admin_dashboard(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]  
+    all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_profile_finder':all_profile_finder[::-1],
+    }
+    return render(request,"af_marketingdashboard.html",context)
+
 def profile(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0] 
     context={
@@ -167,12 +177,35 @@ def setting(request,id):
     }
     if request.method=="POST":
         print(request.POST)
-        response = requests.post(f"http://127.0.0.1:3000/aff_email_update/{id}", data = request.POST)
-        print(response)
-        print(response.status_code)
-        print(response.text)
-        return render(request,"af_setting.html",context)
+        if 'pass_reset' in request.POST:
+            
+            a=request.POST["pass_reset"]
+            print(a)
+       
+            response = requests.post(f"http://127.0.0.1:3000/password_reset/{id}",data=request.POST )
+        else:
+            print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/aff_email_update/{id}", data = request.POST)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            return render(request,"af_setting.html",context)
 
 
     return render(request,"af_setting.html",context)
 
+def password_rest(request,id):
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            
+            a=request.POST["pass_reset"]
+            print(a)
+        if request.POST['password'] == request.POST['confirm_password']:
+
+            response = requests.post(f"http://127.0.0.1:3000/pass_update/{id}",data=request.POST )
+            messages.info(request,"Password Successfully Updated")
+        else:
+            messages.info(request,"Password Incorrect")
+    return render(request,"password_reset.html")

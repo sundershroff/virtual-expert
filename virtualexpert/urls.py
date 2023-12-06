@@ -169,6 +169,8 @@ urlpatterns = [
     path('affiliate_marketing/af_editprofile/<id>', af_views.edit_profile),
     path('affiliate_marketing/af_commisions/<id>', af_views.commisions),
     path('affiliate_marketing/af_setting/<id>', af_views.setting),
+    path('affiliate_marketing/af_marketingdashboard/<id>',af_views.admin_dashboard),
+    path('password_reset/<id>',af_views.password_rest)
 
 
 
