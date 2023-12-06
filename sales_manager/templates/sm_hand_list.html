@@ -350,6 +350,60 @@
   </div>
 </div>
   <!-- over -->
+  <script>
+    // just for the demos, avoids form submit
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: "valid"
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+          return arg !== value;
+        }, "Select Any One");
+    $( "#myform" ).validate({
+      rules: {
+        client_name: {
+          required: true
+        },
+        personal_country: {
+          valueNotEquals: "default"
+        },
+        personal_city: {
+          valueNotEquals: "default"
+        },
+        personal_address: {
+          required: true
+        },
+        hiring_manager: {
+          valueNotEquals: "default"
+        },
+        id_card: {
+          required: true
+        }
+
+      },
+      submitHandler: function (form) {
+                console.log('test');
+                form.submit();
+            }
+    });
+    </script>
+  <script>
+    $(document).ready(function () {
+        $("#success").click(function(){
+            setTimeout(function() {
+                $('#exampleModal').modal('toggle');
+            }, 2000);
+        });
+    });
+</script>
+<style>
+label.valid {
+background: url(images/checked.gif) no-repeat;
+display: none;
+width: 16px;
+height: 16px;
+}
+</style>
 
 
  

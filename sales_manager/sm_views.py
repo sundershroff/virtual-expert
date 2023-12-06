@@ -227,18 +227,22 @@ def hand_list(request,id):
     #     uid=(i.get("uid"))
     #     s.append(uid)
     # print(s)
+    count=0
     for i in all_client_data:
+        
         uid=jsondec.decode(i.get("sales_id"))
         id_value = uid["uid"]
         if id_value==id:
             c.append(i)
-
-
+            count+=1
+        
+  
    
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'all_client_data':c,
+        
         
     }
    
