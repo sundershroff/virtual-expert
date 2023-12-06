@@ -123,11 +123,27 @@
               <span ><b>{{i.ad_name}}</b><br>
                 <span class="task_button_text">{{i.ad_type}}<br>
                   {{i.days_required }} | 10:00am <br>
-                  Status:<span style="color:#F2994A">{{i.status}}</span>
+              {% if i.status == "Closed" %}
+                Status:<span style="color:#FF5C5C">{{i.status}}</span>
               </span></span><br>
               <button class="my-2 ads_btn1">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
-             
+              {% elif i.status == "Rejected" %}
+              Status:<span style="color:#FF5C5C">Rejected- <a href="" data-bs-toggle="modal" data-bs-target="#reason" style="color:#7B61FF">Reason</a></span>
+            </span></span><br>
+            <button class="my-2 ads_btn1">Copy Ad ID</button>
+            <button class="my-2 ads_btn2">Visibility</button>
+            <form method="POST" enctype="multipart/form-data" action="">
+              {% csrf_token %}
+            {% comment %} <a href="/ad_distributor/ad_dis_editAd/{{key.uid}}"> {% endcomment %}
+              <button type="submit" class="my-2 ads_btn2" name="edi_ad" value="{{i.ad_id}}">Edit Ad</button>
+            </form>
+              {% else %}
+              Status:<span style="color:#F2994A">{{i.status}}</span>
+              </span></span><br>
+              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn2">Visibility</button>
+              {% endif %}
             </div>
             
             <div class="col-lg- col-md-1"></div>
@@ -239,7 +255,7 @@
               </span></span><br>
               <button class="my-2 ads_btn1">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
-              <a href="/ad_distributor/ad_dis_editAd/<id>"><button class="my-2 ads_btn2">Edit Ad</button></a>
+              <a href="/ad_distributor/ad_dis_editAd/{{key.uid}}"><button class="my-2 ads_btn2">Edit Ad</button></a>
             </div>
             <div class="col-lg-1 col-md-1"></div>
             <div class="col-lg-6 col-md-6">

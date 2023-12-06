@@ -45,8 +45,8 @@
 </div>
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_pro_header.html"%}
+     {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -63,9 +63,9 @@
             <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
           </ul>
         </div>
-         </div>
+         </div> {% endcomment %}
 
-    </div>
+    </div> 
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -80,13 +80,14 @@
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                    <div class="ad_profile_paintads">
-<i class="fas fa-user" style="font-size:50px;color:#7B61FF;"></i>
+{% comment %} <i class="fas fa-user" style="font-size:50px;color:#7B61FF;"></i> {% endcomment %}
+ <img src="{{key.profile_picture}}" style="width: 94px;height: 93px;position: absolute;margin-left: -25px;margin-top: -24px;">
                    </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
                   <span style="color:#2B3674"><b>Paint Ads</b><br>
-                    <span class="task_button_text">Sales Person<br>
-                     Created On:<span style="color:#3247CE">10 January, 2021 </span> </span>
+                    <span class="task_button_text">{{key.first_name}} {{key.last_name}}<br>
+                     Created On:<span style="color:#3247CE">{{key.created_date}} </span> </span>
                   </span>
                  <a href="/ad_provider/ad_pro_editAccount/{{key.uid}}"> <button class="btn_end ">Edit Profile</button></a>
                  <button class="btn_end" style="margin-left:5px">Add Funds</button>
@@ -112,25 +113,23 @@
             <div class="row py-3 justify-content-around">
               <div class="col-lg-6 col-md-6 pt-3 px-4" style="background-color: white;border-radius:10px;    margin-bottom: 10px;">
                  <p style="color:#2B3674"><b>Office Details</b></p>
-                 <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">ABCD Associate</span></p>
-                 <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+971 553776176</span></p>
-                 <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">jacob@gmail.com</span></p>
-                 <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">Kochi, India</span></p>
-                 <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">Building 304, Office 12, palarivattom, Kochi</span></p>
+                 <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">{{key.office_name}}</span></p>
+                 <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">{{key.mobile}}</span></p>
+                 <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">{{key.email}}</span></p>
+                 <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">{{key.personal_city}} , {{key.personal_country}}</span></p>
+                 <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">{{key.personal_address}}</span></p>
               </div>
 
               
                 
              
               <div class="col-lg-5 col-md-5 pt-3 px-4" style="background-color: white; border-radius:10px;">
-                <p style="color:#2B3674"><b>Office Details</b></p>
-                <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">ABCD Associate</span></p>
-                <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+971 553776176</span></p>
-                <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">jacob@gmail.com</span></p>
-                <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">Kochi, India</span></p>
-                <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">Building 304, Office 12, palarivattom, Kochi</span></p>
-
-              </div>
+                <p style="color:#2B3674"><b>Payment Option</b></p>
+                <img src="{% static 'images/phonepay.png'%}" height="55px" width="55px"><br><br>
+                <div class="pay_optns">
+                  Change Payment Options
+                </div>
+            </div>
             </div>
              </div>      
       </div>

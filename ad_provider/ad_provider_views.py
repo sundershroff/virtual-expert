@@ -174,9 +174,9 @@ def edit_account(request,id):
             print(request.POST)
             response = requests.post(f"http://127.0.0.1:3000/ad_pro_edit_account/{id}", data = request.POST,files=request.FILES)
             print(response)
-            print(response.status_code)
-            print(response.text)
-            return render(request,"ad_pro_editAccount.html",context)
+            # print(response.status_code)
+            # print(response.text)
+            return render(request,f"ad_provider/ad_pro_account/{id}",context)
     
         return render(request,"ad_pro_editAccount.html",context)
     except:
@@ -184,53 +184,283 @@ def edit_account(request,id):
 
 
 def acc_balance(request,id):
-    return render(request,"ad_pro_accntBalance.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_accntBalance.html",context)
 
 def add_funds(request,id):
-    return render(request,"ad_pro_adFunds.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_adFunds.html",context)
 
 def ads_list_all(request,id):
-    return render(request,"ad_pro_list.html")
+    jsondec=json.decoder.JSONDecoder()
+    new=[]
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    for i in all_data:
+        uid=jsondec.decode(i.get("ad_pro"))
+        id_value = uid['uid']
+        if id_value == id:
+            new.append(i)
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new,
+
+          }
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+    
+    elif "edi_ad" in request.POST:
+        print(request.POST)
+        global dis_id
+        dis_id = request.POST['edi_ad']
+        print(dis_id)
+        return redirect(f"/ad_provider/ad_pro_editAd/{id}")
+    else:
+        print(request.POST)
+    
+    return render(request,"ad_pro_list.html",context)
 
 def ads_active(request,id):
-    return render(request,"ad_pro_active.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Active" or status == "active":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
+
+            }
+            return render(request,"ad_pro_active.html",context1)
+    else:
+        print("no data")
+    return render(request,"ad_pro_active.html",context)
 
 def ads_pending(request,id):
-    return render(request,"ad_pro_pending.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Pending" or status == "pending":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
+
+            }
+            return render(request,"ad_pro_pending.html",context1)
+    else:
+        print("no data")
+    return render(request,"ad_pro_pending.html",context)
 
 def ads_deactive(request,id):
-    return render(request,"ad_pro_deactive.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Deactive" or status == "deactive":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
+
+            }
+            return render(request,"ad_pro_pending.html",context1)
+    else:
+        print("no data")
+    return render(request,"ad_pro_deactive.html",context)
 
 def ads_closed(request,id):
-    return render(request,"ad_pro_closed.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    context={'key':mydata,
+            'current_path':request.get_full_path(),}
+    for dict_data in all_data:
+        status=dict_data['status']
+        
+        if status == "Closed" or status == "closed":
+            context1={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_data':all_data
+
+            }
+            return render(request,"ad_pro_closed.html",context1)
+    else:
+        print("no data")
+    return render(request,"ad_pro_closed.html",context)
 
 def ad_pro_createAd(request,id):
-    if request.POST:
-        return redirect("/ad_provider/ad_pro_payment/<id>")
-    return render(request,"ad_pro_createAd.html")
+    try:
+        jsondec=json.decoder.JSONDecoder()
+        mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+        # all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
+        neww=[]
+        new=[]
+        response = requests.get('https://api.first.org/data/v1/countries').json()
+        
+        all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+
+        # dist=requests.get('https://countriesnow.space/api/v0.1/countries/capital').json()
+        # statess = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+        # for i in all_data:
+        #     uid=jsondec.decode(i.get("ad_dis"))
+        #     id_value = uid['uid']
+        #     if id_value == uid:
+        #         new.append(i)
+
+        states = json.dumps(all["data"])
+        
+        al = (all["data"])
+        for x in al:
+            name = (x.get("name"))
+            neww.append(name)
+        countryname = json.dumps(neww)
+
+        context = {'key':mydata,'current_path':request.get_full_path(),
+                    'response': response, 'region': response,'all':al,
+                    'country': countryname,'states': states,   'all_data': new}
+        if "office_state" in request.POST:
+            city = request.POST['office_state']
+        else:
+            city = "None"
+
+        if request.method == "POST":
+            print(request.POST)
+            data = {
+            'ad_name': request.POST['ad_name'],
+            'ad_dis': id,
+            'category': request.POST['category'],
+            'ad_type': request.POST['ad_type'],
+            'languages': request.POST['languages'],
+            'office_country': request.POST['office_country'],
+            'office_state':city,
+            'office_district': request.POST['office_district'],
+            'gender': request.POST['gender'],
+            'age_range': request.POST['age_range'],
+             'age_to': request.POST['age_to'],          
+            'no_views':request.POST['no_views'],
+            'days_required':request.POST['days_required'],
+            'times_repeat':request.POST['times_repeat'],
+            'ad_details':request.POST['ad_details'],
+            'action_name':request.POST['action_name'],
+            'action_url':request.POST['action_url']
+            # 'id_card': request.FILES['id_card'],
+            # 'other_ads':request.FILES['other_ads'], 
+            }
+            print(data)
+            print(request.FILES)
+            response = requests.post(f"http://127.0.0.1:3000/create_new_ads/{id}", data = data,files=request.FILES)
+            print(response)
+            # print(response.status_code)
+            # print(response.text)
+            return render(request,"ad_pro_payment.html",context)
+        return render(request,"ad_pro_createAd.html",context)
+    except:
+        return render(request,"ad_pro_createAd.html")
+
 
 def ad_pro_payment(request,id):
-    return render(request,"ad_pro_payment.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_payment.html",context)
 
 def ad_pro_editAd(request,id):
-    if request.POST:
-        return redirect("/ad_provider/ad_pro_payment/<id>")
-    return render(request,"ad_pro_editad.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    ads_list_all(request,id)
+    print(dis_id)
+    ads_data=requests.get(f"http://127.0.0.1:3000/ad_pro_ad_details/{dis_id}").json()
+    
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'ad_data':ads_data
+
+         }
+    
+    if request.method == "POST":
+        # print(request.POST)
+        # print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/ad_pro_edit_ads/{dis_id}", data = request.POST,files=request.FILES)
+        print(response)
+        # print(response.status_code)
+        # print(response.text)
+        return redirect(f"/ad_provider/ad_pro_list/{id}")
+    return render(request,"ad_pro_editad.html",context)
 
 def ad_pro_adDetails(request,id):
-    if request.POST:
-        return redirect("/ad_provider/ad_pro_payment/<id>")
-    return render(request,"ad_pro_adDetails.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    ads_list_all(request,id)
+    print(ads_id)
+    ads_data=requests.get(f"http://127.0.0.1:3000/ad_pro_ad_details/{ads_id}").json()
+    
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'ad_data':ads_data
+
+         }
+    # if request.POST:
+    #     return redirect(f"/ad_provider/ad_pro_payment/{id}")
+    return render(request,"ad_pro_adDetails.html",context)
 
 def ad_pro_users(request,id):
-    return render(request,"ad_pro_users.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_users.html",context)
 
 
 def ad_pro_addusers(request,id):
-    return render(request,"ad_pro_addusers.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_addusers.html",context)
 
 def ad_pro_settings(request,id):
-    return render(request,"ad_pro_settings.html")
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+    return render(request,"ad_pro_settings.html",context)
 
 
 

@@ -110,16 +110,17 @@
     <!-- start -->
     
     <div class="locl_adm_sec2 px-4 my-2">
-        
+         {% for i in all_data %}
+           {% if i.status == "Closed" %}
           <div class="row rowbg">
             <div class="col-lg-2 col-md-2">
-              <button class="closed_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
+              <button class="closed_btn"><b><img src="{{i.id_card}}" width="102px" height="120px"></b> </button>
             </div>
             <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#FF5C5C">Closed</span>
+              <span ><b>{{i.ad_name}}</b><br>
+                <span class="task_button_text">{{i.ad_type}}<br>
+                  {{i.days_required}}| 10:00am <br>
+                  Status:<span style="color:#FF5C5C">{{i.status}}</span>
               </span></span><br>
               <button class="my-2 ads_btn1">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
@@ -127,7 +128,7 @@
             <div class="col-lg-1 col-md-1"></div>
             <div class="col-lg-6 col-md-6">
                 <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
+                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{i.no_views}}</b></p><br><p style="float:right">Views</p></div>
                 <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
                 <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                 </div>
@@ -138,6 +139,8 @@
             </div>
                           
           </div>
+          {% endif %}
+        {% endfor %}
           <div class="row rowbg">
             <div class="col-lg-2 col-md-2">
               <button class="closed_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
