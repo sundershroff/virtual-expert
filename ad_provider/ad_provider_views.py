@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+from django.contrib import messages
 import json
 
 # Create your views here.
@@ -130,10 +131,12 @@ def upload_acc(request,id):
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]  
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+    all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'all_profile_finder':all_profile_finder[::-1],
+        'all_data':all_data,
 
     }
 
@@ -460,10 +463,37 @@ def ad_pro_settings(request,id):
         'current_path':request.get_full_path()
 
     }
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            a=request.POST["pass_reset"]
+            print(a)
+            response = requests.post(f"http://127.0.0.1:3000/password_reset/{id}",data=request.POST )
+        else:
+            print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/ad_pro_email_update/{id}", data = request.POST)
+            print(response)
+            print(response.status_code)
+            print(response.text)
+            return render(request,"ad_pro_settings.html",context)
+
     return render(request,"ad_pro_settings.html",context)
 
 
+def password_reset(request,id):
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            a=request.POST["pass_reset"]
+            print(a)
 
+        if request.POST['password'] == request.POST['confirm_password']:
+            response = requests.post(f"http://127.0.0.1:3000/ad_pro_password_update/{id}",data=request.POST )
+            messages.info(request,"Password Successfully Updated")
+        else:
+            messages.info(request,"Password Incorrect")
+    return render(request,"password_reset.html")
 
 
 
