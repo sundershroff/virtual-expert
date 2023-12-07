@@ -88,10 +88,14 @@ def profile_picture(request,id):
         # if get["otp"] == data['user_otp']:
             return redirect(f"/affiliate_marketing/af_uploadprofile/{uidd}")
         else:
-            return HttpResponse("INVALId")
+            pass
     return render(request,"af_profilepicture.html")
 
 def upload_acc(request,id):
+    hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+    context = {
+        'hm_data' :hiring_manager
+    }
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -105,8 +109,8 @@ def upload_acc(request,id):
         # if get["otp"] == data['user_otp']:
             return redirect(f"/affiliate_marketing/af_profile/{uidd}")
         else:
-            return HttpResponse("INVALId")
-    return render(request,"af_uploadprofile.html")
+            pass
+    return render(request,"af_uploadprofile.html",context)
 
 def admin_dashboard(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]  

@@ -55,7 +55,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">900 </span>Profile Finder in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_profile_finder|length}} </span>Profile Finder in the list</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -103,12 +103,27 @@
              <td data-label = "Email ID">{{i.email}}</td>
              <td data-label = "Phone Number">+91 {{i.mobile}}</td>
              <td data-label = "Location">{{i.r_country}}</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status"></i>
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
+             <td data-label = "Status">
+              {% if i.status == "Approve" %}
+                                            <i class="fas fa-circle locl_adm_status"></i>
+                            <label class="toggle-switch">
+                <input type="checkbox" checked>
+            <span class="slider"></span>
             </label>
+              {% elif i.status == "Reject" %}
+                                 <i class="fas fa-circle locl_adm_status" style="color:red;"></i>
+                                          <label class="toggle-switch">
+                  <input type="checkbox" >
+                              <span class="slider"></span>
+            </label>
+              {% else%}
+                                <i class="fas fa-circle locl_adm_status" style="color:orange;"></i>
+
+                                          <label class="toggle-switch">
+              <input type="checkbox" >
+                          <span class="slider"></span>
+            </label>
+              {% endif %}
                
              </td>
              <td data-label = "Actions"><i data-bs-toggle="modal" data-bs-target="#exampleModal{{forloop.counter}}" class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>

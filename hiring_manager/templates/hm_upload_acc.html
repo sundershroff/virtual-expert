@@ -175,7 +175,7 @@
 
                 <div class="col-lg-6 my-3">
             <label class="form-label">Hiring Manager<span>*</span></label>
-            <select class="form-select" name="hiring_manager">
+            <select class="form-select" name="my_hiring_manager">
               <option value="default">Select</option>
               {% for i in hiring_manager %}
               <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
@@ -229,7 +229,7 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#">Update</button>
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target=""> Update</button>
           {% comment %} exampleModal {% endcomment %}
         </div>
            
@@ -303,9 +303,10 @@
             // notary: {
             //   required: true
             // },
-            id_card: {
-              required: true
+            my_hiring_manager: {
+              valueNotEquals: "default"
             }
+           
 
           },
           submitHandler: function (form) {
