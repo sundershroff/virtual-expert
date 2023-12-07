@@ -43,6 +43,7 @@ urlpatterns = [
     path('profile_manager/complaints/<id>', pm_views.complaints),
     path('profile_manager/users/<id>', pm_views.users),
     path('profile_manager/add_user/<id>', pm_views.add_user),
+    path('profile_manager/user_edit/<id>', pm_views.user_edit),
     path('profile_manager/settings/<id>', pm_views.settings),
 
 #///////sales manager//////

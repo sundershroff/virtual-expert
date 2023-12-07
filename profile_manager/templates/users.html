@@ -128,7 +128,7 @@
 {% csrf_token %}
         <ul>
           <li><a href="">View Details</a> </li>
-          <li><a href=""><button type="submit" name="edit" value="">Edit</button></a></a></li>
+          <li><a href=""><button type="submit" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
           <li><a href="" style="color:red;"><button type="submit" name="delete" value="{{i.uid}}">Delete</button></a> </li>
         </ul>
       </form>

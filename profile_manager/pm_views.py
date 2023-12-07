@@ -450,22 +450,49 @@ def complaints(request,id):
     return render(request,"complaints.html",context)
 
 def users(request,id):
+    error = ""
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
     my_user = requests.get(f"http://127.0.0.1:3000/pm_my_users_data/{id}").json()
     # print(my_user)
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'my_user':my_user,
-    
-    
-   }
     if request.method== "POST":
         print(request.POST)
         if "delete" in request.POST:
            response = requests.post(f"http://127.0.0.1:3000/add_user/{id}",data=request.POST)
            print(response.text)
            print(response.status_code)
+        elif "edit" in request.POST:
+            global user_uid
+            user_uid = request.POST['edit']
+            return redirect(f"/profile_manager/user_edit/{id}")
+        elif "edit_user" in request.POST:
+            print(request.POST)
+            if request.POST['password'] == request.POST['confirm_password']:
+                data={
+                    'first_name': request.POST['first_name'],
+                    'last_name':request.POST['last_name'],
+                        'email': request.POST['email'],
+                        'mobile':request.POST['mobile'],
+                            'password': request.POST['password'],
+                                'access_Privileges':  request.POST.getlist('access_Privileges'),
+                                'edit':request.POST['edit_user'],
+                }
+            print(data)
+            response = requests.post(f"http://127.0.0.1:3000/add_user/{id}",data=data)
+            # print(response.text)
+            # print(response.status_code)
+            if response.status_code == 200:
+                return redirect(f"http://127.0.0.1:8001/profile_manager/users/{id}")
+            elif response.status_code == 203:
+                print("user already exist")
+                error = "User Already Exixts"
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'my_user':my_user,
+        'error':error,
+
+    
+   }
 
     return render(request,"users.html",context)
 
@@ -502,6 +529,45 @@ def add_user(request,id):
     }
 
     return render(request,"add_user.html",context)
+
+def user_edit(request,id):
+    users(request,id)
+    print(user_uid)
+    error=""
+    mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]
+    pm_my_users_data   = requests.get(f"http://127.0.0.1:3000/single_users_data/{user_uid}").json()[0]
+    print(pm_my_users_data)
+    if request.method=="POST":
+        print(request.POST)
+        if request.POST['password'] == request.POST['confirm_password']:
+           data={
+                 'first_name': request.POST['first_name'],
+                   'last_name':request.POST['last_name'],
+                     'email': request.POST['email'],
+                       'mobile':request.POST['mobile'],
+                         'password': request.POST['password'],
+                             'access_Privileges':  request.POST.getlist('access_Privileges'),
+                             'edit':request.POST['edit_user'],
+            }
+           print(data)
+           response = requests.post(f"http://127.0.0.1:3000/add_user/{id}",data=data)
+           print(response.text)
+           print(response.status_code)
+           if response.status_code == 200:
+              return redirect(f"http://127.0.0.1:8001/profile_manager/users/{id}")
+           elif response.status_code == 203:
+              print("user already exist")
+              error = "User Already Exixts"
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'error':error,
+        'pm_my_users_data':pm_my_users_data,
+
+    }
+
+    return render(request,"user_edit.html",context)
+
 
 def settings(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
