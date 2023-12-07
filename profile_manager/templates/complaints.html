@@ -108,7 +108,12 @@
              {% else %}
                                <td data-label = "Status"><strong class="pending" style="color: green;background-color: lightgreen;">Complete</strong></i></td>
              {% endif %}
-             <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
+             {{access_Privileges}}
+             {% if "Access Complaints" in access_Privileges %}
+                          <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
+             {% else %}
+                          <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target=""></i></td>
+             {% endif %}
               
             </tr>
             {% comment %} <-- model start --> {% endcomment %}
@@ -126,10 +131,17 @@
 
            <form method = "POST">
            {% csrf_token %}
+                         {% if "Replay to complaints" in access_Privileges %}
+
              <div>
                <label class="form-label">Replay</label>
              </div>
+                            {% else %}
+              {% endif %}
+
              <div>
+              {% if "Replay to complaints" in access_Privileges %}
+              
                           {% if i.complaints_replay == "empty"  %}
                <input name = "complaints_replay" class="form-control" style="height: 85px;">
              <input type="text" name="uid" value="{{i.uid}}" style = "display:none;">
@@ -139,7 +151,10 @@
                <input type="text" name="uid" value="{{i.uid}}" style = "display:none;">
 
                {% endif %}
-             </textarea>
+
+                             {% else %}
+              {% endif %}
+
              </div>
 
           </div>

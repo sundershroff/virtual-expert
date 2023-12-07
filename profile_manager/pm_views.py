@@ -3,7 +3,7 @@ from django.http import JsonResponse,HttpResponse
 import requests
 import json
 
-
+jsondec = json.decoder.JSONDecoder()
 # Create your views here.
 def dashboard(request):
     return render(request,"dashboard.html")
@@ -39,11 +39,18 @@ def signin(request):
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
         response = requests.post("http://127.0.0.1:3000/pm_signin/",data=request.POST)
         print(response.status_code)
-        print(response.text)
-        uidd = (response.text[1:-1])
-        print(uidd)
+        print(type(jsondec.decode(response.text)))
+        print(jsondec.decode(response.text))
+        uidd = jsondec.decode(response.text)
+        global access_Privileges
+        try:
+            access_Privileges = uidd['access_Privileges']
+            uid = uidd['uid']
+        except:
+            access_Privileges = ""
+            uid = uidd
         if response.status_code == 200:
-            return redirect(f"/profile_manager/admin_dashboard/{uidd}")
+            return redirect(f"/profile_manager/admin_dashboard/{uid}")
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
     context = {'error':error}
@@ -134,6 +141,8 @@ def upload_acc(request,id):
         return render(request,"upload_acc.html",context)
 
 def admin_dashboard(request,id):
+    signin(request)
+    print(access_Privileges)
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
     my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
     complaints_list = []
@@ -151,6 +160,7 @@ def admin_dashboard(request,id):
         'all_profile_finder':my_profile_finder,
         'complaints_list':complaints_list,
         'approve_list':approve_list,
+        'access_Privileges':access_Privileges,
 
     }
     return render(request,"admin_dashboard.html",context)
@@ -239,6 +249,9 @@ def profile_finders(request,id):
     return render(request,"profile_finders.html",context)
     
 def view_details(request,id):
+    signin(request)
+    print(access_Privileges)
+
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0] 
     profile_finders(request,id)
     print(uid) 
@@ -395,6 +408,7 @@ def view_details(request,id):
       'lengthfood_taste':lengthfood_taste,
       'food_tastelist':food_tastelist,
         'lengthgallery':lengthgallery,
+        'access_Privileges':access_Privileges,
     }
     if request.method == "POST":
         print(request.POST)
@@ -408,6 +422,8 @@ def view_details(request,id):
     return render(request,"view_details.html",context)
 
 def complaints(request,id):
+    signin(request)
+    print(access_Privileges)
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0] 
     my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id] 
     complaints_list = []
@@ -419,6 +435,7 @@ def complaints(request,id):
         'current_path':request.get_full_path(),
         'my_profile_finder':my_profile_finder,
         'complaints_list':complaints_list,
+        'access_Privileges':access_Privileges,
 
     }
     if request.method == "POST":
@@ -426,7 +443,7 @@ def complaints(request,id):
         data = {
             'complaints_replay': request.POST['complaints_replay'],
              'pf_complaints': request.POST['pf_complaints'],
-             'my_manager':id
+             'my_manager':id,
         }
         response = requests.post(f"http://127.0.0.1:3000/my_complaints/{request.POST['uid']}",data = data)
         print(data)
@@ -434,20 +451,56 @@ def complaints(request,id):
 
 def users(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    my_user = requests.get(f"http://127.0.0.1:3000/pm_my_users_data/{id}").json()
+    # print(my_user)
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'my_user':my_user,
+    
+    
+   }
+    if request.method== "POST":
+        print(request.POST)
+        if "delete" in request.POST:
+           response = requests.post(f"http://127.0.0.1:3000/add_user/{id}",data=request.POST)
+           print(response.text)
+           print(response.status_code)
 
-    }
     return render(request,"users.html",context)
 
 def add_user(request,id):
+    error=""
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
+    if request.method=="POST":
+        print(request.POST)
+        if request.POST['password'] == request.POST['confirm_password']:
+           data={
+                 'first_name': request.POST['first_name'],
+                   'last_name':request.POST['last_name'],
+                     'email': request.POST['email'],
+                       'mobile':request.POST['mobile'],
+                         'password': request.POST['password'],
+                             'access_Privileges':  request.POST.getlist('access_Privileges'),
+                             'work':"profile_manager",
+                             'creator':id
+            }
+           print(data)
+           response = requests.post(f"http://127.0.0.1:3000/add_user/{id}",data=data)
+           print(response.text)
+           print(response.status_code)
+           if response.status_code == 200:
+              return redirect(f"http://127.0.0.1:8001/profile_manager/users/{id}")
+           elif response.status_code == 203:
+              print("user already exist")
+              error = "User Already Exixts"
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'error':error,
 
     }
+
     return render(request,"add_user.html",context)
 
 def settings(request,id):
