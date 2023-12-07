@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'hiring_manager',
     'ad_provider',
     'ad_distributor',
-    'affiliate_marketing'
+    'affiliate_marketing',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

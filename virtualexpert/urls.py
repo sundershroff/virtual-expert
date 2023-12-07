@@ -65,6 +65,9 @@ urlpatterns = [
     path('sales_manager/sm_accountsetting/<id>', sm_views.setting),
     path('sales_manager/sm_users/<id>', sm_views.users),
     path('sales_manager/sm_addusers/<id>', sm_views.add_users),
+    path('sales_manager/otp_client/<id>',sm_views.otp_client),
+
+    # path('sales_manager/add_client/<id>',sm_views.add_client),
 
 
 
@@ -174,6 +177,8 @@ urlpatterns = [
     path('affiliate_marketing/af_editprofile/<id>', af_views.edit_profile),
     path('affiliate_marketing/af_commisions/<id>', af_views.commisions),
     path('affiliate_marketing/af_setting/<id>', af_views.setting),
+    path('affiliate_marketing/af_marketingdashboard/<id>',af_views.admin_dashboard),
+    path('password_reset/<id>',af_views.password_rest)
 
 
 

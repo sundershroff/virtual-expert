@@ -26,7 +26,7 @@
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
  
- <!-- <div class="dash_bor_sec1">
+ <div class="dash_bor_sec1">
 
   <div class="dash_bor_sdbr" id="dashsidebar">
 
@@ -38,16 +38,17 @@
        {% include 'af_nav.html'%}
 
       </nav>
-      <!-- .nav-menu 
+       .nav-menu 
     </div>
     <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
   </header>
   
   </div>
-</div> -->
+</div>
   <div class="dash_bor_main1">
+    {% include 'af_header.html' %}
     <!-- start1-->
-
+<!-- 
     <div class="dash_par1" style="background:white;display: none;">
 
           <i class="fa-regular fa-bell"></i>
@@ -62,7 +63,7 @@
       <img src="{% static 'images/Logo_2.png'%}">
     </div>
       <div class="dash_bor_main1">
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="display: none;"></i>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="display: none;"></i> -->
     <!-- over -->
 
     <!-- start -->
@@ -75,7 +76,7 @@
         <div class="rowbg1">
             
               
-                <form method="post" enctype="multipart/form-data" id="myform">
+                <form method="POST" enctype="multipart/form-data" id="myform">
                   {% csrf_token %}
          <div class="row py-3">
                     <div class="col-lg-4 col-md-4">
@@ -105,6 +106,9 @@
                      <input type="text" name="personal_address" class="form-control" placeholder="Enter" required>
                      </div>
                      <div>
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed py-3"><b>Profile Picture</b><sup style="color: #9B51E0">*</sup></label>
+         <div class="editpro_id">
+          <input type="file" name="profile_picture" id="" style="
                       <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Hiring Manager</b><sup style="color: #9B51E0">*</sup></label>
                       <select class="form-select " name="hiring_manager">
                         <option value="default">Select</option>
@@ -126,7 +130,7 @@
                     
                     <i class='fas fa-file-alt' style='font-size:40px;color: #3247CE' ></i>
                    </div></center>
-                   <p style="color:#6E717A">Drag Or Click here to Upload Yout ID</p>
+                   <p style="color:#6E717A">Drag Or Click here to Upload Yout Profile Picture</p>
                    
          </div> {% endcomment %}
                     </div>

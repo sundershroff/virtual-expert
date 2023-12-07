@@ -52,9 +52,10 @@
   </div>
 
   <div class="dash_bor_main1" >
+    {% include 'sm_header.html' %}
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
+    <!-- <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -73,7 +74,7 @@
         </div>
          </div>
 
-    </div>
+    </div> -->
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -83,7 +84,8 @@
       <h3 class="mb-4"><span style="color:  #3247CE;font-weight:500;">Ad Detail</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
+          {%csrf_token%}
           <div class="row mb-3">
 
           <div class="col-lg-4 my-3">

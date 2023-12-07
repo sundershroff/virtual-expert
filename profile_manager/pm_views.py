@@ -210,7 +210,6 @@ def acc_balance(request,id):
     context={
         'key':mydata,
         'current_path':request.get_full_path()
-
     }
     return render(request,"acc_balance.html",context)
 
