@@ -50,8 +50,8 @@
 
   <div class="dash_bor_main1" >
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -70,35 +70,48 @@
           </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
     <!-- start -->
     <div class="local_admin_edi_acc px-3 py-4">
 
-     <a href="/ad_distributor/ad_dis_account/<id>" style="text-decoration: none;"><h3 class="mb-4">Profile ></a>  <span style="color:#7B61FF;font-weight:500;">Edit Account</span></h3>
+     <a href="/ad_distributor/ad_dis_account/{{key.uid}}" style="text-decoration: none;"><h3 class="mb-4">Profile ></a>  <span style="color:#7B61FF;font-weight:500;">Edit Account</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="" action="">
+      
+        <form method="POST" enctype="multipart/form-data" action="">
+          {% csrf_token %}
           <div class="row mb-3">
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Name">
+            <input type="text" name="office_name" class="form-control" placeholder="Name" value="{{key.office_name}}">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select id="countrytwo" name="office_country" class="form-select" onchange="fun2.call(this,event)">
+              <option value="{{key.office_country}}">{{key.office_country}}</option>
+              {% for j in all %}
+              <option value="{{j.name}}">{{j.name}}</option>
+              {% endfor %}
             </select>
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select id="res3" name="office_city" class="form-select">
+              <option value="{{key.office_city}}">{{key.office_city}}</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
             </select>
           </div>
           
@@ -108,7 +121,7 @@
 
         <div class="col-12">
           <label class="form-label">Address<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Address">
+            <input type="text" name="office_address" value="{{key.office_address}}" class="form-control" placeholder="Address">
         </div> 
           
         </div>
@@ -121,56 +134,69 @@
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">First Name<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="first name">
+                  <input type="text" class="form-control" placeholder="first name" name="first_name" value="{{key.first_name}}">
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">Last Name<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="last name">
+                  <input type="text" class="form-control" placeholder="last name" name="last_name" value="{{key.last_name}}">
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select class="form-select">
-              <option>Select</option>
-            </select>
+                  <select id="countryone" name="personal_country" class="form-select" onchange="fun1.call(this,event)">
+                    <option value="{{key.personal_country}}">{{key.personal_country}}</option>
+                    {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
+                  </select>
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select">
-              <option>Select</option>
-            </select>
+                  <select id="res2" name="personal_city" class="form-select">
+                    <option value="{{key.personal_city}}">{{key.personal_city}}</option>
+                    <script>
+                      stat = {{ states|safe }};
+                  ttt = stat[0].states;
+                  for (i=0;i<ttt.length;i++){
+                     tt = ttt[i].name;
+                     document.write("<option value="tt">"+tt+"</option>");
+                  }
+                </script>
+                  </select>
                 </div>
 
                 <div class="col-12 my-3">
                   <label class="form-label">Addresss<span>*</span></label>
-                  <input type="text" class="form-control" placeholder="Address">
+                  <input type="text" class="form-control" placeholder="Address" name="personal_address" value="{{key.personal_address}}">
                 </div>
 
-                <div class="col-lg-6 my-3">
+                {% comment %} <div class="col-lg-6 my-3">
             <label class="form-label">Notary<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select name="notary" class="form-select">
+              <option value="{{key.notary}}">{{key.notary}}</option>
             </select>
-          </div>
+          </div> {% endcomment %}
 
               
                 
               </div>
               
             </div>
-            <div class="col-lg-4">
+             <div class="col-lg-4">
               
               <div class="row">
-                 <                 <div class="col-12 my-3">
-label class="form-label">ID Card<span>*</span></label>
 
-                  <div class="local_admin_drag_area">
+                 <div class="col-12 my-3">
+                 <label class="form-label">Profile Picture<span>*</span></label>
+
+
+                  <div class="local_admin_drag_area"> 
                  
-                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
-                      <header>Drag or click here to Upload your ID </header>
-
-                      <input type="file" style="opacity: 0;position: absolute;">
+                     {% comment %} <div class="icon"><i class="fa-solid fa-file-image"></i></div> {% endcomment %}
+                      <header>Drag or click here to Upload your Profile </header>
+                      <img src="{{key.profile_picture}}" style="display: flex;width: 100%;object-fit: contain;padding: 8px;">
+                      <input class="file-input" type="file"  name="profile_picture" style="opacity: 0;position: absolute;">
                 
 
                   </div>
@@ -179,7 +205,7 @@ label class="form-label">ID Card<span>*</span></label>
               </div>
             </div>
 
-          </div>
+          </div> 
 
           <div class="row my-4">
 
@@ -194,15 +220,16 @@ label class="form-label">ID Card<span>*</span></label>
           
         </div>
         
-        </form>
+      
+
         <div class="ad_edit_acc my-4">
 
           <button>Cancel</button>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
           
         </div>
            
-        
+      </form> 
         
       </div>
       
@@ -231,7 +258,44 @@ label class="form-label">ID Card<span>*</span></label>
           
         </div>
       </div>
-     
+
+      
+      <script type="text/javascript">
+        function fun1(event){
+        a = document.getElementById("countryone").value;
+        <!--document.getElementById("res").innerHTML=a;-->
+        c = {{ country|safe }};
+        position =c.indexOf(a);
+        <!--document.getElementById("res1").innerHTML=position;-->
+        stat = {{ states|safe }};
+        ttt = stat[position].states;
+        tt = "<select>";
+        for (i=0;i<ttt.length;i++){
+           tt += "<option>"+ttt[i].name+"</option>";
+        }
+             tt+="</select>";
+              document.getElementById("res2").innerHTML=tt;
+        }
+        
+        </script>
+        <script type="text/javascript">
+          function fun2(event){
+          a = document.getElementById("countrytwo").value;
+          <!--document.getElementById("res").innerHTML=a;-->
+          c = {{ country|safe }};
+          position =c.indexOf(a);
+          <!--document.getElementById("res1").innerHTML=position;-->
+          stat = {{ states|safe }};
+          ttt = stat[position].states;
+          tt = "<select>";
+          for (i=0;i<ttt.length;i++){
+             tt += "<option>"+ttt[i].name+"</option>";
+          }
+               tt+="</select>";
+                document.getElementById("res3").innerHTML=tt;
+          }
+          
+          </script>
  
       <script src="{% static 'js/main.js'%}"></script>
 

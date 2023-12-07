@@ -51,8 +51,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -71,14 +71,14 @@
           </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
     <!-- start -->
     <div class="loc_adm_bala py-3 px-3">
      
-      <a href="/ad_distributor/ad_dis_account/<id>" style="text-decoration: none;"><h3 style="color:#6E717A;">Account ></a> <span style="color:#7B61FF;">Account Balance</span></h3>
+      <a href="/ad_distributor/ad_dis_account/{{key.uid}}" style="text-decoration: none;"><h3 style="color:#6E717A;">Account > </a> <span style="color:#7B61FF;">Account Balance</span></h3>
 
      <div class="loc_adm_bala_par1 my-5"> 
 
@@ -97,7 +97,7 @@
       </div>
 
         <div class="loc_adm_bala_chi2">
-          <a href="/ad_distributor/ad_dis_adFunds.html/<id>" style="text-decoration: none;display: contents;">
+          <a href="/ad_distributor/ad_dis_adFunds/{{key.uid}}" style="text-decoration: none;display: contents;">
             <i class="bi bi-plus-circle-fill" style="font-size:30px"></i>
           <h6>Add Fund</h6></a>
         

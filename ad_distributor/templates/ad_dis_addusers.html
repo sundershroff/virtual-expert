@@ -45,8 +45,8 @@
 </div>
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -65,21 +65,22 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
     <!-- start -->
     <div class="locl_adm_sec1 px-4 my-4">
 
-     <h4 style="color:#3247CE"><a href="/ad_distributor/ad_dis_users/<id>" style="text-decoration: none;"><span style="color: #6E717A">Profile ></span></a>Add User</h4>
+     <h4 style="color:#3247CE"><a href="/ad_distributor/ad_dis_users/{{key.uid}}" style="text-decoration: none;"><span style="color: #6E717A">Profile ></span></a>Add User</h4>
     
     </div>
     <div class="locl_adm_sec2 px-4 my-2">
         <div class="rowbg1">
             
               
-                <form method="post" action="#">
+                <form method="post" action="" enctype="multipart/form-data">
+                  {% csrf_token %}
          <div class="row py-3">
                     <div class="col-lg-4 col-md-4">
                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>First Name</b><sup style="color: #9B51E0">*</sup></label>

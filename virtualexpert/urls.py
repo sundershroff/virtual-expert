@@ -122,7 +122,7 @@ urlpatterns = [
     path('ad_provider/ad_pro_account/<id>', ad_provider_views.account),
     path('ad_provider/ad_pro_editAccount/<id>', ad_provider_views.edit_account),
     path('ad_provider/ad_pro_acc_balance/<id>', ad_provider_views.acc_balance),
-    path('ad_provider/ad_pro_adFunds.html/<id>', ad_provider_views.add_funds),
+    path('ad_provider/ad_pro_adFunds/<id>', ad_provider_views.add_funds),
     path('ad_provider/ad_pro_list/<id>', ad_provider_views.ads_list_all),
     path('ad_provider/ad_pro_active/<id>', ad_provider_views.ads_active),
     path('ad_provider/ad_pro_pending/<id>', ad_provider_views.ads_pending),
@@ -135,6 +135,7 @@ urlpatterns = [
     path('ad_provider/ad_pro_users/<id>', ad_provider_views.ad_pro_users),
     path('ad_provider/ad_pro_addusers/<id>', ad_provider_views.ad_pro_addusers),
     path('ad_provider/ad_pro_settings/<id>', ad_provider_views.ad_pro_settings),
+    path('password_reset/<id>',ad_provider_views.password_reset),
 
 
 
@@ -150,7 +151,7 @@ urlpatterns = [
     path('ad_distributor/ad_dis_account/<id>', ad_distributor_views.account),
     path('ad_distributor/ad_dis_editAccount/<id>', ad_distributor_views.edit_account),
     path('ad_distributor/ad_dis_acc_balance/<id>', ad_distributor_views.acc_balance),
-    path('ad_distributor/ad_dis_adFunds.html/<id>', ad_distributor_views.add_funds),
+    path('ad_distributor/ad_dis_adFunds/<id>', ad_distributor_views.add_funds),
     path('ad_distributor/ad_dis_list/<id>', ad_distributor_views.ads_list_all),
     path('ad_distributor/ad_dis_active/<id>', ad_distributor_views.ads_active),
     path('ad_distributor/ad_dis_pending/<id>', ad_distributor_views.ads_pending),
@@ -163,6 +164,8 @@ urlpatterns = [
     path('ad_distributor/ad_dis_users/<id>', ad_distributor_views.ad_dis_users),
     path('ad_distributor/ad_dis_addusers/<id>', ad_distributor_views.ad_dis_addusers),
     path('ad_distributor/ad_dis_settings/<id>', ad_distributor_views.ad_dis_settings),
+    path('password_reset/<id>',ad_distributor_views.password_reset),
+   
 
     
 

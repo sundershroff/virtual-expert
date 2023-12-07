@@ -51,8 +51,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -71,7 +71,7 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -79,8 +79,8 @@
 
     <div class="local_adm_setting px-3 py-4">
 
-      <a href="/ad_distributor/ad_dis_account/<id>" style="text-decoration: none;"><h3 style="color:#6E717A;">Account >
-      </a> <a href="/ad_distributor/ad_dis_acc_balance/<id>" style="text-decoration: none;"><span style="color:#7B61FF;">Account Balance ></span></a>
+      <a href="/ad_distributor/ad_dis_account/{{key.uid}}" style="text-decoration: none;"><h3 style="color:#6E717A;">Account >
+      </a> <a href="/ad_distributor/ad_dis_acc_balance/{{key.uid}}" style="text-decoration: none;"><span style="color:#7B61FF;">Account Balance ></span></a>
         <span style="color:#7B61FF;">Add Funds</span></h3>
 
       

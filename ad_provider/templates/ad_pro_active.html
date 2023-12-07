@@ -43,8 +43,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_pro_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -61,7 +61,7 @@
             <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
           </ul>
         </div>
-         </div>
+         </div> {% endcomment %}
 
     </div>
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
@@ -84,7 +84,7 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <a href="/ad_provider/ad_pro_createAd/<id>" ><button data-bs-toggle="modal" data-bs-target="#" style="
+        <a href="/ad_provider/ad_pro_createAd/{{key.uid}}" ><button data-bs-toggle="modal" data-bs-target="#" style="
           border: 1px solid white;
           background-color: rgba(123, 97, 255, 1);
           color: white;
@@ -96,13 +96,13 @@
 <!-- start -->
 <div class="locl_adm_sec2 px-4 my-5">
   <div style="background-color:#fff;margin-top:15px;height:auto;padding:17px;">
-    <a href="/ad_provider/ad_pro_list/<id>" class="ad_nonactive_menu p-2"><b>All</b> </a> 
-      <a href="/ad_provider/ad_pro_active/<id>" class="ad_active_menu p-3" style="
+    <a href="/ad_provider/ad_pro_list/{{key.uid}}" class="ad_nonactive_menu p-2"><b>All</b> </a> 
+      <a href="/ad_provider/ad_pro_active/{{key.uid}}" class="ad_active_menu p-3" style="
         font-weight: 700;
     ">Active</a>
-        <a href="/ad_provider/ad_pro_pending/<id>" class="ad_nonactive_menu p-3">Pending</a>
-          <a href="/ad_provider/ad_pro_deactive/<id>" class="ad_nonactive_menu p-3">Deactive</a>
-    <a href="/ad_provider/ad_pro_closed/<id>" class="ad_nonactive_menu p-3">Closed</a>
+        <a href="/ad_provider/ad_pro_pending/{{key.uid}}" class="ad_nonactive_menu p-3">Pending</a>
+          <a href="/ad_provider/ad_pro_deactive/{{key.uid}}" class="ad_nonactive_menu p-3">Deactive</a>
+    <a href="/ad_provider/ad_pro_closed/{{key.uid}}" class="ad_nonactive_menu p-3">Closed</a>
 
     </div>
 </div>
@@ -110,8 +110,48 @@
     <!-- start -->
     
     <div class="locl_adm_sec2 px-4 my-2">
-        
+      {% for i in all_data %}
+      {% if i.status == "Active"%}
           <div class="row rowbg">
+            <div class="col-lg-2 col-md-2">
+              <form method="POST" enctype="multipart/form-data" action="">
+                {% csrf_token %}
+                <button type="submit"  class="details_button" name="detail" value="{{i.ad_id}}"><b><img src="{{i.id_card}}" height="136px" width="100px"></b> </button>
+              </form>
+            </div>
+            <div class="col-lg-3 col-md-3">
+              <span ><b>{{i.ad_name}}</b><br>
+                <span class="task_button_text">{{i.ad_type}}<br>
+                  {{i.days_required}} | 10:00am <br>
+                  Status:<span style="color:#34A853">{{i.status}}</span>
+              </span></span><br>
+              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn2">Visibility</button>
+            </div>
+            <div class="col-lg-1 col-md-1"></div>
+            <div class="col-lg-6 col-md-6">
+                <div class="ads_rect">
+                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{i.no_views}}</b></p><br><p style="float:right">Views</p></div>
+                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
+                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
+                </div>
+                {% if i.status == "Active" %}
+                <div style="float:right;margin-top:20px"> <label class="switch">
+                     <input type="checkbox" checked>
+                     <span class="slider1 round"></span>
+                   </label> <span style="color:red">Close Ad</span>  </div>
+                 {% else %}
+                 <div style="float:right;margin-top:20px"> <label class="switch">
+                   <input type="checkbox">
+                   <span class="slider1 round"></span>
+                 </label> <span style="color:red">Close Ad</span>  </div>
+                 {% endif %}
+            </div>
+                          
+          </div>
+            {% endif %}
+          {% endfor %}
+          {% comment %} <div class="row rowbg">
             <div class="col-lg-2 col-md-2">
               <button class="active_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
             </div>
@@ -191,34 +231,7 @@
                   </label> <span style="color:red">Close Ad</span>  </div>
             </div>
                           
-          </div>
-          <div class="row rowbg">
-            <div class="col-lg-2 col-md-2">
-              <button class="active_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-            </div>
-            <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#34A853">Active</span>
-              </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
-              <button class="my-2 ads_btn2">Visibility</button>
-            </div>
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-6 col-md-6">
-                <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
-                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
-                </div>
-               <div style="float:right;margin-top:20px"> <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider1 round"></span>
-                  </label> <span style="color:red">Close Ad</span>  </div>
-            </div>
-                          
-          </div>
+          </div> {% endcomment %}
     <!-- over -->
 
   </div>

@@ -45,8 +45,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -65,7 +65,7 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -73,7 +73,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <a href="/ad_distributor/ad_dis_list/<id>" style="text-decoration: none;"><h3>Ad ></a><span style="color:rgba(123, 97, 255, 1);font-weight:700;">Details</span></h3>
+        <a href="/ad_distributor/ad_dis_list/{{key.uid}}" style="text-decoration: none;"><h3>Ad ></a><span style="color:rgba(123, 97, 255, 1);font-weight:700;">Details</span></h3>
       </div>
 
       <!-- <div class="locl_adm_form">
@@ -98,13 +98,13 @@
         
         <div class="row rowbg">
             <div class="col-lg-2 col-md-2">
-              <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
+              <button class="details_button"><b><img src="{{ad_data.id_card}}" height="136px" width="100px"></b> </button>
             </div>
             <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#F2994A">Deactive</span>
+              <span ><b>{{ad_data.ad_name}}</b><br>
+                <span class="task_button_text">{{ad_data.ad_type}}<br>
+                  {{ad_data.days_required}} | 10:00am <br>
+                  Status:<span style="color:#F2994A">{{ad_data.status}}</span>
               </span></span><br>
               <button class="my-2 ads_btn1">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
@@ -113,15 +113,22 @@
             <div class="col-lg- col-md-1"></div>
             <div class="col-lg-6 col-md-6">
                 <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
+                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{ad_data.no_views}}</b></p><br><p style="float:right">Views</p></div>
                 <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
                 <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                 </div>
+                {% if ad_data.status == "Active"%}
                <div style="float:right;margin-top:20px"> <label class="switch">
                     <input type="checkbox" checked>
                     <span class="slider1 round"></span>
                   </label> <span style="color:red;cursor:pointer" data-bs-toggle="modal" data-bs-target="#close_ad">Close Ad</span>  </div>
-            </div>
+                  {% else %}
+                  <div style="float:right;margin-top:20px"> <label class="switch">
+                    <input type="checkbox" name="check" id="check">
+                    <span class="slider1 round"></span>
+                  </label> <span style="color:red;cursor:pointer" data-bs-toggle="modal" data-bs-target="#close_ad">Close Ad</span>  </div>
+                   {% endif %}
+               </div>
                           
           </div>
           <h4 style="color:#2B3674"><b>Ad Logs</b></h4>
@@ -225,12 +232,15 @@
            
          <h3>Are you sure want to close this?</h3>
             <div class="my-4">
-                After closing your and then the remaining balance will credited your wallet shortly.             </div>
+                After closing your ad then the remaining balance will credited your wallet shortly.             </div>
 </div>
 <div class="modal-footer">
              <div class="reason_modal_btn text-center mb-5">
-               <button class="my-3" type="reset">No</button>
-               <button class="my-3" type="submit">Yes</button>
+              <form method ="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+               <button class="my-3" type="submit" name="reset">No</button>
+               <button class="my-3" type="submit" name="submit">Yes</button>
+              </form>
              </div>
              </div>
 

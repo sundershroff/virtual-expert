@@ -63,7 +63,7 @@
 
   <div class="dash_bor_main1" >
     <!-- start1-->
-
+    {% comment %} {% include "ad_dis_header.html" %} {% endcomment %}
     <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
@@ -94,18 +94,28 @@
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select" name="office_country">
+            <select class="form-select" name="personal_country" id="countrytwo" onchange="fun2.call(this,event)">
               <option value="default">Select</option>
-              <option value="INDIA">INDIA</option>
+                {% for j in all %}
+                  <option value="{{j.name}}">{{j.name}}</option>
+                {% endfor %}
+          
 
             </select>
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select" name="office_city">
+            <select class="form-select" name="personal_city" id="res3">
               <option value="default">Select</option>
-              <option value="Nagercoil">Nagercoil</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
 
             </select>
           </div>
@@ -144,19 +154,28 @@
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select class="form-select" name="personal_country">
-              <option value="default">Select</option>
-              <option value="INDIA">INDIA</option>
-
+                  <select id="countryone" class="form-select" name="personal_country" onchange="fun1.call(this,event)">
+                    <option value="default">Select</option>
+                    {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
             </select>
+            
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select" name="personal_city">
-              <option value="default">Select</option>
-              <option value="Nagercoil">Nagercoil</option>
-
+                  <select class="form-select" name="personal_city" id="res2">
+                    <option value="default">Select</option>
+                    <script>
+                      stat = {{ states|safe }};
+                  ttt = stat[0].states;
+                  for (i=0;i<ttt.length;i++){
+                     tt = ttt[i].name;
+                     document.write("<option value="tt">"+tt+"</option>");
+                  }
+                </script>
+      
             </select>
                 </div>
 
@@ -166,11 +185,11 @@
                 </div>
 
                 <div class="col-lg-6 my-3">
-            <label class="form-label">Hiring Manager<span>*</span></label>
-            <select class="form-select" name="hiring_manager">
+            <label class="form-label">Notary<span>*</span></label>
+            <select class="form-select" name="notary">
               <option value="default">Select</option>
               {% for i in hiring_manager %}
-              <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+                 <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
               {% endfor %}
 
             </select>
@@ -317,8 +336,8 @@
                       $('#exampleModal').modal('toggle');
                   }, 2000);
               });
-          });
-      </script>
+          }); 
+      </script> 
 <style>
     label.valid {
     background: url(images/checked.gif) no-repeat;
@@ -339,7 +358,44 @@
         align-items: end;
     }
     </style>
-    
+
+    <script type="text/javascript">
+      function fun1(event){
+      a = document.getElementById("countryone").value;
+      <!--document.getElementById("res").innerHTML=a;-->
+      c = {{ country|safe }};
+      position =c.indexOf(a);
+      <!--document.getElementById("res1").innerHTML=position;-->
+      stat = {{ states|safe }};
+      ttt = stat[position].states;
+      tt = "<select>";
+      for (i=0;i<ttt.length;i++){
+         tt += "<option>"+ttt[i].name+"</option>";
+      }
+           tt+="</select>";
+            document.getElementById("res2").innerHTML=tt;
+      }
+      
+      </script>
+
+      <script type="text/javascript">
+        function fun2(event){
+        a = document.getElementById("countrytwo").value;
+        <!--document.getElementById("res").innerHTML=a;-->
+        c = {{ country|safe }};
+        position =c.indexOf(a);
+        <!--document.getElementById("res1").innerHTML=position;-->
+        stat = {{ states|safe }};
+        ttt = stat[position].states;
+        tt = "<select>";
+        for (i=0;i<ttt.length;i++){
+           tt += "<option>"+ttt[i].name+"</option>";
+        }
+             tt+="</select>";
+              document.getElementById("res3").innerHTML=tt;
+        }
+        
+        </script>
       <script src="{% static 'js/main.js'%}"></script>
       
 

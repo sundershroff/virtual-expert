@@ -51,8 +51,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_pro_header.html" %}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -69,7 +69,7 @@
             <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
           </ul>
         </div>
-         </div>
+         </div> {% endcomment %}
 
     </div>
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
@@ -85,20 +85,23 @@
 
         <h4 class="my-4">Want to reset your password?</h4>
 
-        <button class="my-4" data-bs-toggle="modal" data-bs-target="#emailsucc">send reset link to email</button>
+        <form class="my-5" method="POST">
+          {%csrf_token%}
+        <button class="my-4" data-bs-toggle="modal" data-bs-target="#emailsucc" name="pass_reset"  value="{{key.email}}">send reset link to email</button>
+        </form>
 
         <h4 class="my-5">Update Email ID?</h4>
 
-        <form class="my-5">
-
+        <form class="my-5" action="" method="POST" enctype="multipart/form-data"> 
+          {% csrf_token %}
           <label class="form-label">Email Id<span>*</span></label>
 
           <div class="local_adm_sett_inp">
             <div>
-              <input type="text" class="form-control" autofocus>
+              <input type="text" class="form-control"  name="email" id="eamil" autofocus>
             </div>
             <div>
-              <button>Update</button>
+              <button type="submit" >Update</button>
             </div>
           </div>
           

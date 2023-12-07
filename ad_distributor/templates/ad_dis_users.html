@@ -44,8 +44,8 @@
 
   <div class="dash_bor_main1">
     <!-- start1-->
-
-    <div class="dash_par1" style="background:white;">
+    {% include "ad_dis_header.html"%}
+    {% comment %} <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -64,7 +64,7 @@
         </div>
          </div>
 
-    </div>
+    </div> {% endcomment %}
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="z-index:10;"></i>
     <!-- over -->
 
@@ -85,7 +85,7 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <a href="/ad_distributor/ad_dis_addusers/<id>"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+        <a href="/ad_distributor/ad_dis_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
       </div>
       
     </div>
