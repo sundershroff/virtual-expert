@@ -25,10 +25,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
 
 </head>
 <body style=" background-color:#F4F2FF;">
-   
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  
  <div class="dash_bor_sec1">
 
   <div class="dash_bor_sdbr" id="dashsidebar" >
@@ -57,18 +61,22 @@
       <a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" style="text-decoration:none ;"><h3 class="mb-4">Hiring Manager ></a> <span style="color:  #3247CE;font-weight:500;">Upload Documents</span></h3>
 
       <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="POST" action="">
+        <form method="POST" enctype="multipart/form-data" action="" id="myform">
+          {% csrf_token %}
           <div class="row mb-3">
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Name">
+            <input type="text" name="office_name" class="form-control" placeholder="Name">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select id="countrytwo" name="office_country" class="form-select" onchange="fun2.call(this,event)">
+              <option value="default">Select</option>
+              {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
             </select>
           </div>
 
@@ -82,8 +90,16 @@
 
         <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select id="res3" name="office_city" class="form-select">
+              <option value="default">Select</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
             </select> 
         </div> 
         <div class="col-lg-8 my-3"></div>
@@ -92,7 +108,7 @@
 
           <div class="col-12">
             <label class="form-label">Address<span>*</span></label>
-              <input type="text" name="" class="form-control" placeholder="Address">
+              <input type="text" name="office_address" class="form-control" placeholder="Address">
           </div> 
             
           </div>
@@ -112,7 +128,7 @@
                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
                       <header>Drag or click here to Upload your ID </header>
 
-                      <input type="file" style="
+                      <input name="id_card" type="file" style="
 position: absolute;
 opacity: opx;
 opacity: 0;
@@ -135,7 +151,7 @@ opacity: 0;
                      <div class="icon"><i class="fa-solid fa-file"></i></div>
                       <header>Upload Signed Document By Notary </header>
 
-                      <input type="file" style="
+                      <input type="file" name="sign_document" style="
 position: absolute;
 opacity: opx;
 opacity: 0;
@@ -167,7 +183,7 @@ opacity: 0;
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" value="{{hiring_my_data.uid}}" name="uid" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          <button type="submit" value="{{hiring_my_data.uid}}" name="uid" data-bs-toggle="modal" data-bs-target="#">Update</button>
           
         </div>
            
@@ -201,7 +217,81 @@ opacity: 0;
         </div>
       </div>
      
- 
+      <script>
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+          debug: true,
+          success: "valid"
+        });
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+              return arg !== value;
+            }, "Select Any One");
+        $( "#myform" ).validate({
+          rules: {
+            office_name: {
+              required: true
+            },
+            office_country: {
+              valueNotEquals: "default"
+            },
+            office_city: {
+              valueNotEquals: "default"
+            },
+            office_address: {
+              required: true
+            },
+            first_name: {
+              required: true
+            },
+            last_name: {
+              required: true
+            },
+            personal_country: {
+              valueNotEquals: "default"
+            },
+            personal_city: {
+              valueNotEquals: "default"
+            },
+            personal_address: {
+              required: true
+            },
+            hiring_manager: {
+              valueNotEquals: "default"
+            },
+            id_card: {
+              required: true
+            },
+            sign_document: {
+              required: true
+            }
+
+          },
+          submitHandler: function (form) {
+                    console.log('test');
+                    form.submit();
+                }
+        });
+        </script>
+        <script type="text/javascript">
+          function fun2(event){
+          a = document.getElementById("countrytwo").value;
+          <!--document.getElementById("res").innerHTML=a;-->
+          c = {{ country|safe }};
+          position =c.indexOf(a);
+          <!--document.getElementById("res1").innerHTML=position;-->
+          stat = {{ states|safe }};
+          ttt = stat[position].states;
+          tt = "<select>";
+          for (i=0;i<ttt.length;i++){
+             tt += "<option>"+ttt[i].name+"</option>";
+          }
+               tt+="</select>";
+                document.getElementById("res3").innerHTML=tt;
+          }
+          
+          </script>
+      
+    
       <script src="{% static 'js/main.js'%}"></script>
 
 

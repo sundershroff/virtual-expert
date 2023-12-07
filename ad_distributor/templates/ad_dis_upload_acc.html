@@ -80,9 +80,9 @@
     <!-- start -->
     <div class="local_admin_edi_acc px-3 py-4">
 
-      <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3>
+      {% comment %} <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3> {% endcomment %}
 
-      <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
+      {% comment %} <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
         <form method="POST" enctype="multipart/form-data" id="myform">
           {% csrf_token %}
           <div class="row mb-3">
@@ -129,7 +129,13 @@
             <input type="text" name="office_address" class="form-control" placeholder="Address">
         </div> 
           
-        </div>
+        </div> {% endcomment %}
+        <form method="POST" enctype="multipart/form-data" id="myform" style="
+    background-color: white;
+    padding: 6px;
+    border-radius: 11px;
+">
+          {% csrf_token %}
 
         <h4 class="my-4" style="color:#7B61FF;">Contact Person Details</h4>
           
@@ -185,6 +191,7 @@
               {% for i in hiring_manager %}
                  <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
               {% endfor %}
+
             </select>
           </div>
 
@@ -206,7 +213,10 @@
 
                       <input type="file" name="id_card" style="
                       opacity: 0;
-                      position: absolute;">
+                      position: absolute;
+                      height: 272px;
+                      z-index: 5;
+                      ">
                 
 
                   </div>
@@ -234,7 +244,7 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#">Update</button>
           
         </div>
            
@@ -305,8 +315,8 @@
             personal_address: {
               required: true
             },
-            notary: {
-              required: true
+            hiring_manager: {
+              valueNotEquals: "default"
             },
             id_card: {
               required: true

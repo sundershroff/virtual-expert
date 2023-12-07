@@ -42,15 +42,17 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
   </header>
   
   </div>
 
   <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+
     <!-- start1-->
 
-    <div class="dash_par1" style="background:white;">
+    <!-- <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
 
@@ -60,7 +62,7 @@
          </div>
 
     </div>
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="z-index:10;"></i>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="z-index:10;"></i> -->
     <!-- over -->
 
     <!-- start -->
@@ -80,7 +82,7 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <a href="/sales_manager/sm_addusers/jhvh"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+        <a href="/sales_manager/sm_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
       </div>
       
     </div>
@@ -269,7 +271,8 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
+           <form method="post" action="" enctype="multipart/form-data">
+            {%csrf_token%}
          
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>

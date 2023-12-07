@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
-
+<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
 </head>
 <body style=" background-color:rgba(0, 0, 255, 0.1);">
    
@@ -67,27 +67,35 @@
 
       <div class="local_add_user_form my-4 pb-5 px-4">
 
-        <form method="post">
-
+        <form method="POST" id="myform">
+{% csrf_token %}
           <div class="row local_add_user_label">
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">First Name<span>*</span></label>
-              <input type="text" class="form-control" autofocus>
+              <input type="text" name="first_name" class="form-control" autofocus>
             </div>
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">Last Name<span>*</span></label>
-              <input type="text" class="form-control">
+              <input type="text" name="last_name" class="form-control">
             </div>
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">Email ID<span>*</span></label>
-              <input type="text" class="form-control">
+              <input type="text" name="email" class="form-control">
             </div>
             <div class="col-md-4 my-3 ">
               <label class="form-label my-3">Phone Number<span>*</span></label>
-              <input type="text" class="form-control">
+              <input type="text" name="mobile" class="form-control">
+            </div>
+            <div class="col-md-4 my-3 ">
+              <label class="form-label my-3">Password<span>*</span></label>
+              <input type="text"  id="password" name="password" class="form-control">
+            </div>
+            <div class="col-md-4 my-3 ">
+              <label class="form-label my-3">Confirm Password<span>*</span></label>
+              <input type="text" name="confirm_password" class="form-control">
             </div>
 
           </div>
@@ -97,42 +105,49 @@
           <div class="local_add_user_permis my-5">
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Approve and reject profiles">
+              <label id="access_Privileges-error" class="error" for="access_Privileges" style="
+    position: absolute;
+    top: 105%;
+    right: 48px;
+    width: 159px;
+    display: none;
+">This field is required.</label>
               <span class="checkmark"></span>
               Approve and reject profiles
             </label>
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Edit  Delete Profiles">
               <span class="checkmark"></span>
               Edit  Delete Profiles
             </label>
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Access Complaints">
               <span class="checkmark"></span>
               Access Complaints
             </label>
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Replay to complaints">
               <span class="checkmark"></span>
               Replay to complaints
             </label>
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Add user">
               <span class="checkmark"></span>
               Add user
             </label>
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Edit user">
               <span class="checkmark"></span>
               Edit user
             </label>
 
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox">
+              <input type="checkbox" name="access_Privileges" value="Delete user">
               <span class="checkmark"></span>
               Delete user
             </label>
@@ -142,14 +157,18 @@
           <div class="local_add_user_btn">
 
             <button>Cancel</button>
-            <button>Create</button>
+            <button type="submit">Create</button>
             
           </div>
-          
+          <p style="
+    color: red;
+    font-size: 22px;
+    font-weight: 500;
+">{{error}}</p>
+  
         </form>
         
       </div>
-
    
     <!-- over -->
 
@@ -179,7 +198,42 @@
 
  
       <script src="{% static 'js/main.js'%}"></script>
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+// just for the demos, avoids form submit
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+$( "#myform" ).validate({
+  rules: {
+    password: "required",
+    confirm_password: {
+      equalTo: "#password"
+    },
+    first_name:{
+          required: true
+    },
+    last_name:{
+          required: true
+    },
+    email:{
+          required: true
+    },
+    mobile:{
+          required: true
+    },
+    access_Privileges:{
+                required: true
+    }
+  },
+  submitHandler: function (form) {
+        form.submit();
+      }
+});
+</script>
 
 </body>
 </html>

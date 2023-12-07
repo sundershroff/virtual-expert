@@ -43,6 +43,7 @@ urlpatterns = [
     path('profile_manager/complaints/<id>', pm_views.complaints),
     path('profile_manager/users/<id>', pm_views.users),
     path('profile_manager/add_user/<id>', pm_views.add_user),
+    path('profile_manager/user_edit/<id>', pm_views.user_edit),
     path('profile_manager/settings/<id>', pm_views.settings),
 
 #///////sales manager//////
@@ -64,6 +65,9 @@ urlpatterns = [
     path('sales_manager/sm_accountsetting/<id>', sm_views.setting),
     path('sales_manager/sm_users/<id>', sm_views.users),
     path('sales_manager/sm_addusers/<id>', sm_views.add_users),
+    path('sales_manager/otp_client/<id>',sm_views.otp_client),
+
+    # path('sales_manager/add_client/<id>',sm_views.add_client),
 
 
 
@@ -87,8 +91,15 @@ urlpatterns = [
     path('hiring_manager/hm_local_admin_upload/<id>', hm_views.local_admin_upload),
     path('hiring_manager/hm_ad_provider/<id>', hm_views.ad_provider),
     path('hiring_manager/hm_adprovider_upload/<id>', hm_views.ad_provider_doc),
+    path('hiring_manager/hm_ad_distributor/<id>', hm_views.ad_distributor),
+    path('hiring_manager/hm_ad_distributor_upload/<id>', hm_views.ad_distributor_doc),
     path('hiring_manager/hm_sales_person/<id>', hm_views.sales),
     path('hiring_manager/hm_sales_person_doc/<id>', hm_views.sales_doc),
+    path('hiring_manager/hm_affiliate_marketing/<id>', hm_views.affiliate_marketing),
+    path('hiring_manager/hm_affiliate_marketing_upload/<id>', hm_views.affiliate_marketing_doc),
+    path('hiring_manager/hm_private_investigator/<id>', hm_views.private_investigator),
+    path('hiring_manager/hm_private_investigator_upload/<id>', hm_views.private_investigator_doc),
+
     path('hiring_manager/hm_hiring_manager/<id>', hm_views.hiring_manager),
     path('hiring_manager/hm_hiring_manager_doc/<id>', hm_views.hiring_manager_doc),
     path('hiring_manager/hm_settings/<id>', hm_views.setting),
@@ -169,6 +180,8 @@ urlpatterns = [
     path('affiliate_marketing/af_editprofile/<id>', af_views.edit_profile),
     path('affiliate_marketing/af_commisions/<id>', af_views.commisions),
     path('affiliate_marketing/af_setting/<id>', af_views.setting),
+    path('affiliate_marketing/af_marketingdashboard/<id>',af_views.admin_dashboard),
+    path('password_reset/<id>',af_views.password_rest)
 
 
 

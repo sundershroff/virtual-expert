@@ -88,21 +88,23 @@
               <th>Name</th>
               <th>Email ID</th>
               <th>Phone Number</th>
-              <th>Location</th>
+              {% comment %} <th>Location</th> {% endcomment %}
               <th>Status</th>
               <th>Actions</th>
               
             </tr>
           </thead>
            <tbody>
+           {% for i in my_user %}
+           
             <tr>
 
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> {{i.first_name}} {{i.last_name}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">+91 {{i.mobile}}</td>
+             {% comment %} <td data-label = "Location">{{i.}}</td> {% endcomment %}
              <td data-label = "Status"><i class="fas fa-circle locl_adm_status"></i>
 
               <label class="toggle-switch">
@@ -111,129 +113,32 @@
             </label>
                
              </td>
-             <td data-label = "Actions"><i data-bs-toggle="modal" data-bs-target="#exampleModal" class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
+             <td data-label = "Actions"><i data-bs-toggle="modal" data-bs-target="#exampleModal{{forloop.counter}}" class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
               
             </tr>
+              <div class="modal fade modal-md px-4" id="exampleModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+  
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body locl_adm_modal1">
+<form method="POST">
+{% csrf_token %}
+        <ul>
+          <li><a href="">View Details</a> </li>
+          <li><a href=""><button type="submit" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
+          <li><a href="" style="color:red;"><button type="submit" name="delete" value="{{i.uid}}">Delete</button></a> </li>
+        </ul>
+      </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+           {% endfor %}
 
-
-             <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
-
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
-            <tr>
-
-             <td data-label = "No">1</td>
-             <td data-label = "User ID">A0B1C036</td>
-             <td data-label = "Name"><img src="img/girl6.png"> Noah</td>
-             <td data-label = "Email ID">farber@sbcglobal.net</td>
-             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
-             <td data-label = "Location">Iraq</td>
-             <td data-label = "Status"><i class="fas fa-circle locl_adm_status">
-
-              <label class="toggle-switch">
-              <input type="checkbox">
-              <span class="slider"></span>
-            </label>
-               
-             </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
-              
-            </tr>
 
           </tbody>
         </table>
@@ -312,26 +217,7 @@
     </div>
   </div>
 
-  <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header border-0">
-  
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body locl_adm_modal1">
 
-        <ul>
-          <li><a href="">View Details</a> </li>
-          <li><a href="">Edit</a></li>
-          <li><a href="" style="color:red;">Delete</a> </li>
-        </ul>
-      
-      </div>
-     
-    </div>
-  </div>
-</div>
 
   <!-- over -->
 
