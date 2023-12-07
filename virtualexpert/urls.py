@@ -154,6 +154,7 @@ urlpatterns = [
     path('ad_distributor/ad_dis_addusers/<id>', ad_distributor_views.ad_dis_addusers),
     path('ad_distributor/ad_dis_settings/<id>', ad_distributor_views.ad_dis_settings),
     path('password_reset/<id>',ad_distributor_views.password_reset),
+   
 
     
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+from datetime import datetime, date
 from django.contrib import messages
 import json
 # Create your views here.
@@ -138,7 +139,17 @@ def admin_dashboard(request,id):
         'all_data':all_data,
 
     }
-    
+
+    for dict_data in all_data:
+        end_date=dict_data['days_required']
+        ads_id=dict_data['ad_id']
+        last_date= datetime.strptime(end_date,"%Y-%m-%d")
+        if last_date <= datetime.today():
+            print(ads_id)
+            response = requests.post(f"http://127.0.0.1:3000/deactive_update/{ads_id}",data=request.POST )
+            print(response)
+        else:
+            pass
     return render(request,"ad_dis_admin_dashboard.html",context)
 
     
@@ -250,6 +261,14 @@ def ads_active(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
+
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -263,13 +282,23 @@ def ads_active(request,id):
             return render(request,"ad_dis_active.html",context1)
     else:
         print("no data")
+    
     return render(request,"ad_dis_active.html",context)
 
 def ads_pending(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     context={'key':mydata,
-            'current_path':request.get_full_path(),}
+            'current_path':request.get_full_path(),
+            'all_data':all_data}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
+    
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -288,6 +317,14 @@ def ads_deactive(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
+    
     for dict_data in all_data:
         status=dict_data['status']        
         if status == "deactive" or status == "Deactive":
@@ -305,6 +342,14 @@ def ads_closed(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
+    
     for dict_data in all_data:
         status=dict_data['status']        
         if status == "Closed" or status == "closed":
@@ -437,7 +482,21 @@ def ad_dis_adDetails(request,id):
 
          }
 
-    # if request.POST:
+    if request.method == "POST":
+        print(request.POST)
+
+        if "submit" in request.POST:
+            response = requests.post(f"http://127.0.0.1:3000/ad_dis_status_close/{ads_id}", data = request.POST)
+            print(response)
+            return redirect(f"/ad_distributor/ad_dis_closed/{id}")
+
+        elif "reset" in request.POST:
+            print("reset")
+            return redirect(f"/ad_distributor/ad_dis_adDetails/{id}")
+        
+        else:
+            print("---")
+         
     #     return redirect(f"/ad_distributor/ad_dis_payment/{id}")
     
     return render(request,"ad_dis_adDetails.html",context)
@@ -504,5 +563,10 @@ def password_reset(request,id):
         else:
             messages.info(request,"Password Incorrect")
     return render(request,"password_reset.html")
+
+
+
+    
+    
 
 

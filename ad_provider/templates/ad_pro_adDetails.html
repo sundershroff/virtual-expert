@@ -103,7 +103,7 @@
             <div class="col-lg-3 col-md-3">
               <span ><b>{{ad_data.ad_name}}</b><br>
                 <span class="task_button_text">{{ad_data.ad_type}}<br>
-                  {{ad_data.days_required}} | 10:00am <br>
+                  {{ad_data.ad_created_date}} | 10:00am <br>
                   Status:<span style="color:#F2994A">{{ad_data.status}}</span>
               </span></span><br>
               <button class="my-2 ads_btn1">Copy Ad ID</button>
@@ -230,8 +230,11 @@
 </div>
 <div class="modal-footer">
              <div class="reason_modal_btn text-center mb-5">
-               <button class="my-3" type="reset">No</button>
-               <button class="my-3" type="submit">Yes</button>
+              <form method="POST" action=" " enctype="multipart/form-data">
+                {% csrf_token %}
+               <button class="my-3" type="submit" name="reset">No</button>
+               <button class="my-3" type="submit" name="submit">Yes</button>
+              </form>
              </div>
              </div>
 

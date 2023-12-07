@@ -107,7 +107,7 @@
            </div>
 
           <div>
-            <h4 style="color:#7B61FF">1,800</h4>
+            <h4 style="color:#7B61FF">{{all_data|length}}</h4>
             <h5>Total Ads</h5>
           </div>
 
@@ -197,14 +197,14 @@
         <th class="py-4">Name</th>
         <th class="py-4">Email Id</th>
       </tr>
-      
-      {% for i in all_data %}
+      {% comment %} {% for i in all_data|dictsortreversed:"created_at" %} {% endcomment %}
+      {% for i in all_data|dictsortreversed:"ad_created_date" %}
       <tr>
         <td class="py-4">{{forloop.counter}}</td>
         <td class="py-4">{{i.ad_id}}</td>
-        <td class="dash_bor_table_img"><img src="{{i.id_card}}" class="mx-2"> EnvIronmental Specialist</td>
+        <td class="dash_bor_table_img"><img src="{{i.id_card}}" class="mx-2"> {{i.ad_name}}</td>
         
-        <td class="py-4">{{key.email}}</td>
+        <td class="py-4">{{i.action_url}}</td>
       </tr>
       {% endfor %}
       {% comment %} <tr>

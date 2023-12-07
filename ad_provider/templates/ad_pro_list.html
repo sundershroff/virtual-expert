@@ -152,10 +152,17 @@
                   <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
                   <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                   </div>
-                 <div style="float:right;margin-top:20px"> <label class="switch">
-                      <input type="checkbox" checked>
-                      <span class="slider1 round"></span>
-                    </label> <span style="color:red">Close Ad</span>  </div>
+                  {% if i.status == "Active" %}
+                  <div style="float:right;margin-top:20px"> <label class="switch">
+                       <input type="checkbox" checked>
+                       <span class="slider1 round"></span>
+                     </label> <span style="color:red">Close Ad</span>  </div>
+                   {% else %}
+                   <div style="float:right;margin-top:20px"> <label class="switch">
+                     <input type="checkbox">
+                     <span class="slider1 round"></span>
+                   </label> <span style="color:red">Close Ad</span>  </div>
+                   {% endif %}
               </div>
                             
             </div>

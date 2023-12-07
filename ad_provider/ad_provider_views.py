@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
+from datetime import datetime,date
 from django.contrib import messages
 import json
 
@@ -139,6 +140,14 @@ def admin_dashboard(request,id):
         'all_data':all_data,
 
     }
+    for dict_data in all_data:
+        end_date=dict_data['days_required']
+        ads_id=dict_data['ad_id']
+        last_date= datetime.strptime(end_date, "%Y-%m-%d")
+        if last_date <= datetime.today():
+            print(ads_id)
+            response = requests.post(f"http://127.0.0.1:3000/deactive_update/{ads_id}",data=request.POST )
+            print(response)
 
     return render(request,"ad_provider_admin_dashboard.html",context)
 
@@ -221,6 +230,7 @@ def ads_list_all(request,id):
         'all_data':new,
 
           }
+    
     if "detail" in request.POST:
         print(request.POST)
         global ads_id
@@ -244,6 +254,14 @@ def ads_active(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -264,6 +282,15 @@ def ads_pending(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+    
+
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -284,6 +311,14 @@ def ads_deactive(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_provider/ad_pro_adDetails/{id}") 
+    
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -304,6 +339,15 @@ def ads_closed(request,id):
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
     context={'key':mydata,
             'current_path':request.get_full_path(),}
+    
+    if "detail" in request.POST:
+        print(request.POST)
+        global ads_id
+        ads_id=request.POST['detail']
+        print(ads_id)
+        return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+    
+
     for dict_data in all_data:
         status=dict_data['status']
         
@@ -433,8 +477,21 @@ def ad_pro_adDetails(request,id):
         'ad_data':ads_data
 
          }
-    # if request.POST:
-    #     return redirect(f"/ad_provider/ad_pro_payment/{id}")
+
+    if request.method == "POST":
+        print(request.POST)
+
+        if "submit" in request.POST:
+            response = requests.post(f"http://127.0.0.1:3000/ad_status_close/{ads_id}", data = request.POST)
+            print(response)
+            return redirect(f"/ad_provider/ad_pro_closed/{id}")
+
+        elif "reset" in request.POST:
+            print("reset")
+            return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+        
+        else:
+            print("---")
     return render(request,"ad_pro_adDetails.html",context)
 
 def ad_pro_users(request,id):
