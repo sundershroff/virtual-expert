@@ -140,6 +140,12 @@ def admin_dashboard(request,id):
     else:
         ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_provider']) 
 
+    #ad distributor
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_distributor'] == None:
+        ad_distributor =""
+    else:
+        ad_distributor = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['ad_distributor']) 
+
 
     #sales
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'] == None:
@@ -147,14 +153,37 @@ def admin_dashboard(request,id):
     else:
         sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['sales_manager'])
 
-    print(pm_data)
+    #hiring manager
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['hiring_manager'] == None:
+        hiring_manager =""
+    else:
+        hiring_manager = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['hiring_manager'])
+
+    #affiliate marketing 
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['affiliate_marketing'] == None:
+        affiliate_marketing =""
+    else:
+        affiliate_marketing = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['affiliate_marketing'])
+    
+    #private Investigator 
+    if requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['private_investigator'] == None:
+        private_investigator =""
+    else:
+        private_investigator = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]['private_investigator'])
+
+
+    print(hiring_manager)
 
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'pm_data':pm_data,
         'ad_pro_data':ad_pro_data,
+        'ad_distributor':ad_distributor,
         'sales_data':sales_data,
+        'hiring_manager':hiring_manager,
+        'affiliate_marketing':affiliate_marketing,
+        'private_investigator':private_investigator
     }
     return render(request,"hm_admin_dashboard.html",context)
 
@@ -586,7 +615,7 @@ def hiring_manager_doc(request,id):
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        # return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
+        return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
     return render(request,"hm_hiring_manager_doc.html",context)
 
 def setting(request,id):

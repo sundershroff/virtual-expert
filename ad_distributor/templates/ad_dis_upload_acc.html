@@ -140,7 +140,7 @@
         <h4 class="my-4" style="color:#7B61FF;">Contact Person Details</h4>
           
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
               <div class="row">
 
                 <div class="col-lg-6 my-3">
@@ -185,8 +185,8 @@
                 </div>
 
                 <div class="col-lg-6 my-3">
-            <label class="form-label">Notary<span>*</span></label>
-            <select class="form-select" name="notary">
+            <label class="form-label">Hiring Manager<span>*</span></label>
+            <select class="form-select" name="hiring_manager">
               <option value="default">Select</option>
               {% for i in hiring_manager %}
                  <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
@@ -200,7 +200,7 @@
               </div>
               
             </div>
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
               
               <div class="row">
                  <div class="col-12 my-3">
@@ -223,7 +223,7 @@
 
                 </div>
               </div>
-            </div>
+            </div> -->
 
           </div>
 

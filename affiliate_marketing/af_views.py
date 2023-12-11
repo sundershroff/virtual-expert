@@ -93,9 +93,20 @@ def profile_picture(request,id):
 
 def upload_acc(request,id):
     hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
-    context = {
-        'hm_data' :hiring_manager
-    }
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,'hiring_manager':hiring_manager}
+
+
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
@@ -198,7 +209,7 @@ def setting(request,id):
 
     return render(request,"af_setting.html",context)
 
-def password_rest(request,id):
+def password_aff_reset(request,id):
     print(id)
     if request.method=="POST":
         print(request.POST)
@@ -212,4 +223,4 @@ def password_rest(request,id):
             messages.info(request,"Password Successfully Updated")
         else:
             messages.info(request,"Password Incorrect")
-    return render(request,"password_reset.html")
+    return render(request,"password_aff_reset.html")
