@@ -128,7 +128,13 @@
              <!-- <td data-label = "google_map">{{i.google_map}}</td> -->
              <!-- <td data-label = "category">{{i.category}}</td> -->
             
-             <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_ad_details/{{i.uid}}"> <button type="submit" name="view" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span> </form>
+             <td data-label ="Actions" style="
+             display: flex;
+         ">
+          <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_ad_details/{{i.uid}}"> <button type="submit" name="view" value="{{i.uid}}" style="
+              background-color: white;
+              border: 0px;
+          "><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span> </form>
               <form action="" method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
               <button data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;" name="active" value="{{i.email}}"> Activate </button></form>
