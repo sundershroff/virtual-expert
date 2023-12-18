@@ -244,6 +244,18 @@ def add_funds(request,id):
 
     return render(request,"ad_dis_adFunds.html",context)
 
+
+def ad_dis_coins(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+
+    return render(request,"ad_dis_coins.html",context)
+
+
 def ads_list_all(request,id):
     signin(request)
     a = access_Privileges

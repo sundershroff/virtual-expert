@@ -168,7 +168,7 @@ urlpatterns = [
     path('ad_distributor/ad_dis_user_edit/<id>', ad_distributor_views.ad_dis_user_edit),
     path('ad_distributor/ad_dis_settings/<id>', ad_distributor_views.ad_dis_settings),
     path('ad_dis_password_reset/<id>',ad_distributor_views.ad_dis_password_reset),
-   
+    path('ad_distributor/ad_dis_coins/<id>', ad_distributor_views.ad_dis_coins),
 
     
 
