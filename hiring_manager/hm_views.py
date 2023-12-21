@@ -697,7 +697,8 @@ def hm_forgetpassword_reset(request,id):
             error="password mismatch"
     context = {'invalid':"invalid",
                 'key':mydata,
-                'error':error}
+                'error':error
+                }
     return render(request,"hm_forgetpassword.html",context)
 
 
