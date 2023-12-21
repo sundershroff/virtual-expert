@@ -198,7 +198,7 @@
                 <label class="form-label"></label>
                 <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="30" id="inputField2" oninput="displayValue()" >
               </div>
-              <div class="row col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+              <div id="age_dis" class="row col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
                 <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
                 <span  id="displayArea"> 25-30 </span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
                 </div>
@@ -284,7 +284,9 @@
           </div>
           <input type="file" name="other_ads" style="
           opacity: 0;
-          position:absolute; height: 45px;width:50px;">
+          position:absolute;     height: 61px;
+          width: 59px;
+          margin-top: -68px;">
           
                 
        </div>
@@ -523,13 +525,22 @@
         }
         
         </script>
-        function displayValue() {
-          var inputValue1 = document.getElementById('inputField1').value;
-          var inputValue2 = document.getElementById('inputField2').value;
-    
-          document.getElementById('displayArea').textContent =inputValue1+ "-" +inputValue2 ;
-        }
-      </script>
+        <script>
+          function displayValue() {
+            var inputValue1 = document.getElementById('inputField1').value;
+            var inputValue2 = document.getElementById('inputField2').value;
+      
+            document.getElementById('displayArea').textContent = inputValue1+ "-" +inputValue2 ;
+          }
+        </script>
+        <script>
+          $(document).ready(function(){
+            $("#i_con").click(function(){
+              $("#age_dis").remove();
+            });
+          });
+        </script>
+       
       
       <script src="{% static 'js/main.js'%}"></script>
 

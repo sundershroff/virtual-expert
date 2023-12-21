@@ -456,18 +456,18 @@ def setting(request,id):
     return render(request,"sm_accountsetting.html",context)
 
 
-def password_rest(request,id):
-    print(id)
-    if request.method=="POST":
-        print(request.POST)
-        if 'pass_reset' in request.POST:
+# def password_rest(request,id):
+#     print(id)
+#     if request.method=="POST":
+#         print(request.POST)
+#         if 'pass_reset' in request.POST:
             
-            a=request.POST["pass_reset"]
-            print(a)
-        if request.POST['password'] == request.POST['confirm_password']:
+#             a=request.POST["pass_reset"]
+#             print(a)
+#         if request.POST['password'] == request.POST['confirm_password']:
 
-            response = requests.post(f"http://127.0.0.1:3000/pass_update/{id}",data=request.POST )
-            messages.info(request,"Password Successfully Updated")
-        else:
-            messages.info(request,"Password Incorrect")
-    return render(request,"password_reset.html")
+#             response = requests.post(f"http://127.0.0.1:3000/pass_update/{id}",data=request.POST )
+#             messages.info(request,"Password Successfully Updated")
+#         else:
+#             messages.info(request,"Password Incorrect")
+#     return render(request,"password_reset.html")

@@ -4,6 +4,7 @@ import requests
 from datetime import datetime,date
 from django.contrib import messages
 import json
+import math
 
 jsondec = json.decoder.JSONDecoder()
 # Create your views here.
@@ -142,9 +143,9 @@ def upload_acc(request,id):
 def admin_dashboard(request,id):
     jsondec=json.decoder.JSONDecoder()
     new=[]
-    signin(request)
-    print(access_Privileges)
-    a = access_Privileges
+    # signin(request)
+    # print(access_Privileges)
+    # a = access_Privileges
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]  
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
@@ -158,7 +159,7 @@ def admin_dashboard(request,id):
         'current_path':request.get_full_path(),
         'all_profile_finder':all_profile_finder[::-1],
         'all_data':new,
-        'user_access': a
+        # 'user_access': a
     }
     for dict_data in all_data:
         end_date=dict_data['days_required']
@@ -704,5 +705,74 @@ def ad_pro_password_reset(request,id):
     return render(request,"ad_pro_password_reset.html")
 
 
+def ad_pro_forget_password(request):
+    error=""
+    if request.method == "POST":
+        
+        print(request.POST)
+        response = requests.post("http://127.0.0.1:3000/ad_pro_forget_password/",data=request.POST)
+        print(response)
+        print(response.status_code)
+        print(type(jsondec.decode(response.text)))
+        print(jsondec.decode(response.text))
+        uidd = jsondec.decode(response.text)
+        
+        if response.status_code == 200:
+            return redirect(f"/ad_pro_forgetpassword_otp/{uidd}")
+        elif response.status_code == 403:
+            error = "User Doesn't Exist"
 
+    context = {'error':error}
+    return render(request,"ad_pro_email.html",context)
+    
+
+def ad_pro_forgetpassword_otp(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    context = {'invalid':"invalid",
+                'key':mydata}
+    new=[]
+    if request.method == "POST":
+        new.append(request.POST["otp1"]) 
+        new.append(request.POST["otp2"])
+        new.append(request.POST["otp3"])
+        new.append(request.POST["otp4"])
+        data = {
+            'user_otp1':int(''.join(new).strip())
+           
+        }
+        print(data)
+        response = requests.post(f"http://127.0.0.1:3000/ad_pro_forget_password_otp/{id}", data=data)
+       
+        print(response)
+        print(response.status_code)
+        print(data['user_otp1'])
+        print(response.text)
+        uidd = (response.text[1:-1])
+        
+        if response.status_code == 200:
+            return redirect(f"/ad_pro_forgetpassword_reset/{uidd}")
+        else:
+            invalid = "Invalid OTP"
+            context = {'invalid':invalid}
+    return render(request,"ad_provider_otpcheck.html",context)
+
+
+def ad_pro_forgetpassword_reset(request,id):
+    error=""
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if request.POST['password'] == request.POST['confirm_password']:
+            response = requests.post(f"http://127.0.0.1:3000/ad_pro_password_update/{id}",data=request.POST )
+            print(response)
+            return redirect(f"/ad_provider/signin/")
+
+        else:
+            print(response)
+            error="password mismatch"
+    context = {'invalid':"invalid",
+                'key':mydata,
+                'error':error}
+    return render(request,"ad_pro_forgetpassword.html",context)
 

@@ -99,10 +99,13 @@ urlpatterns = [
     path('hiring_manager/hm_affiliate_marketing_upload/<id>', hm_views.affiliate_marketing_doc),
     path('hiring_manager/hm_private_investigator/<id>', hm_views.private_investigator),
     path('hiring_manager/hm_private_investigator_upload/<id>', hm_views.private_investigator_doc),
-
     path('hiring_manager/hm_hiring_manager/<id>', hm_views.hiring_manager),
     path('hiring_manager/hm_hiring_manager_doc/<id>', hm_views.hiring_manager_doc),
     path('hiring_manager/hm_settings/<id>', hm_views.setting),
+    path('hm_password_reset/<id>',hm_views.hm_password_reset),
+    path('hm_forget_password/',hm_views.hm_forget_password),
+    path('hm_forgetpassword_otp/<id>',hm_views.hm_forgetpassword_otp),
+    path('hm_forgetpassword_reset/<id>',hm_views.hm_forgetpassword_reset),
 
 
 
@@ -138,6 +141,9 @@ urlpatterns = [
     path('ad_provider/ad_pro_settings/<id>', ad_provider_views.ad_pro_settings),
     path('ad_pro_password_reset/<id>',ad_provider_views.ad_pro_password_reset),
     path('ad_provider/ad_pro_coins/<id>',ad_provider_views.ad_pro_coins),
+    path('ad_pro_forget_password/',ad_provider_views.ad_pro_forget_password),
+    path('ad_pro_forgetpassword_otp/<id>',ad_provider_views.ad_pro_forgetpassword_otp),
+    path('ad_pro_forgetpassword_reset/<id>',ad_provider_views.ad_pro_forgetpassword_reset),
 
 
 
@@ -169,6 +175,9 @@ urlpatterns = [
     path('ad_distributor/ad_dis_settings/<id>', ad_distributor_views.ad_dis_settings),
     path('ad_dis_password_reset/<id>',ad_distributor_views.ad_dis_password_reset),
     path('ad_distributor/ad_dis_coins/<id>', ad_distributor_views.ad_dis_coins),
+    path('ad_dis_forget_password/',ad_distributor_views.ad_dis_forget_password),
+    path('ad_dis_forgetpassword_otp/<id>',ad_distributor_views.ad_dis_forgetpassword_otp),
+    path('ad_dis_forgetpassword_reset/<id>',ad_distributor_views.ad_dis_forgetpassword_reset),
 
     
 

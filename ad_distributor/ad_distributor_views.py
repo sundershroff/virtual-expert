@@ -4,6 +4,8 @@ import requests
 from datetime import datetime, date
 from django.contrib import messages
 import json
+import math
+
 
 jsondec = json.decoder.JSONDecoder()
 # Create your views here.
@@ -32,6 +34,7 @@ def signup(request):
 def signin(request):
     error = ""
     if request.method == "POST":
+        
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
         response = requests.post("http://127.0.0.1:3000/ad_dis_signin/",data=request.POST)
@@ -53,6 +56,7 @@ def signin(request):
             return redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uid}")
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
+
     context = {'error':error}
     return render(request,"ad_dis_signin.html",context)
 
@@ -139,15 +143,15 @@ def upload_acc(request,id):
         print("no data")
         return render(request,"ad_dis_upload_acc.html")
 
-
+# ///// Ad_Dis Dashboard ////
 def admin_dashboard(request,id):
     jsondec=json.decoder.JSONDecoder()
     new=[]
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]  
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
-    signin(request)
-    a = access_Privileges
+    # signin(request)
+    # a = access_Privileges
 
     for i in all_data:
         uid=jsondec.decode(i.get("ad_dis")) 
@@ -159,7 +163,7 @@ def admin_dashboard(request,id):
         'current_path':request.get_full_path(),
         'all_profile_finder':all_profile_finder[::-1],
         'all_data':new,
-        'user_access':a,
+        # 'user_access':a,
 
     }
 
@@ -174,20 +178,20 @@ def admin_dashboard(request,id):
         else:
             pass
     return render(request,"ad_dis_admin_dashboard.html",context)
-
-    
-
+ 
+# //// Ad_dis Profile ////
 def account(request,id):
     signin(request)
     a = access_Privileges
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
+    all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'user_access' : access_Privileges
 
     }
-
+    
     return render(request,"ad_dis_account.html",context)
 
 def edit_account(request,id):
@@ -244,18 +248,29 @@ def add_funds(request,id):
 
     return render(request,"ad_dis_adFunds.html",context)
 
-
+# //// Ad_Dis Coins ///////
 def ad_dis_coins(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
+    new=[]
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
+    print(id)
+    for i in all_data:
+        uid=jsondec.decode(i.get("ad_dis")) 
+        id_value = uid['uid']
+        if id_value == id:
+            new.append(i)
+    
+
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'all_data':new
 
     }
 
     return render(request,"ad_dis_coins.html",context)
 
-
+# /////  Ad_distributors Ads ///////
 def ads_list_all(request,id):
     signin(request)
     a = access_Privileges
@@ -294,9 +309,7 @@ def ads_list_all(request,id):
         print(request.POST)
         
     return render(request,"ad_dis_list.html",context)
-    
-    
-
+       
 def ads_active(request,id):
     jsondec=json.decoder.JSONDecoder()
     new=[]
@@ -339,7 +352,7 @@ def ads_pending(request,id):
 
     context={'key':mydata,
             'current_path':request.get_full_path(),
-            'al_data':new }
+            'all_data':new }
     
     if "detail" in request.POST:
         print(request.POST)
@@ -401,6 +414,8 @@ def ads_closed(request,id):
     
     return render(request,"ad_dis_closed.html",context)
 
+
+# //// Ads Creation ////
 def ad_dis_createAd(request,id):
     try:
         jsondec=json.decoder.JSONDecoder()
@@ -437,6 +452,14 @@ def ad_dis_createAd(request,id):
         else:
             city = "None"
 
+        if "no_views" in request.POST:    
+            if int(request.POST['no_views']) >= 20 :
+                views=int(request.POST['no_views']) / 20
+                coin=math.ceil(views)
+            else:
+                coin="-"
+        
+
         if request.method == "POST":
             print(request.POST)
             data = {
@@ -458,8 +481,9 @@ def ad_dis_createAd(request,id):
             'ad_details':request.POST['ad_details'],
             # 'other_ads':request.FILES['other_ads'],
             'action_name':request.POST['action_name'],
-            'action_url':request.POST['action_url']
-            # 'reason':request.POST['reason'],   
+            'action_url':request.POST['action_url'],
+            # 'reason':request.POST['reason'], 
+            'coin':coin  
             }
             print(data)
             response = requests.post(f"http://127.0.0.1:3000/create_ads/{id}", data = data,files=request.FILES)
@@ -471,42 +495,6 @@ def ad_dis_createAd(request,id):
     except:
         return render(request,"ad_dis_createAd.html")
     
-       
-
-def ad_dis_payment(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
-
-    }
-
-
-    return render(request,"ad_dis_payment.html",context)
-
-def ad_dis_editAd(request,id):
-    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
-    ads_list_all(request,id)
-    print(dis_id)
-    ads_data=requests.get(f"http://127.0.0.1:3000/ad_dis_ad_details/{dis_id}").json()
-    
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'ad_data':ads_data
-
-         }
-    
-    if request.method == "POST":
-        print(request.POST)
-        print(request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/ad_dis_edit_ads/{dis_id}", data = request.POST,files=request.FILES)
-        print(response)
-        # print(response.status_code)
-        # print(response.text)
-        return redirect(f"/ad_distributor/ad_dis_list/{id}")
-
-    return render(request,"ad_dis_editad.html",context)
 
 def ad_dis_adDetails(request,id):
     signin(request)
@@ -540,8 +528,48 @@ def ad_dis_adDetails(request,id):
          
     #     return redirect(f"/ad_distributor/ad_dis_payment/{id}")
     
-    return render(request,"ad_dis_adDetails.html",context)
+    return render(request,"ad_dis_adDetails.html",context) 
 
+# //// Ads Edit /Updation /////  
+def ad_dis_editAd(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    ads_list_all(request,id)
+    print(dis_id)
+    ads_data=requests.get(f"http://127.0.0.1:3000/ad_dis_ad_details/{dis_id}").json()
+    
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'ad_data':ads_data
+
+         }
+    
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/ad_dis_edit_ads/{dis_id}", data = request.POST,files=request.FILES)
+        print(response)
+        # print(response.status_code)
+        # print(response.text)
+        return redirect(f"/ad_distributor/ad_dis_list/{id}")
+
+    return render(request,"ad_dis_editad.html",context)      
+
+
+# ////// Payment//////
+def ad_dis_payment(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path()
+
+    }
+
+
+    return render(request,"ad_dis_payment.html",context)
+
+
+# ////  USERS  //////
 def ad_dis_users(request,id):
     signin(request) 
     a = access_Privileges
@@ -597,8 +625,6 @@ def ad_dis_users(request,id):
          
      
     return render(request,"ad_dis_users.html",context)
-
-
 
 def ad_dis_addusers(request,id):
     error=""
@@ -672,6 +698,8 @@ def ad_dis_user_edit(request,id):
 
     return render(request,"ad_dis_user_edit.html",context)
 
+
+# //// Account Settings//////
 def ad_dis_settings(request,id):
     
     mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0] 
@@ -696,6 +724,7 @@ def ad_dis_settings(request,id):
 
     return render(request,"ad_dis_settings.html",context)
 
+# ////// Settings- Password Reset/////
 def ad_dis_password_reset(request,id):
     print(id)
     if request.method=="POST":
@@ -712,11 +741,77 @@ def ad_dis_password_reset(request,id):
             messages.info(request,"Password Incorrect")
     return render(request,"ad_dis_password_reset.html")
 
+# //// Forget password//////
+def ad_dis_forget_password(request):
+    error=""
+    if request.method == "POST":
+        
+        print(request.POST)
+        response = requests.post("http://127.0.0.1:3000/ad_dis_forget_password/",data=request.POST)
+        print(response)
+        print(response.status_code)
+        print(type(jsondec.decode(response.text)))
+        print(jsondec.decode(response.text))
+        uidd = jsondec.decode(response.text)
+        
+        if response.status_code == 200:
+            return redirect(f"/ad_dis_forgetpassword_otp/{uidd}")
+        elif response.status_code == 403:
+            error = "User Doesn't Exist"
+
+    context = {'error':error}
+    return render(request,"ad_dis_email.html",context)
+    
+
+def ad_dis_forgetpassword_otp(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    context = {'invalid':"invalid",
+                'key':mydata}
+    new=[]
+    if request.method == "POST":
+        new.append(request.POST["otp1"]) 
+        new.append(request.POST["otp2"])
+        new.append(request.POST["otp3"])
+        new.append(request.POST["otp4"])
+        data = {
+            'user_otp1':int(''.join(new).strip())
+           
+        }
+        print(data)
+        response = requests.post(f"http://127.0.0.1:3000/ad_dis_forget_password_otp/{id}", data=data)
+       
+        print(response)
+        print(response.status_code)
+        print(data['user_otp1'])
+        print(response.text)
+        uidd = (response.text[1:-1])
+        
+        if response.status_code == 200:
+            return redirect(f"/ad_dis_forgetpassword_reset/{uidd}")
+        else:
+            invalid = "Invalid OTP"
+            context = {'invalid':invalid}
+    return render(request,"ad_dis_otpcheck.html",context)
 
 
+def ad_dis_forgetpassword_reset(request,id):
+    error=""
+    mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if request.POST['password'] == request.POST['confirm_password']:
+            response = requests.post(f"http://127.0.0.1:3000/ad_dis_password_update/{id}",data=request.POST )
+            print(response)
+            return redirect(f"/ad_distributor/signin/")
 
-
-
+        else:
+            print(response)
+            error="password mismatch"
+    context = {'invalid':"invalid",
+                'key':mydata,
+                'error':error}
+    return render(request,"ad_dis_forgetpassword.html",context)
     
     
 

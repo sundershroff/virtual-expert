@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
 import requests
 import json
+from django.contrib import messages
+
 # Create your views here.
 jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
@@ -595,8 +597,107 @@ def setting(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
     }
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            a=request.POST["pass_reset"]
+            print(a)
+            response = requests.post(f"http://127.0.0.1:3000/hm_password_reset/{id}",data=request.POST )
+        else:
+            print(request.POST)
+            response = requests.post(f"http://127.0.0.1:3000/hm_email_update/{id}", data = request.POST)
+            print(response)
+            return render(request,"hm_acc_setting.html",context)
     return render(request,"hm_acc_setting.html",context)
 
 
+# //// HM Settings Password Reset////
+def hm_password_reset(request,id):
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if 'pass_reset' in request.POST:
+            
+            a=request.POST["pass_reset"]
+            print(a)
+        if request.POST['password'] == request.POST['confirm_password']:
+
+            response = requests.post(f"http://127.0.0.1:3000/hm_password_update/{id}",data=request.POST )
+            messages.info(request,"Password Successfully Updated")
+        else:
+            messages.info(request,"Password Incorrect")
+    return render(request,"ad_dis_password_reset.html")
+
+# //// Forget Password/////
+def hm_forget_password(request):
+    error=""
+    if request.method == "POST":
+        
+        print(request.POST)
+        response = requests.post("http://127.0.0.1:3000/hm_forget_password/",data=request.POST)
+        print(response)
+        print(response.status_code)
+        print(type(jsondec.decode(response.text)))
+        print(jsondec.decode(response.text))
+        uidd = jsondec.decode(response.text)
+        
+        if response.status_code == 200:
+            return redirect(f"/hm_forgetpassword_otp/{uidd}")
+        elif response.status_code == 403:
+            error = "User Doesn't Exist"
+
+    context = {'error':error}
+    return render(request,"hm_email.html",context)
+    
+
+def hm_forgetpassword_otp(request,id):
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]
+    context = {'invalid':"invalid",
+                'key':mydata}
+    new=[]
+    if request.method == "POST":
+        new.append(request.POST["otp1"]) 
+        new.append(request.POST["otp2"])
+        new.append(request.POST["otp3"])
+        new.append(request.POST["otp4"])
+        data = {
+            'user_otp1':int(''.join(new).strip())
+           
+        }
+        print(data)
+        response = requests.post(f"http://127.0.0.1:3000/hm_forget_password_otp/{id}", data=data)
+       
+        print(response)
+        print(response.status_code)
+        print(data['user_otp1'])
+        print(response.text)
+        uidd = (response.text[1:-1])
+        
+        if response.status_code == 200:
+            return redirect(f"/hm_forgetpassword_reset/{uidd}")
+        else:
+            invalid = "Invalid OTP"
+            context = {'invalid':invalid}
+    return render(request,"hm_otpcheck.html",context)
+
+
+def hm_forgetpassword_reset(request,id):
+    error=""
+    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]
+    print(id)
+    if request.method=="POST":
+        print(request.POST)
+        if request.POST['password'] == request.POST['confirm_password']:
+            response = requests.post(f"http://127.0.0.1:3000/hm_password_update/{id}",data=request.POST )
+            print(response)
+            return redirect(f"/hiring_manager/signin/")
+
+        else:
+            print(response)
+            error="password mismatch"
+    context = {'invalid':"invalid",
+                'key':mydata,
+                'error':error}
+    return render(request,"hm_forgetpassword.html",context)
 
 
