@@ -111,6 +111,8 @@ def profile_picture(request,id):
 def upload_acc(request,id):
     try:
         hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+        sales_manager = requests.get("http://127.0.0.1:3000/all_sm_data/").json()
+       
         neww=[]
         response = requests.get('https://api.first.org/data/v1/countries').json()
         all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
@@ -122,11 +124,12 @@ def upload_acc(request,id):
         countryname = json.dumps(neww)
         
         context = {'response': response, 'region': response,'all':al,
-                        'country': countryname,'states': states,'hiring_manager':hiring_manager}
+                        'country': countryname,'states': states,'hiring_manager':hiring_manager ,
+                        'sales_manager': sales_manager,}
         
         if request.method == "POST":
             print(request.POST)
-            print(request.FILES)
+            
             # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
             response = requests.post(f"http://127.0.0.1:3000/ad_dis_upload_account/{id}",   data = request.POST,files=request.FILES)
             print(response)
@@ -141,7 +144,7 @@ def upload_acc(request,id):
         return render(request,"ad_dis_upload_acc.html",context)
     except:
         print("no data")
-        return render(request,"ad_dis_upload_acc.html")
+        return render(request,"ad_dis_upload_acc.html",context)
 
 # ///// Ad_Dis Dashboard ////
 def admin_dashboard(request,id):
