@@ -71,7 +71,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">1200 </span>Ads in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_data|length}}</span>Ads in the list</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -157,7 +157,7 @@
               {% else %}
               Status:<span style="color:#F2994A">{{i.status}}</span>
               </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn1" value="{{i.ad_id}}" id="copy_value" onclick="copyvalue(this)">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
               {% endif %}
             </div>
@@ -411,7 +411,23 @@
 </div>
 
   <!-- over -->
+  <script>
+    function copyvalue(button) {
+        var buttonValue = button.value;
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.value = buttonValue;
 
+        document.body.appendChild(tempTextarea);
+
+        tempTextarea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(tempTextarea);
+
+        document.getElementById('copiedValue').innerText = buttonValue;
+    }
+</script>
 
  
   <script src="{% static 'js/main.js'%}"></script>

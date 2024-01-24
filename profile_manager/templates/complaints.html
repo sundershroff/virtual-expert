@@ -103,18 +103,20 @@
              <td data-label = "Phone Number">+91 {{i.mobile}}</td>
              <td data-label = "Complaints">{{i.complaints}}...</td>
              {% if i.complaints_replay == "empty"  %}
-                  <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
+              <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
 
              {% else %}
-                               <td data-label = "Status"><strong class="pending" style="color: green;background-color: lightgreen;">Complete</strong></i></td>
+            <td data-label = "Status"><strong class="pending" style="color: green;background-color: lightgreen;">Complete</strong></i></td>
              {% endif %}
-             {{access_Privileges}}
-             {% if "Access Complaints" in access_Privileges %}
-                          <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
-             {% else %}
-                          <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target=""></i></td>
-             {% endif %}
-              
+            
+             {% if "Replay to complaints" in access_Privileges %}
+            <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
+            {% else %}
+
+            {% endif %}
+            {% if access_Privileges == "" %}
+            <td data-label = "Actions"><i class="fa-regular fa-eye locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal{{forloop.counter}}"></i></td>
+            {% endif %} 
             </tr>
             {% comment %} <-- model start --> {% endcomment %}
             <div class="modal fade" id="compmodal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,18 +133,17 @@
 
            <form method = "POST">
            {% csrf_token %}
-                         {% if "Replay to complaints" in access_Privileges %}
+                      
 
              <div>
                <label class="form-label">Replay</label>
              </div>
-                            {% else %}
-              {% endif %}
+          
 
              <div>
-              {% if "Replay to complaints" in access_Privileges %}
+         
               
-                          {% if i.complaints_replay == "empty"  %}
+              {% if i.complaints_replay == "empty"  %}
                <input name = "complaints_replay" class="form-control" style="height: 85px;">
              <input type="text" name="uid" value="{{i.uid}}" style = "display:none;">
                
@@ -152,8 +153,7 @@
 
                {% endif %}
 
-                             {% else %}
-              {% endif %}
+             
 
              </div>
 
@@ -169,7 +169,7 @@
   </div>
 </div>
 
-                        {% endif %}
+  {% endif %}
 
 {% endfor %}
 

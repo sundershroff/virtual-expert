@@ -91,8 +91,8 @@
            </div>
 
           <div>
-            <h4 style="color:#3247CE">1,800</h4>
-            <h5>Total EmeraCoin</h5>
+            <h4 style="color:#3247CE">{{all_data|length}}</h4>
+            <h5>Total Clients</h5>
           </div>
 
         </div>
@@ -100,12 +100,12 @@
           <div class="dash_bor_box">
 
             <div>
-             <i class="fa-solid fa-copper-coin-line dash_dot"></i>
+             <i class="fa-solid fa-copper-coin-line dash_dot"><img src="{% static 'images/download.svg'%}" height="25px" width="25px"></i>
             </div>
 
             <div>
-            <h4 style="color:#EB5757">30</h4>
-            <h5>Total Coins</h5>
+            <h4 style="color:#EB5757">{{key.coin}}</h4>
+            <h5>Total Emera Coins</h5>
           </div>
           
         </div>
@@ -181,36 +181,16 @@
         <th class="py-4">Name</th>
         <th class="py-4">Email Id</th>
       </tr>
-
+    
+      {% for i in all_data %}
       <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
+        <td class="py-4">{{forloop.counter}}</td>
+        <td class="py-4">{{i.uid}}</td>
+        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2">{{i.full_name}}</td>
+        <td class="py-4">{{i.email}}</td>
       </tr>
-      <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
-      <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
-   <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
-
+      {%endfor%}
+      
        
 
         <div class="py-4">
@@ -221,102 +201,86 @@
   
 
     <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
      </div>
     <!-- over -->
 
     <!-- start -->
-
-    <div class="dash_bor_tables my-5">
-
-      <div class="dash_bor_table1">
-
-        <div class="dash_bor_split px-4">
-          <h5>Coins Earn</h5>
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </div>
-
-        <div class="px-4 my-3">
-          <table class="table table-borderless">
-
-            <tr>
-              <th class="py-4">Ad</th>
-              <th class="py-4">Ad Date</th>
-              <th class="py-4">Credited Date</th>
-              <th class="py-4">Coins</th>
-            </tr>
-
-            <tr>
-              <td class="py-4">AD-01</td>
-              <td class="py-4">Bandner Ad</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">1</td>
-            </tr>
-            <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">1</td>
-              </tr>
+    <h4 style="margin-left: 2%;">Filter</h4>
+    <div class="locl_adm_sec2 px-4 my-2">
+      <div class="rowbg1">
           
-              <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">4</td>
-              </tr>
-              <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">1</td>
-              </tr>
-          </table>
-             <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
-    </div>
-        </div>
+            
+              <form method="post" action="" enctype="multipart/form-data">
+                {%csrf_token%}
+       <div class="row py-3">
         
-      </div>
+                  <div class="col-lg-4 col-md-4">
+                   <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>From</b><sup style="color: #9B51E0">*</sup></label>
+                   <input type="date" name="from_date" class="form-control"  required>
+                   </div>
+                   <div class="col-lg-4 col-md-4">
+                    <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>To</b><sup style="color: #9B51E0">*</sup></label>
+                    <input type="date" name="to_date" class="form-control"  required>
+                    </div>
+ 
+                   <div class="col-lg-4 col-md-4">
+                    <label for="exampleFormControlInput1" class="form-label editpro_formhed" style="visibility:hidden"><b>submit</b><sup style="color: #9B51E0">*</sup></label>
 
-      <div class="dash_bor_table2">
-          
-          
-        <div class="dash_bor_split px-4">
-          <h5></h5>
-          
-        </div>
-
-        <div class="px-4">
-            <div class="background my-lg-5">
-            <div style="position:relative;top:20px;">
-                <center><i class="fa-solid fa-wallet dash_db_user"></i></center>
-                
-                 <center> <h1 style="color: #52C193">1800</h1>
-                 <p style="color:#6E717A;">Total Commission</p></center>
-                 </div>
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-6">
-                        <center><div style="background-color:  #fdf7f2;height:100px;width:240px;border-radius:80px;margin-top:25px;margin-bottom:10px;padding:12px;">
-                        <h3 style="color:#F27E64;">80</h3>
-                       <p style="color:#6E717A;">Bandner Advertisement</p>
-                        </div></center>
-                    </div> 
-                    <div class="col-lg-6 col-md-6">
-                        
-                        <center><div style="background-color:  #edfffd;height:100px;width:240px;border-radius:80px;margin-top:25px;padding:12px">
-                            <h3 style="color: #52C193;">80</h3>
-                            <p style="color:#6E717A;">Bandner Advertisement</p>
-                            </div></center>
-                        </div>
-                        <div></div>
-                    </div> 
-                </div>
+                    <button type="submit" class="form-control " style="background-color: #3d2a83"><span style="color: aliceblue;">Submit</span></button>
+                  </div>
               </div>
-          
-        </div>
+        
+                   <div>
+     
+        
+   
+
+       </div>
+                  </div>
+                 
+  
+
+
+            </form>
+            
+            {% if all_date %}
+            <div class="dash_bor_table px-4">
+
+              <table class=" table table-borderless">
+        
+              <tr class="me-5">
+                
+                <th class="py-4">#No</th>
+                <th class="py-4">User Id</th>
+                <th class="py-4">Name</th>
+                <th class="py-4">Email Id</th>
+              </tr>
+              {% for i in all_date %}
+              
+              <tr>
+                <td class="py-4">{{forloop.counter}}</td>
+                <td class="py-4">{{i.uid}}</td>
+                <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2">{{i.full_name}}</td>
+                
+                <td class="py-4">{{i.email}}</td>
+              </tr>
+              {%endfor%}
+              
+               
+        
+                <div class="py-4">
+              
+        
+            </table>
+        
+
+        
+             </div>
+            {%endif%}
+          </div>
 
 
       </div>

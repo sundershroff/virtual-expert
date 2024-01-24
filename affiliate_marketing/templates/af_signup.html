@@ -42,11 +42,11 @@
                 <hr class="w-43 float-right">
               </div>
               <div class="sigin_page_part2 mt-3">
-                <form method="POST" action="#" id="myform">
+                <form method="POST" action="" id="myform">
                   {% csrf_token %}
                   <div class="col-lg-12 my-4">
-                    <label class="py-1" for="eamil">Email<span>*</span></label>
-                    <input type="text" name="email" id="eamil" class="form-control" autofocus>
+                    <label class="py-1" for="email">Email<span>*</span></label>
+                    <input type="text" name="email" id="email" class="form-control" autofocus>
                   </div>
                   <div class="col-lg-12 my-4">
                     <label class="py-1" for="mobile">Mobile<span>*</span></label>
@@ -64,15 +64,15 @@
                   </div>
                   <p id="res" style="color: red;"></p>
 
-
-                  <!-- <div class="col-lg-12 my-4">
-                    <label class="py-1" for="referral_code">Referral Code (Optional)<span>*</span></label>
-                    <input type="text" name="referral_code" id="referral_code" class="form-control">
-                  </div> -->
-
-                  <input type="text" id="code" class="form-control form-control-lg" name="code" style="display:none;" />
+                
+                    <div class="col-lg-12 my-4">
+                      <label class="py-1" for="referral_code">Referral Code (Optional)</label>
+                      <input type="text" name="referral_code" id="referral_code" class="form-control">
+                    </div>
+                 
+                  <!-- <input type="text" id="code" class="form-control form-control-lg" name="code" style="display:none;" />
                   <input type="text" id="user_otp" class="form-control form-control-lg" name="user_otp"
-                    style="display:none;" />
+                    style="display:none;"/> -->
 
                   <div class="col-lg-12">
 

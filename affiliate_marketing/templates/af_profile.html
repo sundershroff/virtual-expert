@@ -67,11 +67,15 @@
                    </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
-                  <span style="color:#2B3674"><b>Thomas Miller</b><br>
-                    <span class="task_button_text">{{key.full_name}}<br>
+                  <span style="color:#2B3674"><b>{{key.full_name}}</b><br>
+                    <span class="task_button_text">Affiliate marketing<br>                                                                                                                                          
                      Created On:<span style="color:#3247CE">{{key.created_date}} </span> </span>
                   </span>
-                  <a href="/affiliate_marketing/af_editprofile/{{key.uid}}"><button class="btn_end ">Edit Profile</button></a>
+                  {% if access %} 
+                  <button class="btn_end ">Edit Profile</button>
+                {% else %} 
+                <a href="/affiliate_marketing/af_editprofile/{{key.uid}}"><button class="btn_end ">Edit Profile</button></a>
+                {% endif %}
                 </div>
                 <div class="col-lg-3 col-md-3"></div>
                 
@@ -82,8 +86,8 @@
                       
                        <img src="{% static 'images/copper-coin-line.png'%}" height="25px" width="25px">
                    </div>
-                   <span class="px-2"><h4 style="color: #EB5757">100</h4>
-                   <p style="color:#4F4F4F">Total Emera Coin <span><a href="#">Details</a></span></p></span>
+                   <span class="px-2"><h4 style="color: #EB5757">{{key.coin}}</h4>
+                   <p style="color:#4F4F4F">Total Emera Coin <span><a href="/affiliate_marketing/af_commisions/{{key.uid}}">Details</a></span></p></span>
                    
                   </div>
                   

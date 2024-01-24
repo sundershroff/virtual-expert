@@ -63,7 +63,7 @@
             
               
                 <form method="POST" action="#" enctype="multipart/form-data">
-                  {%csrf_token%}
+                  {% csrf_token %}
          <div class="row py-3">
                     <div class="col-lg-4 col-md-4">
                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Full Name</b><sup style="color: #9B51E0">*</sup></label>
@@ -103,7 +103,7 @@
 
           <input type="file" name="profile_picture" id="" style="
           max-width: 100%;
-          height: 100%;
+          height: 50%;
           position: absolute;
           opacity: 0;
       ">

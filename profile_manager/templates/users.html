@@ -53,7 +53,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">43 </span>Users</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}}</span>Users</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -66,10 +66,13 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-       <button > <a href="/profile_manager/add_user/{{key.uid}}" style="
-        color: white;
-        text-decoration: none;
-    ">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
+        {% if "Add user" in access_Privileges %}
+       <button > <a href="/profile_manager/add_user/{{key.uid}}" style="color: white;text-decoration: none;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
+        {% else%}
+        {% endif %}
+        {% if access_Privileges == "" %}
+        <button > <a href="/profile_manager/add_user/{{key.uid}}" style="color: white;text-decoration: none;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
+        {% endif %}
       </div>
       
     </div>
@@ -127,9 +130,21 @@
 <form method="POST">
 {% csrf_token %}
         <ul>
-          <li><a href="">View Details</a> </li>
-          <li><a href=""><button type="submit" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
-          <li><a href="" style="color:red;"><button type="submit" name="delete" value="{{i.uid}}">Delete</button></a> </li>
+          {% comment %} <li><a href="">View Details</a> </li> {% endcomment %}
+          {% if "Edit user" in access_Privileges%}
+          <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
+          {% else %}
+          {% endif %}
+          {% if access_Privileges == "" %}
+          <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
+          {% endif %}
+          {% if "Delete user" in access_Privileges%}
+          <li><a href="" style="color:red;"><button type="submit" name="delete" class="btn btn-danger" value="{{i.uid}}">Delete</button></a> </li>
+          {% else %}
+          {% endif %}
+          {% if access_Privileges == "" %}
+          <li><a href="" style="color:red;"><button type="submit" name="delete" class="btn btn-danger" value="{{i.uid}}">Delete</button></a> </li>
+          {% endif %}
         </ul>
       </form>
       </div>

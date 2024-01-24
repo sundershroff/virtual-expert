@@ -44,9 +44,16 @@ urlpatterns = [
     path('profile_manager/users/<id>', pm_views.users),
     path('profile_manager/add_user/<id>', pm_views.add_user),
     path('profile_manager/user_edit/<id>', pm_views.user_edit),
+    path('profile_manager/profile_finders_approved_list/<id>',pm_views.profile_finders_approved_list),
     path('profile_manager/settings/<id>', pm_views.settings),
+    path('profile_manager/logout_view/<id>',pm_views.logout_view),
+    path('pm_password_reset/<id>',pm_views.pm_password_reset),
+    path('pm_forget_password/',pm_views.pm_forget_password),
+    path('pm_forgetpassword_otp/<id>',pm_views.pm_forgetpassword_otp),
+    path('pm_forgetpassword_reset/<id>',pm_views.pm_forgetpassword_reset),
 
 #///////sales manager//////
+    #///////sales manager//////
     path('sales_manager/signup/', sm_views.signup),
     path('sales_manager/signin/', sm_views.signin),
     path('sales_manager/otp/<id>', sm_views.otp),
@@ -61,19 +68,23 @@ urlpatterns = [
     path('sales_manager/sm_hand_list/<id>', sm_views.hand_list),
     path('sales_manager/sm_ads_list/<id>', sm_views.ads_list),
     path('sales_manager/sm_ad_details/<id>', sm_views.ad_details),
+    path('sales_manager/sm_ad_dis_details/<id>',sm_views.ad_dis_details),
     path('sales_manager/sm_edit_adDetail/<id>', sm_views.edit_ad_details),
     path('sales_manager/sm_accountsetting/<id>', sm_views.setting),
     path('sales_manager/sm_users/<id>', sm_views.users),
     path('sales_manager/sm_addusers/<id>', sm_views.add_users),
+    path('sales_manager/sm_user_edit/<id>', sm_views.sm_user_edit),
+    path('sales_manager/sm_client_details/<id>',sm_views.sm_client_details),
     path('sales_manager/otp_client/<id>',sm_views.otp_client),
-
+    path('password_reset/<id>',sm_views.password_reset),
     # path('sales_manager/add_client/<id>',sm_views.add_client),
-
-
-
-
-
-
+    path("sales_manager/ad_pro_ads/<id>",sm_views.ad_pro_ads),
+    # path("sales_manager/ad_proads_details/<id>",sm_views.ad_proads_details),
+    path('sales_forget_password/',sm_views.sales_forget_password),
+    path('sales_forgetpassword_otp/<id>',sm_views.sales_forgetpassword_otp),
+    path('sales_forgetpassword_reset/<id>',sm_views.sales_forgetpassword_reset),
+    path('sales_manager/sm_edit_adproDetail/<id>',sm_views.edit_adpro_details),
+    path("sales_manager/signout/<id>",sm_views.signout),
 
 
 
@@ -102,16 +113,13 @@ urlpatterns = [
     path('hiring_manager/hm_hiring_manager/<id>', hm_views.hiring_manager),
     path('hiring_manager/hm_hiring_manager_doc/<id>', hm_views.hiring_manager_doc),
     path('hiring_manager/hm_settings/<id>', hm_views.setting),
+    path('hiring_manager/hm_users/<id>', hm_views.users),
+    path('hiring_manager/hm_addusers/<id>', hm_views.add_users),
+    path('hiring_manager/hm_user_edit/<id>', hm_views.hm_user_edit),
     path('hm_password_reset/<id>',hm_views.hm_password_reset),
     path('hm_forget_password/',hm_views.hm_forget_password),
     path('hm_forgetpassword_otp/<id>',hm_views.hm_forgetpassword_otp),
     path('hm_forgetpassword_reset/<id>',hm_views.hm_forgetpassword_reset),
-
-
-
-
-
-
 
 
 
@@ -122,7 +130,7 @@ urlpatterns = [
     path('ad_provider/profile_picture/<id>', ad_provider_views.profile_picture),
     path('ad_provider/upload_acc/<id>', ad_provider_views.upload_acc),
     path('ad_provider/ad_provider_admin_dashboard/<id>', ad_provider_views.admin_dashboard),
-    path('ad_provider/ad_pro_account/<id>', ad_provider_views.account),
+    path('ad_provider/ad_pro_account/<id>', ad_provider_views.account), 
     path('ad_provider/ad_pro_editAccount/<id>', ad_provider_views.edit_account),
     path('ad_provider/ad_pro_acc_balance/<id>', ad_provider_views.acc_balance),
     path('ad_provider/ad_pro_adFunds/<id>', ad_provider_views.add_funds),
@@ -144,7 +152,8 @@ urlpatterns = [
     path('ad_pro_forget_password/',ad_provider_views.ad_pro_forget_password),
     path('ad_pro_forgetpassword_otp/<id>',ad_provider_views.ad_pro_forgetpassword_otp),
     path('ad_pro_forgetpassword_reset/<id>',ad_provider_views.ad_pro_forgetpassword_reset),
-
+    path('ad_provider/logout_view/<id>',ad_provider_views.logout_view),
+ 
 
 
 
@@ -178,6 +187,7 @@ urlpatterns = [
     path('ad_dis_forget_password/',ad_distributor_views.ad_dis_forget_password),
     path('ad_dis_forgetpassword_otp/<id>',ad_distributor_views.ad_dis_forgetpassword_otp),
     path('ad_dis_forgetpassword_reset/<id>',ad_distributor_views.ad_dis_forgetpassword_reset),
+    path('ad_distributor/logout_view/<id>',ad_distributor_views.logout_view),
 
     
 
@@ -193,11 +203,14 @@ urlpatterns = [
     path('affiliate_marketing/af_commisions/<id>', af_views.commisions),
     path('affiliate_marketing/af_setting/<id>', af_views.setting),
     path('affiliate_marketing/af_marketingdashboard/<id>',af_views.admin_dashboard),
-    path('password_reset/<id>',af_views.password_rest)
-
-
-
-
+    path('password_aff_reset/<id>',af_views.password_reset),
+    path('affiliate_marketing/am_users/<id>', af_views.users),
+    path('affiliate_marketing/am_addusers/<id>', af_views.add_users),
+    path('affiliate_marketing/am_user_edit/<id>', af_views.am_user_edit),
+    path('aff_forget_password/',af_views.aff_forget_password),
+    path('aff_forgetpassword_otp/<id>',af_views.aff_forgetpassword_otp),
+    path('aff_forgetpassword_reset/<id>',af_views.aff_forgetpassword_reset),
+    path('affiliate_marketing/signout/<id>',af_views.signout),
 
 
 ]

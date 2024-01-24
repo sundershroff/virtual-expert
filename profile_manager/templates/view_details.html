@@ -555,7 +555,7 @@
         
 <form method = "POST" action = "/profile_manager/profile_finders/{{key.uid}}">
 {% csrf_token %}
-{% if "Approve and reject profiles" in access_Privileges %}
+{% comment %} {% if "Approve and reject profiles" in access_Privileges %} {% endcomment %}
 <div class="local_adm_chi3">
           <button type="submit" name="Approve" value="{{specific_data.uid}}">Approve</button>
           <button type="button" name="Reject" value="{{specific_data.uid}}" data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
@@ -563,9 +563,9 @@
 
           
         </div>
-{% else %}
+{% comment %} {% else %}
 
-{% endif %}
+{% endif %} {% endcomment %}
         
         </form>
       </div>

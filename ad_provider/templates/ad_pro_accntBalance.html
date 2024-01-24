@@ -90,7 +90,7 @@
 
             <div>
               <h3 style="color:#34A853;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 2,500</span></h3>
-              <p>Account Balance <span><a href="#">Details</a></span></p>
+              <p>Account Balance </p>
             </div>
 
 
@@ -112,81 +112,63 @@
       <table>
         <thead>
           <tr>
-            <th>#No</th>
+            <th>No</th>
             <th>Details</th>
-
-            <th>Type of user</th>
+            <th>Type of ad</th>
             <th>Date</th>
             <th>Time</th>
+            <th>Commission%</th>
             <th>Amount</th>
           </tr>
         </thead>
         <tbody>
+         {% for i in all_data %}
           <tr >
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.ad_name}} <b>{{i.ad_id}}</b> {{i.status}}</td>
+            <td>{{i.ad_type}}</td>
+            <td>{{i.ad_created_date}}</td>
+            <td>{{i.ad_created_time}}</td>
+            <td >{{i.commission}}%</td>
+            <td >{{i.amount}}</td>
+          </tr>
+            {% comment %} <tr>
+              <td>1</td>
+              <td>Ad #1234 Closed</td>
+              <td>Banner ad</td>
+              <td>7/11/19</td>
+              <td>5:45 am</td>
+              <td>10%</td>
+              <td>₹ 100</td>
           </tr>
             <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
+              <td>1</td>
+              <td>Ad #1234 Closed</td>
+              <td>Banner ad</td>
+              <td>7/11/19</td>
+              <td>5:45 am</td>
+              <td>10%</td>
+              <td>₹ 100</td>
           </tr>
             <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
+              <td>1</td>
+              <td>Ad #1234 Closed</td>
+              <td>Banner ad</td>
+              <td>7/11/19</td>
+              <td>5:45 am</td>
+              <td>10%</td>
+              <td>₹ 100</td>
           </tr>
             <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
-          </tr>
-            <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td>Joined <strong>Rohan James</strong></td>
-            <td>Profile Finder</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>₹ 100</td>
-          </tr>
-
+              <td>1</td>
+              <td>Ad #1234 Closed</td>
+              <td>Banner ad</td>
+              <td>7/11/19</td>
+              <td>5:45 am</td>
+              <td>10%</td>
+              <td>₹ 100</td>
+          </tr> {% endcomment %}
+        {% endfor %}
         </tbody>
       </table>
        
@@ -203,7 +185,15 @@
 
  
  <script src="js/main.js"></script>
-
+{% comment %} <script>
+  function calculateamount(inputElement)
+  {
+   var x =parseInt(inputElement.value);
+   var amount= x * 10;
+   var amountCell = inputElement.parentNode.nextElementSibling;
+        amountCell.innerText = amount;
+  }
+</script> {% endcomment %}
 
 </body>
 </html>

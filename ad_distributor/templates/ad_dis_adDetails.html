@@ -103,10 +103,10 @@
             <div class="col-lg-3 col-md-3">
               <span ><b>{{ad_data.ad_name}}</b><br>
                 <span class="task_button_text">{{ad_data.ad_type}}<br>
-                  {{ad_data.ad_created_date}} | 10:00am <br>
+                  {{ad_data.ad_created_date}} | {{ad_data.ad_created_time}}<br>
                   Status:<span style="color:#F2994A">{{ad_data.status}}</span>
               </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn1" value="{{ad_data.ad_id}}" id="copy_value" onclick="copyvalue(this)">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
 
             </div>
@@ -262,7 +262,23 @@
 </div>
 
   <!-- over -->
+  <script>
+    function copyvalue(button) {
+        var buttonValue = button.value;
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.value = buttonValue;
 
+        document.body.appendChild(tempTextarea);
+
+        tempTextarea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(tempTextarea);
+
+        document.getElementById('copiedValue').innerText = buttonValue;
+    }
+</script>
 
  
   <script src="{% static 'js/main.js'%}"></script>

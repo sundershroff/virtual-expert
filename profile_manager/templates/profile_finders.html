@@ -68,8 +68,8 @@
 
         </form>
         <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Add New <i class="fa-solid fa-circle-plus"></i></button>
-      </div>
+        {% comment %} <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>     {% endcomment %}
+        </div>
       
     </div>
     <!-- over -->
@@ -105,24 +105,23 @@
              <td data-label = "Location">{{i.r_country}}</td>
              <td data-label = "Status">
               {% if i.status == "Approve" %}
-                                            <i class="fas fa-circle locl_adm_status"></i>
-                            <label class="toggle-switch">
+                <i class="fas fa-circle locl_adm_status"></i>
+                <label class="toggle-switch">
                 <input type="checkbox" checked>
-            <span class="slider"></span>
-            </label>
+                <span class="slider"></span>
+                </label>
               {% elif i.status == "Reject" %}
-                                 <i class="fas fa-circle locl_adm_status" style="color:red;"></i>
-                                          <label class="toggle-switch">
+                <i class="fas fa-circle locl_adm_status" style="color:red;"></i>
+                  <label class="toggle-switch">
                   <input type="checkbox" >
-                              <span class="slider"></span>
-            </label>
+                  <span class="slider"></span>
+                  </label>
               {% else%}
-                                <i class="fas fa-circle locl_adm_status" style="color:orange;"></i>
-
-                                          <label class="toggle-switch">
+              <i class="fas fa-circle locl_adm_status" style="color:orange;"></i>
+              <label class="toggle-switch">
               <input type="checkbox" >
-                          <span class="slider"></span>
-            </label>
+              <span class="slider"></span>
+              </label>
               {% endif %}
                
              </td>
@@ -141,14 +140,16 @@
                     {% csrf_token %}
                   <div class="modal-body locl_adm_modal1">
            
-                    <ul style="
-                    text-align: center;
-                ">
-                      <li><a href="/profile_manager/view_details/{{key.uid}}"><button type="submit" name="uid" value="{{i.uid}}" style="
-                        border: 1px solid white;
-                        background-color: white;
-                        font-weight: 500;
-                    ">View Details</button> </a></li>
+                    <ul style="text-align: center;">
+                      {% if 'Approve and reject profiles' in access_Privileges %}
+                      <li><a href="/profile_manager/view_details/{{key.uid}}"><button type="submit" name="uid" value="{{i.uid}}" 
+                        style="border: 1px solid white;background-color: white;font-weight: 500;">View Details</button> </a></li>
+                      {% else %}
+                      {% endif %}
+                      {% if access_Privileges == "" %}
+                      <li><a href="/profile_manager/view_details/{{key.uid}}"><button type="submit" name="uid" value="{{i.uid}}" 
+                        style="border: 1px solid white;background-color: white;font-weight: 500;">View Details</button> </a></li>
+                      {% endif %} 
                       <li><a href="">Approve</a></li>
                       <li><a href="" style="color:red;">Reject</a> </li>
                     </ul>
@@ -158,10 +159,7 @@
                 </div>
               </div>
             </div>
-            {% endfor %}
-           
-
-           
+            {% endfor %}   
 
           </tbody>
         </table>
@@ -239,7 +237,73 @@
       </div>
     </div>
   </div>
+  <div class="modal fade modal-md px-4" id="AddnewClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Add New Clients</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="POST" action="" enctype="multipart/form-data">
+            {%csrf_token%}
+         
+            {% comment %} <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Client Type</label>
+               <select class="form-select py-3" name="client_type">
+                <option {{key.client_type}}>{{key.client_type}}</option>
+                <option value="AD Provider">AD Provider</option>
+                <option value="AD Distributor">AD Distributor</option>
+                <option value="Affiliate Marketing">Affiliate Marketing</option>
+                <option value="Local Admin">Local Admin</option>
+              </select>
+             </div> {% endcomment %}
+              <span><b>Profile Finder Details</b></span>
+              <div class="my-4">
+                <label for="exampleFormControlInput1" class="form-label">Profile Finder ID</label>
+                <input type="text" name="pf_id" value="" class="form-control">
+               </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" name="pf_name" class="form-control">
+               
+             </div>
+             {% comment %} <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Location</label>
+               <select class="form-select py-3" name="pf_location">
+                <option {{key.client_location}}>{{key.client_location}}</option>
+                <option value="cochin">cochin</option>
+                <option value="kollam">kollam</option>
+              </select>
+             </div> {% endcomment %}
+            
+             
+  
+              <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+               <input type="text" name="phone_number" class="form-control">
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+               <input type="email" name="email" class="form-control">
+             </div>
+        
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+               <button class="prof_personal_filbtn2 my-3" name="add" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
 
+        </div>
+      
+      </div>
+    </div>
+</div>
   <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

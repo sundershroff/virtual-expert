@@ -72,7 +72,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">43 </span>Users</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}} </span>Users</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -84,7 +84,7 @@
         </div>
 
         </form>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter<i class="fa-solid fa-filter"></i></button>
        
         {% if "Add User" in user_access %}
         <a href="/ad_distributor/ad_dis_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
@@ -92,7 +92,7 @@
         {% comment %} <a href="#"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a> {% endcomment %}
         {% endif %}
         {% if user_access == "" %} 
-      <a href="/ad_distributor/ad_dis_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+        <a href="/ad_distributor/ad_dis_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
         {% endif %}
         </div>
       
@@ -119,7 +119,7 @@
             </tr>
           </thead>
            <tbody>
-            {% for i in my_user %}
+        {% for i in my_user %}
             <tr>
             
              <td data-label = "No">{{forloop.counter}}</td>
@@ -141,10 +141,10 @@
             </label>
             {% endif %}
              </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></td>
+             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action" data-bs-toggle="modal" data-bs-target="#exampleModal{{forloop.counter}}"></i></td>
               
             </tr>
-            <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+            <div class="modal fade modal-md px-4" id="exampleModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header border-0">
@@ -159,22 +159,22 @@
                      
                       <li><a href="">View Details</a> </li>
                       
-                        {% if 'Edit User' in user_access %}
-                        <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}"> EDIT </button></li>
-                        {% else %}
-
-                        {% endif %}
-                        {% if user_access == "" %}
-                      <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}"> EDIT </button></li>
-                        {% endif %}
-                        {% if 'Delete User' in  user_access %}
-                        <li><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">DELETE</button></li>
-                        {% else %}
-                        {% comment %} <li><button  class="btn btn-danger" ><a href="#">DELETE</a></button></li> {% endcomment %}
-                        {% endif %}
-                        {% if user_access == "" %}
+                      {% if 'Edit User' in user_access %}
+                      <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></li>
+                      {% else %}
+                      
+                      {% endif %}
+                      {% if user_access == "" %}
+                    <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></li>
+                      {% endif %}
+                      {% if 'Delete User' in user_access %}
                       <li><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">DELETE</button></li>
-                        {% endif %}
+                      {% else %}
+
+                      {% endif %}
+                      {% if user_access == "" %}
+                    <li><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">DELETE</button></li>
+                      {% endif %}
                     </ul>
                   
                   </form>
@@ -183,7 +183,7 @@
                 </div>
               </div>
             </div>
-            {% endfor %}
+        {% endfor %}
 
              {% comment %} <tr>
 

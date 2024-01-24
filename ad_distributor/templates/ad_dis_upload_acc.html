@@ -28,11 +28,13 @@
 
 </head>
 <body style=" background-color:rgba(0, 0, 255, 0.1);">
-  
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 
    
- <div class="dash_bor_sec1">
-
+ {% comment %} <div class="dash_bor_sec1">
+   {% include "ad_pro_nav.html" %}
   <!-- <div class="dash_bor_sdbr" id="dashsidebar" >
 
       <header id="header">
@@ -57,11 +59,11 @@
     <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
   </header>
   
-  </div> -->
+  </div> --> {% endcomment %}
 
   <div class="dash_bor_main1" >
     <!-- start1-->
-    {% comment %} {% include "ad_dis_header.html" %} {% endcomment %}
+
     <div class="dash_par1" style="background:white;">
 
           <i class="fa-regular fa-bell"></i>
@@ -74,53 +76,39 @@
     </div>
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
-  
+
     <!-- start -->
     <div class="local_admin_edi_acc px-3 py-4">
 
       {% comment %} <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3> {% endcomment %}
 
-      {% comment %} <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
-        <form method="POST" enctype="multipart/form-data" id="myform">
+      <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
+        <form method="POST" enctype="multipart/form-data" id="myform" action="">
           {% csrf_token %}
-          <div class="row mb-3">
+          {% comment %} <div class="row mb-3"> {% endcomment %}
 
-          <div class="col-lg-4 my-3">
+          {% comment %} <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
             <input type="text" name="office_name" class="form-control" placeholder="Name">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select class="form-select" name="personal_country" id="countrytwo" onchange="fun2.call(this,event)">
+            <select class="form-select" name="office_country">
               <option value="default">Select</option>
-                {% for j in all %}
-                  <option value="{{j.name}}">{{j.name}}</option>
-                {% endfor %}
-          
-
             </select>
-          </div>
+          </div> {% endcomment %}
 
-          <div class="col-lg-4 my-3">
+          {% comment %} <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
-            <select class="form-select" name="personal_city" id="res3">
+            <select class="form-select" name="office_city">
               <option value="default">Select</option>
-              <script>
-                stat = {{ states|safe }};
-            ttt = stat[0].states;
-            for (i=0;i<ttt.length;i++){
-               tt = ttt[i].name;
-               document.write("<option value="tt">"+tt+"</option>");
-            }
-          </script>
-
             </select>
-          </div>
+          </div> {% endcomment %}
           
-        </div>
+        {% comment %} </div> {% endcomment %}
 
-        <div class="row">
+        {% comment %} <div class="row">
 
         <div class="col-12">
           <label class="form-label">Office Address<span>*</span></label>
@@ -128,17 +116,11 @@
         </div> 
           
         </div> {% endcomment %}
-        <form method="POST" enctype="multipart/form-data" id="myform" style="
-    background-color: white;
-    padding: 6px;
-    border-radius: 11px;
-">
-          {% csrf_token %}
 
         <h4 class="my-4" style="color:#7B61FF;">Contact Person Details</h4>
           
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
               <div class="row">
 
                 <div class="col-lg-6 my-3">
@@ -152,28 +134,26 @@
                 </div>
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
-                  <select id="countryone" class="form-select" name="personal_country" onchange="fun1.call(this,event)">
-                    <option value="default">Select</option>
-                    {% for j in all %}
+                  <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
+              <option value="default">Select</option>
+              {% for j in all %}
                     <option value="{{j.name}}">{{j.name}}</option>
                     {% endfor %}
             </select>
-            
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">City<span>*</span></label>
-                  <select class="form-select" name="personal_city" id="res2">
-                    <option value="default">Select</option>
-                    <script>
-                      stat = {{ states|safe }};
-                  ttt = stat[0].states;
-                  for (i=0;i<ttt.length;i++){
-                     tt = ttt[i].name;
-                     document.write("<option value="tt">"+tt+"</option>");
-                  }
-                </script>
-      
+                  <select id="res3" class="form-select" name="personal_city">
+              <option value="default">Select</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
             </select>
                 </div>
 
@@ -181,37 +161,42 @@
                   <label class="form-label">Addresss<span>*</span></label>
                   <input type="text" name="personal_address" class="form-control" placeholder="Address">
                 </div>
+                <div class="col-6 my-3">
+                  <label class="form-label">Type<span>*</span></label>
+                  <select class="form-select " name="type">
+                   <option {{key.type}}>{{key.type}}</option>
+                   <option value="AdDistributor">AdDistributor</option>
+                 </select>
+                </div>
 
                 <div class="col-lg-6 my-3">
             <label class="form-label">Notary<span>*</span></label>
             <select class="form-select" name="hiring_manager">
               <option value="default">Select</option>
-              {% for i in hiring_manager %}
-                 <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+              {% for i in  hiring_manager %}
+              <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
               {% endfor %}
-
+             
             </select>
           </div>
 
           <div class="col-lg-6 my-3">
             <label class="form-label">Sales Manager<span>*</span></label>
-            
-             <select class="form-select" name="sales_manager">
+            <select class="form-select" name="sales_manager">
               <option value="default">Select</option>
-              {% for j in sales_manager %}
-                 <option value="{{j.uid}}">{{j.full_name}}</option>
+              {% for i in  sales_manager %}
+              <option value="{{i.uid}}">{{i.full_name}}</option>
               {% endfor %}
-
-            </select> 
+             
+            </select>
           </div>
-              
                 
               </div>
               
             </div>
-            <div class="col-lg-4">
+            {% comment %} <div class="col-lg-4">
               
-              {% comment %} <div class="row">
+              <div class="row">
                  <div class="col-12 my-3">
                  <label class="form-label">ID Card<span>*</span></label>
 
@@ -222,17 +207,14 @@
 
                       <input type="file" name="id_card" style="
                       opacity: 0;
-                      position: absolute;
-                      height: 272px;
-                      z-index: 5;
-                      ">
+                      position: absolute;">
                 
 
                   </div>
 
                 </div>
-              </div> {% endcomment %}
-            </div>
+              </div>
+            </div> {% endcomment %}
 
           </div>
 
@@ -253,8 +235,8 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#">Update</button>
-          
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+          {% comment %} exampleModal {% endcomment %}
         </div>
            
       </form>
@@ -286,11 +268,6 @@
           
         </div>
       </div>
-
-
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
       <script>
         // just for the demos, avoids form submit
         jQuery.validator.setDefaults({
@@ -350,32 +327,49 @@
                       $('#exampleModal').modal('toggle');
                   }, 2000);
               });
-          }); 
-      </script> 
+          });
+      </script>
 <style>
-    label.valid {
-    background: url(images/checked.gif) no-repeat;
-    display: none;
-    width: 16px;
-    height: 16px;
+  label.valid {
+  background: url(images/checked.gif) no-repeat;
+  display: none;
+  width: 16px;
+  height: 16px;
+  }
+  label.error {
+      color: red;
+  }
+  label#id_card-error {
+      display: flex;
+      display: flex;
+      justify-content: center;
+      height: 186px;
+      position: absolute;
+      width: 258px;
+      align-items: end;
+  }
+  </style>
+  <script type="text/javascript">
+    function fun1(event){
+    a = document.getElementById("countryone").value;
+    <!--document.getElementById("res").innerHTML=a;-->
+    c = {{ country|safe }};
+    position =c.indexOf(a);
+    <!--document.getElementById("res1").innerHTML=position;-->
+    stat = {{ states|safe }};
+    ttt = stat[position].states;
+    tt = "<select>";
+    for (i=0;i<ttt.length;i++){
+       tt += "<option>"+ttt[i].name+"</option>";
     }
-    label.error {
-        color: red;
+         tt+="</select>";
+          document.getElementById("res2").innerHTML=tt;
     }
-    label#id_card-error {
-        display: flex;
-        display: flex;
-        justify-content: center;
-        height: 186px;
-        position: absolute;
-        width: 258px;
-        align-items: end;
-    }
-    </style>
-
+    
+    </script>
     <script type="text/javascript">
-      function fun1(event){
-      a = document.getElementById("countryone").value;
+      function fun2(event){
+      a = document.getElementById("countrytwo").value;
       <!--document.getElementById("res").innerHTML=a;-->
       c = {{ country|safe }};
       position =c.indexOf(a);
@@ -387,29 +381,11 @@
          tt += "<option>"+ttt[i].name+"</option>";
       }
            tt+="</select>";
-            document.getElementById("res2").innerHTML=tt;
+            document.getElementById("res3").innerHTML=tt;
       }
       
       </script>
-
-      <script type="text/javascript">
-        function fun2(event){
-        a = document.getElementById("countrytwo").value;
-        <!--document.getElementById("res").innerHTML=a;-->
-        c = {{ country|safe }};
-        position =c.indexOf(a);
-        <!--document.getElementById("res1").innerHTML=position;-->
-        stat = {{ states|safe }};
-        ttt = stat[position].states;
-        tt = "<select>";
-        for (i=0;i<ttt.length;i++){
-           tt += "<option>"+ttt[i].name+"</option>";
-        }
-             tt+="</select>";
-              document.getElementById("res3").innerHTML=tt;
-        }
-        
-        </script>
+  
       <script src="{% static 'js/main.js'%}"></script>
       
 

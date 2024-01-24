@@ -42,6 +42,18 @@
       <!-- .nav-menu -->
     </div>
     <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <style>
+      .reject_btn{
+    background-color: #d13812;
+    color: white;
+    border: 1px;
+    height: 39px;
+    border-radius: 11px;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+      
+    </style>
   </header>
   
   </div>
@@ -81,15 +93,15 @@
             <div class="col-lg-2 col-md-2">
                <div class="details">
 
-<img src="{{viewid.picture}}" height="60px" width="60px">
+<img src="{{viewid.profile_picture}}" height="60px" width="60px">
                </div>
             </div>
             <div class="col-lg-3 col-md-3">
-              <span style="color:#2B3674"><b>{{viewid.client_name}}</b><br>
+              <span style="color:#2B3674"><b>{{viewid.first_name}}{{viewid.last_name}}</b><br>
                 <span class="task_button_text">ID:{{viewid.uid}}<br>
-                    Type:{{viewid.types_of_activities}}<br>
+                    Type:{{viewid.type}}<br>
                     mailto:{{viewid.email}}<br>
-                    {{viewid.phone_number}} </span>
+                    (+91) {{viewid.mobile}} </span>
               </span>
                           </div>
             <div class="col-lg-9 col-md-9"></div>
@@ -102,33 +114,49 @@
     
     <div class="locl_adm_sec2 px-4 my-5">
       <h5>Details</h5>
+      {% for i in ad_data%}
+      {% if i.status == "Pending" %}
       <div class="row rowbg">
       <div class="col-lg-2 col-md-2">
-        <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
+        <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
       </div>
+   
       <div class="col-lg-4 col-md-4">
-        <span ><b>Ad 1</b><br>
-          <span class="task_button_text">Banner Ad<br>
-            10 Janduary, 2021 | 10:00am <br>
-            Status:<span style="color:#F2994A">Pending</span>
+        <span ><b>{{i.ad_id}}</b><br>
+          <span class="task_button_text">{{i.ad_type}}<br>
+            {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+
+            Status:<span style="color:#F2994A">{{i.status}}</span>
         </span>
         
       </div>
+    
       <div class="col-lg-4 col-md-4"></div>
+      
       <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-        <a href="/sales_manager/sm_edit_adDetail/{{key.uid}}"><button class="det_btn">View Details</button></a>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {%csrf_token%}
+        <button type="submit" class="det_btn" name="ad_pro_list" value="{{i.ad_id}}" >View Details</button>
+      </form>
       </div>
     </div>
+    {%endif%}
+    {%endfor%}
+    {% for i in ad_data%}
+    {% if i.status == "Active" %}
+    
     <div class="row rowbg">
         <div class="col-lg-2 col-md-2">
-          <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
+          <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
         </div>
         <div class="col-lg-4 col-md-4">
-          <span ><b>Ad 1</b><br>
-            <span class="task_button_text">Banner Ad<br>
-              10 Janduary, 2021 | 10:00am <br>
-              Status:<span style="color: #34A853">Approved</span>
-          </span>
+         
+            <span ><b>{{i.ad_id}}</b><br>
+              <span class="task_button_text">{{i.ad_type}}<br>
+                {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+    
+                Status:<span style="color:#0c792c">Approved</span>
+            </span>
           
         </div>
         <div class="col-lg-4 col-md-4"></div>
@@ -136,57 +164,34 @@
           <button class="app_btn">Approved</button>
         </div>
       </div>
+      
+      {%endif%}
+      {%endfor%}
+      {% for i in ad_data%}
+      {% if i.status == "Rejected" %}
       <div class="row rowbg">
+
         <div class="col-lg-2 col-md-2">
-          <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
+          <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
         </div>
         <div class="col-lg-4 col-md-4">
-          <span ><b>Ad 1</b><br>
-            <span class="task_button_text">Banner Ad<br>
-              10 Janduary, 2021 | 10:00am <br>
-              Status:<span style="color: #34A853">Approved</span>
-          </span>
+         
+            <span ><b>{{i.ad_id}}</b><br>
+              <span class="task_button_text">{{i.ad_type}}<br>
+                {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+    
+                Status:<span style="color:#e06e0bee">{{i.status}}</span>
+            </span>
           
         </div>
         <div class="col-lg-4 col-md-4"></div>
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-          <button class="app_btn">Approved</button>
+          <button class="reject_btn">Rejected</button>
         </div>
       </div>
-      <div class="row rowbg">
-        <div class="col-lg-2 col-md-2">
-          <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-        </div>
-        <div class="col-lg-4 col-md-4">
-          <span ><b>Ad 1</b><br>
-            <span class="task_button_text">Banner Ad<br>
-              10 Janduary, 2021 | 10:00am <br>
-              Status:<span style="color: #34A853">Approved</span>
-          </span>
-          
-        </div>
-        <div class="col-lg-4 col-md-4"></div>
-        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-          <button class="app_btn">Approved</button>
-        </div>
-      </div>
-      <div class="row rowbg">
-        <div class="col-lg-2 col-md-2">
-          <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-        </div>
-        <div class="col-lg-4 col-md-4">
-          <span ><b>Ad 1</b><br>
-            <span class="task_button_text">Banner Ad<br>
-              10 Janduary, 2021 | 10:00am <br>
-              Status:<span style="color: #34A853">Approved</span>
-          </span>
-          
-        </div>
-        <div class="col-lg-4 col-md-4"></div>
-        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-          <button class="app_btn">Approved</button>
-        </div>
-      </div>
+      {%endif%}
+      {%endfor%}
+
     </div>
     <!-- over -->
 

@@ -33,7 +33,7 @@
         
 
 
-        {% include 'ad_dis_nav.html'%}
+        {% include 'nav.html'%}
 
       
 
@@ -179,7 +179,7 @@
         <th class="py-4">Date of created</th>
         <th class="py-4">Location</th>
       </tr>
-{% for i in all_profile_finder %}
+{% for i in all_profile_finder|dictsortreversed:"created_date" %}
       <tr>
         <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.name}}</td>
         <td class="py-4">{{i.created_date}}</td>
@@ -196,12 +196,8 @@
 
   
 
-    <div class="dash_bor_rsp_va my-3" style="
-    height: auto;
-    position: sticky;
-    bottom: 0;
-">
-      <a href="#" class="mx-3">View All</a>
+    <div class="dash_bor_rsp_va my-3" style="height: auto;position: sticky;bottom: 0;">
+      <a href="/profile_manager/profile_finders/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
      </div>
@@ -239,7 +235,7 @@
 
           </table>
              <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/profile_manager/complaints/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
         
@@ -268,7 +264,7 @@
               
               <td class="py-4">{{forloop.counter}}</td>
               <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}"> {{i.name}}</span></td>
-              <td  class="py-4"></td>
+              <td  class="py-4">{{i.referral_code}}</td>
               <td class="py-4">{{i.created_date}}</td>
          
             </tr>
@@ -276,7 +272,7 @@
 
           </table>
              <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/profile_manager/profile_finders_approved_list/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
 

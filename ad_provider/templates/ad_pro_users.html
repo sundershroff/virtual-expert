@@ -72,7 +72,9 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">43 </span>Users</h3>
+        
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}}</span>Users</h3>
+       
       </div>
 
       <div class="locl_adm_form">
@@ -127,7 +129,7 @@
              <td data-label = "User ID">{{i.uid}}</td>
              <td data-label = "Name">{{i.first_name}}</td>
              <td data-label = "Email ID">{{i.email}}</td>
-             <td data-label = "Phone Number">{{i.mobile}}</td>
+             <td data-label = "Phone Number">+91{{i.mobile}}</td>
              
              <td data-label = "Status"><i class="fas fa-circle locl_adm_status"></i>
 
@@ -137,9 +139,9 @@
             </label>
                
              </td>
-             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></td>
+             <td data-label = "Actions"><i class="fa-solid fa-ellipsis-vertical locl_adm_action" data-bs-toggle="modal" data-bs-target="#exampleModal{{forloop.counter}}"></i></td>
               
-             <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+             <div class="modal fade modal-md px-4" id="exampleModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header border-0">
@@ -162,12 +164,11 @@
                       <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></li>
                         {% endif %}
                         {% if 'Delete User' in user_access %}
-                        <li><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></li>
+                        <li><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">DELETE</button></li>
                         {% else %}
 
                         {% endif %}
                         {% if user_access == "" %}
-                      
                       <li><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">DELETE</button></li>
                         {% endif %}
 
