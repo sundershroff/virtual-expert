@@ -70,7 +70,7 @@
         <form method="POST" id="myform">
 {% csrf_token %}
           <div class="row local_add_user_label">
-{{pm_my_users_data}}
+
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">First Name<span>*</span></label>
               <input type="text" name="first_name" value="{{pm_my_users_data.first_name}}" class="form-control" autofocus>
@@ -103,55 +103,99 @@
           <h5 class="my-3 mx-2" style="color:#2B3674; font-weight:700;">Access Privileges</h5>
 
           <div class="local_add_user_permis my-5">
-
+          {% if "Approve and reject profiles" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Approve and reject profiles">
-              <label id="access_Privileges-error" class="error" for="access_Privileges" style="
-    position: absolute;
-    top: 105%;
-    right: 48px;
-    width: 159px;
-    display: none;
-">This field is required.</label>
+              <input type="checkbox" name="access_Privileges" value="Approve and reject profiles" checked>
+              <label id="access_Privileges-error" class="error" for="access_Privileges" style="position: absolute;top: 105%;right: 48px;width: 159px;display: none;">This field is required.</label>
               <span class="checkmark"></span>
               Approve and reject profiles
             </label>
-
+          {% else %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Edit  Delete Profiles">
+              <input type="checkbox" name="access_Privileges" value="Approve and reject profiles" >
+              <label id="access_Privileges-error" class="error" for="access_Privileges" style="position: absolute;top: 105%;right: 48px;width: 159px;display: none;">This field is required.</label>
+              <span class="checkmark"></span>
+              Approve and reject profiles
+            </label>
+          {% endif %}
+          {% comment %} {% if "Edit  Delete Profiles" in pm_my_users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" name="access_Privileges" value="Edit  Delete Profiles" checked>
               <span class="checkmark"></span>
               Edit  Delete Profiles
             </label>
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Edit  Delete Profiles" >
+            <span class="checkmark"></span>
+            Edit  Delete Profiles
+          </label>
+          {% endif %} {% endcomment %}
+          {% if "Access Complaints" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Access Complaints">
+              <input type="checkbox" name="access_Privileges" value="Access Complaints" checked>
               <span class="checkmark"></span>
               Access Complaints
             </label>
-
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Access Complaints">
+            <span class="checkmark"></span>
+            Access Complaints
+          </label>
+          {% endif %}
+          {% if "Replay to complaints" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Replay to complaints">
+              <input type="checkbox" name="access_Privileges" value="Replay to complaints" checked >
               <span class="checkmark"></span>
               Replay to complaints
             </label>
-
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Replay to complaints">
+            <span class="checkmark"></span>
+            Replay to complaints
+          </label>
+          {% endif %}
+          {% if "Add user" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Add user">
+              <input type="checkbox" name="access_Privileges" value="Add user" checked>
               <span class="checkmark"></span>
               Add user
             </label>
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Add user">
+            <span class="checkmark"></span>
+            Add user
+          </label>
+          {% endif %}
+          {% if "Edit user" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Edit user">
+              <input type="checkbox" name="access_Privileges" value="Edit user" checked>
               <span class="checkmark"></span>
               Edit user
             </label>
-
-
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Edit user">
+            <span class="checkmark"></span>
+            Edit user
+          </label>
+          {% endif %}
+          {% if "Delete user" in pm_my_users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
-              <input type="checkbox" name="access_Privileges" value="Delete user">
+              <input type="checkbox" name="access_Privileges" value="Delete user" checked>
               <span class="checkmark"></span>
               Delete user
             </label>
-            
+          {% else %}
+          <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            <input type="checkbox" name="access_Privileges" value="Delete user">
+            <span class="checkmark"></span>
+            Delete user
+          </label>
+          {% endif %}
           </div>
 
           <div class="local_add_user_btn">

@@ -103,10 +103,10 @@
             <div class="col-lg-3 col-md-3">
               <span ><b>{{ad_data.ad_name}}</b><br>
                 <span class="task_button_text">{{ad_data.ad_type}}<br>
-                  {{ad_data.ad_created_date}} | 10:00am <br>
+                  {{ad_data.ad_created_date}} | {{ad_data.ad_created_time}} <br>
                   Status:<span style="color:#F2994A">{{ad_data.status}}</span>
               </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn1" id="copy_value" value="{{ad_data.ad_id}}" onclick="copyvalue(this)">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
 
             </div>
@@ -114,7 +114,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="ads_rect">
                 <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{ad_data.no_views}}</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
+                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>{{amount}}</b></p><br><p style="float:right">Balance Amount</p></div>
                 <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                 </div>
                <div style="float:right;margin-top:20px"> <label class="switch">
@@ -154,62 +154,14 @@
                   <tbody>
                     <tr >
                       <td>1</td>
-                      <td>A0B1C036</td>
-                      <td>20k</td>
-                      <td>7/11/19</td>
-                      <td>₹ 3982.00</td>
+                      <td>{{ad_data.ad_id}}</td>
+                      <td>{{ad_data.no_views}}</td>
+                      <td>{{ad_data.ad_created_date}}td>
+                      <td>₹{{amount}}</td>
                       
                     
                     </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                     <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                     <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
-                     <tr>
-                        <td>1</td>
-                        <td>A0B1C036</td>
-                        <td>20k</td>
-                        <td>7/11/19</td>
-                        <td>₹ 3982.00</td>
-                    </tr>
+                      
           
                   </tbody>
                 </table>
@@ -255,7 +207,23 @@
 </div>
 
   <!-- over -->
+  <script>
+    function copyvalue(button) {
+        var buttonValue = button.value;
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.value = buttonValue;
 
+        document.body.appendChild(tempTextarea);
+
+        tempTextarea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(tempTextarea);
+
+        document.getElementById('copiedValue').innerText = buttonValue;
+    }
+</script>
 
  
   <script src="{% static 'js/main.js'%}"></script>

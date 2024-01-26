@@ -169,9 +169,9 @@
                           
                     </div>
                     <div class="prof_personal_savefilt1">
-                        <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
-                        <button type="submit" class="prof_personal_filbtn2 my-3" type="submit">Update</button>
-                      </div>
+                      <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+                      <button class="prof_personal_filbtn2 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Update</button>
+                    </div>
                       <div class="col-lg-7 col-md-7"></div>
                     </div>
 
@@ -185,7 +185,9 @@
     <!-- over -->
 <!-- start -->
 
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
   <!-- over -->
   <script>
     // just for the demos, avoids form submit
@@ -204,9 +206,7 @@
         personal_country: {
           valueNotEquals: "default"
         },
-        personal_city: {
-          valueNotEquals: "default"
-        },
+
         personal_address: {
           required: true
         },

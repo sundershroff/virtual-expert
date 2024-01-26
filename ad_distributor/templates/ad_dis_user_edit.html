@@ -60,7 +60,7 @@
 
     <div class="local_add_user px-3 py-4">
 
-      <a href="/profile_manager/users/{{key.uid}}" style="
+      <a href="/ad_distributor/ad_dis_users/{{key.uid}}" style="
       text-decoration: none;color:#6E717A;
   "><h4 style="color:#6E717A; font-weight:700;">Users ></a> <span style="color:#7B61FF;">Edit User</span></h4>
 
@@ -72,29 +72,29 @@
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">First Name<span>*</span></label>
-              <input type="text" name="first_name" value="{{single_data.first_name}}" class="form-control" >
+              <input type="text" name="first_name" value="{{users_data.first_name}}" class="form-control" >
             </div>
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">Last Name<span>*</span></label>
-              <input  class="form-control" type="text" name="last_name" value="{{single_data.last_name}}">
+              <input  class="form-control" type="text" name="last_name" value="{{users_data.last_name}}">
             </div>
 
             <div class="col-md-4 my-3">
               <label class="form-label  my-3">Email ID<span>*</span></label>
-              <input type="text" name="email" value="{{single_data.email}}" class="form-control">
+              <input type="text" name="email" value="{{users_data.email}}" class="form-control">
             </div>
             <div class="col-md-4 my-3 ">
               <label class="form-label my-3">Phone Number<span>*</span></label>
-              <input type="text" name="mobile" value="{{single_data.mobile}}" class="form-control">
+              <input type="text" name="mobile" value="{{users_data.mobile}}" class="form-control">
             </div>
             <div class="col-md-4 my-3 ">
               <label class="form-label my-3">Password<span>*</span></label>
-              <input type="text"  id="password" value="{{single_data.password}}" name="password" class="form-control">
+              <input type="text"  id="password" value="{{users_data.password}}" name="password" class="form-control">
             </div>
             <div class="col-md-4 my-3 ">
               <label class="form-label my-3">Confirm Password<span>*</span></label>
-              <input type="text" name="confirm_password" value="{{single_data.confirm_password}}" class="form-control">
+              <input type="text" name="confirm_password" value="{{users_data.confirm_password}}" class="form-control">
             </div>
 
           </div>
@@ -212,7 +212,7 @@
           <div class="local_add_user_btn">
 
             <button>Cancel</button>
-            <button type="submit" name="edit_user" value="{{single_data.uid}}">Create</button>
+            <button type="submit" name="edit_user" value="{{users_data.uid}}">Create</button>
             
           </div>
           <p style="

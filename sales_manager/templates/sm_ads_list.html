@@ -21,6 +21,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
+  <!-- jquery validation -->
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
   <!-- over -->
 
 </head>
@@ -68,7 +70,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">1200 </span>adds in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_client_data|length}}</span>  adds in the list</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -370,7 +372,7 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="" enctype="multipart/form-data">
+           <form method="POST" action="" enctype="multipart/form-data" id="myform">
             {%csrf_token%}
             <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Client</label>
@@ -430,7 +432,50 @@
       </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+  // just for the demos, avoids form submit
+//   jQuery.validator.setDefaults({
+//     debug: true,
+//     success: "valid"
+//   });
+//   $( "#myform" ).validate({
+//     rules: {
+//       client_name: {
+//         valueNotEquals: "default"
+//       },
+//       types_of_activities: {
+//         valueNotEquals: "default"
+//       },
+//       date: {
+//         requied:true,
+//         date: true
+//       },
+//       time:{
+//         requied:true,
+//       },
+//       notes:{
+//         requied:true,
+//       }
+//     },
+//     submitHandler:function(form) {
+//                 console.log('test');
+//                 form.submit();
+//             }  
+    
+//     });
+//    </script>
+//   <script>
+//     $(document).ready(function () {
+//         $("#success").click(function(){
+//             setTimeout(function() {
+//                 $('#exampleModal').modal('toggle');
+//             }, 2000);
+//         });
+//     });
+// </script>
   <!-- over -->
 
 

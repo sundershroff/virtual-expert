@@ -44,24 +44,7 @@
   <div class="dash_bor_main1">
     <!-- start1-->
     {% include "ad_pro_header.html"%}
-    {% comment %} <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <div class="dropdown">
-          <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
-           
-          </a>
-        
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
-          </ul>
-        </div>
-         </div> {% endcomment %}
+    
 
     </div>
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
@@ -71,7 +54,7 @@
     <div class="locl_adm_sec1 px-4 my-4">
 
       <div>
-        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">1200 </span>Ads in the list</h3>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_data|length}}</span>Ads in the list</h3>
       </div>
 
       <div class="locl_adm_form">
@@ -128,7 +111,7 @@
             <div class="col-lg-3 col-md-3">
               <span ><b>{{i.ad_name}}</b><br>
                 <span class="task_button_text">{{i.ad_type}}<br>
-                  {{i.ad_created_date}} | 10:00am <br>
+                  {{i.ad_created_date}} | {{i.ad_created_time}}<br>
                   {% if i.status == "Closed" %}
                   Status:<span style="color:#FF5C5C">{{i.status}}</span>
                 </span></span><br>
@@ -137,7 +120,7 @@
                 {% elif i.status == "Rejected" %}
                 Status:<span style="color:#FF5C5C">Rejected- <a href="" data-bs-toggle="modal" data-bs-target="#reason" style="color:#7B61FF">Reason</a></span>
               </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
+              <button class="my-2 ads_btn1" value="{{i.ad_id}}" id="copy_value" onclick="copyvalue(this)">Copy Ad ID</button>
               <button class="my-2 ads_btn2">Visibility</button>
               <form method="POST" enctype="multipart/form-data" action="">
                 {% csrf_token %}
@@ -151,19 +134,26 @@
               <button type="submit" class="my-2 ads_btn2" name="edi_ad" value="{{i.ad_id}}">Edit Ad</button>
                {% endif %}
               </form>
+              {% elif i.status == "Deactive" %}
+                Status:<span style="color:#F2994A">{{i.status}}- <a href="" data-bs-toggle="modal" data-bs-target="#renew"><button value="{{i.ad_id}}"  onclick="fun1(this)" style="color:#7B61FF;border:none;">Renew</button></a></span>
+              </span></span><br>
+              <button class="my-2 ads_btn1" value="{{i.ad_id}}" id="copy_value" onclick="copyvalue(this)">Copy Ad ID</button>
+              <button class="my-2 ads_btn2">Visibility</button>
+             
                 {% else %}
                 Status:<span style="color:#F2994A">{{i.status}}</span>
                 </span></span><br>
                 <button class="my-2 ads_btn1">Copy Ad ID</button>
                 <button class="my-2 ads_btn2">Visibility</button>
                 {% endif %}
+                
               </div>
               
               <div class="col-lg- col-md-1"></div>
               <div class="col-lg-6 col-md-6">
                   <div class="ads_rect">
                   <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{i.no_views}}</b></p><br><p style="float:right">Views</p></div>
-                  <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
+                  <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>{{i.amount}}</b></p><br><p style="float:right">Balance Amount</p></div>
                   <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                   </div>
                   {% if i.status == "Active" %}
@@ -181,123 +171,13 @@
                             
             </div>
             {% endfor %}
-          {% comment %} <div class="row rowbg">
-            <div class="col-lg-2 col-md-2">
-              <button class="active_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-            </div>
-            <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#34A853">Active</span>
-              </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
-              <button class="my-2 ads_btn2">Visibility</button>
-            </div>
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-6 col-md-6">
-                <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
-                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
-                </div>
-               <div style="float:right;margin-top:20px"> <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider1 round"></span>
-                  </label> <span style="color:red">Close Ad</span>  </div>
-            </div>
-                          
-          </div>
-          <div class="row rowbg">
-            <div class="col-lg-2 col-md-2">
-              <button class="details_button"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-            </div>
-            <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#F2994A">Deactive</span>
-              </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
-              <button class="my-2 ads_btn2">Visibility</button>
-            </div>
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-6 col-md-6">
-                <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
-                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
-                </div>
-               <div style="float:right;margin-top:20px"> <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider1 round"></span>
-                  </label> <span style="color:red">Close Ad</span>  </div>
-            </div>
-                          
-          </div>
-          <div class="row rowbg">
-            <div class="col-lg-2 col-md-2">
-              <button class="closed_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-            </div>
-            <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#FF5C5C">Closed</span>
-              </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
-              <button class="my-2 ads_btn2">Visibility</button>
-            </div>
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-6 col-md-6">
-                <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
-                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
-                </div>
-               <div style="float:right;margin-top:20px"> <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider1 round"></span>
-                  </label> <span style="color:red">Close Ad</span>  </div>
-            </div>
-                          
-          </div>
-          <div class="row rowbg">
-            <div class="col-lg-2 col-md-2">
-              <button class="closed_btn"><b><i class="bi bi-card-image taskicon"></i></b> </button>
-            </div>
-            <div class="col-lg-3 col-md-3">
-              <span ><b>Ad 1</b><br>
-                <span class="task_button_text">Banner Ad<br>
-                  10 January, 2021 | 10:00am <br>
-                  Status:<span style="color:#FF5C5C">Rejected- <a href="" data-bs-toggle="modal" data-bs-target="#reason" style="color:#7B61FF">Reason</a></span>
-              </span></span><br>
-              <button class="my-2 ads_btn1">Copy Ad ID</button>
-              <button class="my-2 ads_btn2">Visibility</button>
-              <a href="/ad_provider/ad_pro_editAd/<id>"><button class="my-2 ads_btn2">Edit Ad</button></a>
-            </div>
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-6 col-md-6">
-                <div class="ads_rect">
-                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>900</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
-                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
-                </div>
-               <div style="float:right;margin-top:20px"> 
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider1 round"></span>
-                  </label> <span style="color:red">Close Ad</span>  </div>
-            </div>
-                          
-          </div> {% endcomment %}
-    <!-- over -->
+          
 
   </div>
    
  </div>
  <!-- modal -->
- <div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ {% comment %} <div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header prof_personal_filt">
@@ -306,16 +186,16 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <input type="text" name="ads_id" class="form-control" value="">
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="ad_name" class="form-control">
              </div>
             
              <div class="my-4">
@@ -330,20 +210,34 @@
   
   
                     <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Locations</label>
+              <label for="exampleFormControlInput1" class="form-label">AD Type</label>
                <select class="form-select py-3">
-                <option selected>Select</option>
+                <option value="">Select</option>
+              <option value="Image Ad">Image Ads</option>
+              <option value="Carousel Ads">Carousel Ads</option>
+              <option value="Product Ads">Product Ads</option>
+              <option value="Collection Ads">Collection Ads</option>
+              <option value="Interactive Ads">Interactive Ads</option>
+              <option value="Text Ads">Text Ads</option>
+              <option value="Banner Ads">Banner Ads</option>
+              <option value="Lead from Ads">Lead from Ads</option>
+              <option value="Video Ads">Video Ads</option>
               </select>
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
                <select class="form-select py-3">
-                <option selected>Select</option>
+                <option >Select</option>
+                <option value="" >Active</option>
+                <option value="">Pending</option>
+                <option value="">Deactive</option>
+                <option value="">Closed</option>
+
               </select>
              </div>
 
-  
+            
              <div class="prof_personal_savefilt1 text-center mb-5">
                <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
                <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
@@ -353,13 +247,13 @@
              </div>  
   
            </form>
-
+         
         </div>
       
       </div>
     </div>
-  </div>
-
+  </div> {% endcomment %}
+<!--  Reason modal -->
   <div class="modal fade modal-md px-4" id="reason" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -387,11 +281,65 @@
       </div>
     </div>
 </div>
+<!--  Over -->
+<!--  Renew modal -->
 
+<div class="modal fade modal-md px-4" id="renew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header prof_personal_filt">
+        <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Renew</h4>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+      </div>
+      <form method="POST" action="">
+        {% csrf_token %}
+      <div class="modal-body prof_personal_filt2">   
+          <div class="my-4">
+            <label class="form-label">How Many Days Required</label>
+            <input type="date" class="form-control" name="days_required" placeholder="placeholder">
+            
+           </div>
+</div>
+           <div class="modal-footer">
+           <div class="reason_modal_btn text-center mb-5">
+             <button class="my-3" type="reset">Cancel</button>
+             <button id="renew_ad_id" class="my-3" name="renew_id" value="" type="submit">Submit</button>
+           </div>
+           </div>
+      </form>
+      
+    
+    </div>
+  </div>
+</div>
   <!-- over -->
 
 
- 
+  <script>
+    function copyvalue(button) {
+        var buttonValue = button.value;
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.value = buttonValue;
+
+        document.body.appendChild(tempTextarea);
+
+        tempTextarea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(tempTextarea);
+
+        document.getElementById('copiedValue').innerText = buttonValue;
+    }
+</script>
+
+<script>
+  function fun1(button) {
+      var buttonValue = button.value;
+     
+      document.getElementById('renew_ad_id').value = buttonValue;
+  }
+</script>
   <script src="{% static 'js/main.js'%}"></script>
 
 

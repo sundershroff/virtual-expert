@@ -30,7 +30,8 @@
       <header id="header">
     <div class="d-flex flex-column">
        <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
-      <nav id="navbar" class="nav-menu navbar">
+      <nav id="navbar" class="nav-menu navbar" style="overflow-y: scroll;
+      height: 33rem;">
        
         {% include "hm_nav.html" %}
 
@@ -75,8 +76,14 @@
                   
                 </div>
                 <div class="col-lg-2 col-md-2">
-                 <a href="/hiring_manager/hm_edit_acc/{{key.uid}}"><button class="btn_end" style="margin-top:35px;">Edit Profile</button></a> 
-                  
+              {% if access %}
+              <button class="btn_end" style="margin-top:35px;">Edit Profile</button>
+              {%else%}
+              <a href="/hiring_manager/hm_edit_acc/{{key.uid}}"><button class="btn_end" style="margin-top:35px;">Edit Profile</button></a> 
+
+              {%endif%}
+               
+                
                 </div>
             </div></div>
             

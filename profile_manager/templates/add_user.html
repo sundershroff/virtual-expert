@@ -61,9 +61,8 @@
 
     <div class="local_add_user px-3 py-4">
 
-      <a href="/profile_manager/users/{{key.uid}}" style="
-      text-decoration: none;color:#6E717A;
-  "><h4 style="color:#6E717A; font-weight:700;">Users ></a> <span style="color:#7B61FF;">Add User</span></h4>
+      <a href="/profile_manager/users/{{key.uid}}" style="text-decoration: none;color:#6E717A;">
+        <h4 style="color:#6E717A; font-weight:700;">Users ></a> <span style="color:#7B61FF;">Add User</span></h4>
 
       <div class="local_add_user_form my-4 pb-5 px-4">
 
@@ -106,22 +105,17 @@
 
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
               <input type="checkbox" name="access_Privileges" value="Approve and reject profiles">
-              <label id="access_Privileges-error" class="error" for="access_Privileges" style="
-    position: absolute;
-    top: 105%;
-    right: 48px;
-    width: 159px;
-    display: none;
-">This field is required.</label>
+              <label id="access_Privileges-error" class="error" for="access_Privileges" style="position: absolute;top: 105%;
+    right: 48px;width: 159px;display: none;">This field is required.</label>
               <span class="checkmark"></span>
               Approve and reject profiles
             </label>
 
-            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+            {% comment %} <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
               <input type="checkbox" name="access_Privileges" value="Edit  Delete Profiles">
               <span class="checkmark"></span>
               Edit  Delete Profiles
-            </label>
+            </label> {% endcomment %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
               <input type="checkbox" name="access_Privileges" value="Access Complaints">
               <span class="checkmark"></span>
@@ -145,7 +139,6 @@
               Edit user
             </label>
 
-
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
               <input type="checkbox" name="access_Privileges" value="Delete user">
               <span class="checkmark"></span>
@@ -160,11 +153,7 @@
             <button type="submit">Create</button>
             
           </div>
-          <p style="
-    color: red;
-    font-size: 22px;
-    font-weight: 500;
-">{{error}}</p>
+          <p style="color: red;font-size: 22px;font-weight: 500;">{{error}}</p>
   
         </form>
         

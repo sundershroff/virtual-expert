@@ -72,7 +72,7 @@
     <!-- start -->
     <div class="loc_adm_bala py-3 px-3">
      
-     <a href="/sales_manager/sm_sales_profile/khjbjh" style="
+     <a href="/sales_manager/sm_sales_profile/{{key.uid}}" style="
      text-decoration: none;
  "><h3 style="color:#6E717A;">Account ></a> <span style="color:#7B61FF;">Account Balance</span></h3>
 
@@ -85,8 +85,8 @@
         </div>
 
             <div>
-              <h3 style="color:#34A853;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 2,500</span></h3>
-              <p>Account Balance <span><a href="#">Details</a></span></p>
+              <h3 style="color:#34A853;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;">{{total_commission}}</span></h3>
+              <p>Account Balance</p>
             </div>
 
 
@@ -117,17 +117,23 @@
             <th>Amount</th>
           </tr>
         </thead>
+
         <tbody>
+          
+          {% for i in all_commissions|dictsortreversed:"ad_created_date" %}
           <tr >
-            <td>1</td>
-            <td>Ad #1234 Closed</td>
-            <td>Banner ad</td>
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            <td>10%</td>
-            <td>₹ 100</td>
+          
+              <td>{{forloop.counter}}</td>
+              <td>{{i.ad_name}}<span class="text-primary"> {{i.ad_id}}</span> {{i.status}} </td>
+              <td>{{i.ad_type}}</td>
+              <td>{{i.ad_created_date}}</td>
+              <td>{{i.ad_created_time}}</td>
+              <td>{{i.commission}}%</td>
+              <td>₹ {{i.amount}}</td>  
+            
           </tr>
-            <tr>
+          {%endfor%}
+            <!-- <tr>
             <td>1</td>
             <td>Ad #1234 Closed</td>
             <td>Banner ad</td>
@@ -189,7 +195,7 @@
             <td>5:45 am</td>
             <td>10%</td>
             <td>₹ 100</td>
-          </tr>
+          </tr> -->
 
         </tbody>
       </table>

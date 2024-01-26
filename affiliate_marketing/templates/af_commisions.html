@@ -82,8 +82,8 @@
         </div>
 
             <div>
-              <h3 style="color:#EB5757;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 100</span></h3>
-              <p>Redeem Emera Coins <span><a href="#">Details</a></span></p>
+              <h3 style="color:#EB5757;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> {{key.coin}}</span></h3>
+              <p>Redeem Emera Coins <span></span></p>
             </div>
 
 
@@ -108,93 +108,25 @@
             <th>#No</th>
             <th>Details</th>
             <th>User Code</th>
-           
             <th>Date</th>
             <th>Time</th>
             <th>Coins</th>
           </tr>
         </thead>
         <tbody>
+          {% for i in all_data %}
+            
           <tr >
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-           
-            <td>7/11/19</td>
-            <td>5:45 am</td>
+            <td>{{forloop.counter}}</td>
+            <td data-label="Name">{{i.name}}{{i.full_name}}</td>
+            <td>{{i.referral_code}}</td>
+            <td>{{i.created_date}}</td>
+            <td>{{i.created_time}}</td>
             
-            <td> 1</td>
-          </tr>
-            <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-            
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-           
-            <td>5</td>
-          </tr>
-            <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-            
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-         
-            <td>6</td>
-          </tr>
-            <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-           
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            
-            <td>6</td>
-          </tr>
-            <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-            
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            
-            <td>10</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-            
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-        
-            <td>3</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-            
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-            
-            <td>5</td>
-          </tr>
-           <tr>
-            <td>1</td>
-            <td data-label="Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
-            <td>THO1234</td>
-          
-            <td>7/11/19</td>
-            <td>5:45 am</td>
-           
             <td>1</td>
           </tr>
+          {% endfor %}
+  
 
         </tbody>
       </table>

@@ -75,6 +75,7 @@
          </div>
 
     </div> -->
+  <!-- </div> -->
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -88,61 +89,97 @@
           {%csrf_token%}
           <div class="row mb-3">
 
-          <div class="col-lg-4 my-3">
-            <label class="form-label">Ad Name<span>*</span></label>
-            <input type="text" name="" class="form-control" placeholder="Name">
-          </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Ad Name<span>*</span></label>
+              <input type="text" name="ad_name" class="form-control" placeholder="" value="{{ad_data.ad_name}}">
+            </div>
 
-          <div class="col-lg-4 my-3">
-            <label class="form-label">Catagory<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
-            </select>
-          </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Catagory<span>*</span></label>
+              <select class="form-select" name="category">
+                <option value="{{ad_data.category}}">{{ad_data.category}}</option>
+                <option value="Online_ads">Online Advertising</option>
+                <option value="Marketing Communication">Marketing Communication</option>
+                <option value="Broadcasting">Broadcasting</option>
+                <option value="Social Network Ads">Social Network</option>
+                <option value="Billboard">Billboard</option>
+                <option value="Advertorial">Advertorial</option>
+                <option value="Contextual">Contextual</option>
+              </select>
+            </div>
 
-          <div class="col-lg-4 my-3">
-            <label class="form-label">Type of Ad<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
-            </select>
-          </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Type of Ad<span>*</span></label>
+              <select class="form-select" name="ad_type">
+                <option value="{{ad_data.ad_type}}">{{ad_data.ad_type}}</option>
+                <option value="Image Ad">Image Ads</option>
+                <option value="Carousel Ads">Carousel Ads</option>
+                <option value="Product Ads">Product Ads</option>
+                <option value="Collection Ads">Collection Ads</option>
+                <option value="Interactive Ads">Interactive Ads</option>
+                <option value="Text Ads">Text Ads</option>
+                <option value="Banner Ads">Banner Ads</option>
+                <option value="Lead from Ads">Lead from Ads</option>
+                <option value="Video Ads">Video Ads</option>
+              </select>
+            </div>
           
         </div>
 
         <div class="row">
 
-        <div class="col-lg-4 my-3">
+          <div class="col-lg-4 my-3">
             <label class="form-label">Languages(Multiple)<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
+            <select class="form-select" name="languages">
+              <option value="{{ad_data.languages}}">{{ad_data.languages}}</option>
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="Tamil">Tamil</option>
+              <option value="malayalam">Malayalam</option>
+              <option value="Hindi">Hindi</option>
             </select> 
-        </div> 
+        </div>
         <div class="col-lg-4 my-3">
-            <label class="form-label">Country(Multiple)<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
-            </select> 
-        </div> 
-        <div class="col-lg-4 my-3">
-            <label class="form-label">State(Multiple)<span>*</span></label>
-            <select class="form-select">
-              <option>Select</option>
-            </select> 
-        </div> 
+          <label class="form-label">Country(Multiple)<span>*</span></label>
+          <select class="form-select" name="office_country" id="countrytwo" onchange="fun2.call(this,event)">
+            <option value="{{ad_data.office_country}}">{{ad_data.office_country}}</option>
+              {% for j in all %}
+                <option value="{{j.name}}">{{j.name}}</option>
+              {% endfor %}
+          </select> 
+      </div>
+      <div class="col-lg-4 my-3">
+        <label class="form-label">State(Multiple)<span>*</span></label>
+        <select class="form-select" name="office_state" id="res3">
+          <option value="{{ad_data.office_state}}">{{ad_data.office_state}}</option>
+          <script>
+            stat = {{ states|safe }};
+        ttt = stat[0].states;
+        for (i=0;i<ttt.length;i++){
+           tt = ttt[i].name;
+           document.write("<option value="tt">"+tt+"</option>");
+        }
+      </script>
+        </select> 
+    </div> 
         </div>
         <div class="row">
-            <div class="col-lg-4 my-3">
-                <label class="form-label">District(Multiple)<span>*</span></label>
-                <select class="form-select">
-                  <option>Select</option>
-                </select> 
-            </div>
-            <div class="col-lg-4 my-3">
-                <label class="form-label">Gender(Multiple)<span>*</span></label>
-                <select class="form-select">
-                  <option>Select</option>
-                </select> 
-            </div>
+          <div class="col-lg-4 my-3">
+              <label class="form-label">District(Multiple)<span>*</span></label>
+              {% comment %} <select class="form-select"> {% endcomment %}
+                <input type="text" name="office_district" class="form-control" placeholder="" value="{{ad_data.office_district}}">
+              {% comment %} </select>  {% endcomment %}
+          </div>
+          <div class="col-lg-4 my-3">
+            <label class="form-label">Gender(Multiple)<span>*</span></label>
+            <select class="form-select" name="gender">
+              <option value="{{ad_data.gender}}">{{ad_data.gender}}</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="other">Other</option>
+            </select>  
+        </div>
             <div class="col-lg-4 my-3">
                 
             </div>
@@ -151,18 +188,19 @@
           </div>
           <div class="row">
             <div class="col-lg-4 my-3">
-                <label class="form-label">Ad Group<span>*</span></label>
-                <input type="text" name="" class="form-control" placeholder="25">
-              </div>
-              <div class="col-lg-4 my-3">
-                <label class="form-label"></label>
-                <input style="margin-top:8px;" type="text" name="" class="form-control" placeholder="30">
-              </div>
+              <label class="form-label">Ad Group<span>*</span></label>
+              <input type="text" name="age_range" class="form-control" placeholder="" value="{{ad_data.age_range}}" id="inputField1" oninput="displayValue()">
+            </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label"></label>
+              <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="" value="{{ad_data.age_to}}" id="inputField2" oninput="displayValue()">
+            </div>
               <div class="col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
-                <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
-                25-30 <i class="bi bi-x-circle-fill det_icon"></i></div>
-                <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
-                    25-30 <i class="bi bi-x-circle-fill det_icon"></i></div>
+
+                         
+                <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                <span id="displayArea">{{ad_data.age_range}}-{{ad_data.age_to}}</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+              </div>
               </div>
           </div>
           <button class="document_btn my-3">Add More</button>
@@ -178,10 +216,9 @@
 
                   <div class="local_admin_drag_area">
                  
-                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
-                      <header>Drag or click here to Upload  </header>
-
-                      <input type="file" hidden>
+                    <header>Drag or click here to Upload  </header>
+                    <img src="{{ad_data.id_card}}" >
+                    <input class="file-input"  name="id_card" style="opacity: 0;position: absolute;">
                 
 
                   </div>
@@ -197,49 +234,61 @@
 </div>
 <h4  class="my-4" style="color:#2B3674;">Target Settings</h4>
 <div class="row">
+  <div class="col-lg-4 my-3">
+    <label class="form-label">Total Number of Views</label>
+   <input type="text" class="form-control" name="no_views" placeholder="" value="{{ad_data.no_views}}">
+</div>
     <div class="col-lg-4 my-3">
-        <label class="form-label">Total Number of Views</label>
-       <input type="text" class="form-control" placeholder="100 or less">
+      <label class="form-label">How Many Days Required</label>
+      <input  class="form-control" placeholder="" name="days_required" value="{{ad_data.days_required}}">
     </div>
     <div class="col-lg-4 my-3">
-        <label class="form-label">How Many Days Required</label>
-       <input type="date" class="form-control" placeholder="placeholder">
-    </div>
-    <div class="col-lg-4 my-3">
-        <label class="form-label">How many times repeat per day</label>
-        <select class="form-select">
-          <option>Select</option>
-        </select> 
+      <label class="form-label">How many times repeat per day</label>
+      <select class="form-select" name="times_repeat">
+        <option value="{{ad_data.times_repeat}}">{{ad_data.times_repeat}}</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select> 
     </div>
     <p style="color:#a0b2ff"><i>If you select special days you need to pay some additional charge</i></p>
 </div>
 <div class="row">
     <div class="col-lg-4 my-3">
-        <h4 style="color:#2B3674;">Ad Details(Optional)</h4>
+      <h4 style="color:#2B3674;">Ad Details(Optional)</h4>
         
-    <textarea class="form-control" id="" rows="3"></textarea>
- 
+      <textarea class="form-control" id="det" name="ad_details" value="{{ad_data.ad_details}}" rows="3">{{ad_data.ad_details}} </textarea>
+   
     </div>
     <div class="col-lg-8 my-3"></div>
 </div>
 <div class="row">
-    <div class="col-lg-4 my-3">
-      <h4 style="color:#2B3674;">Other Ads(Optional)</h4>
-       <div style="background-color: #e8ebff;color:#7B61FF;padding:20px 50px;font-size: 50px;border-radius:10px;width:fit-content">
-        <i class="bi bi-plus-circle"></i>
-       </div>
+  <div class="col-lg-4 my-3">
+    <h4 style="color:#2B3674;">Other Ads(Optional)</h4>
+     <div data-toggle="modal" data-target="#otherads" style="cursor:pointer;background-color: #e8ebff;color:#7B61FF;padding:20px 50px;font-size: 50px;border-radius:10px;width:fit-content">
+      <img src="{{ad_data.other_ads}}">
+      <input class="file-input"  name="other_ads" value="{{ad_data_other_ads}}" style="opacity: 0;position: absolute;width: 285px;height: 262px;
+                position: absolute;margin-left: -24%;" >
+     </div>
     </div>
 </div>
 <h4  class="my-4" style="color:#2B3674;">Call To Action</h4>
 <div class="row">
-    <div class="col-lg-4 my-3">
-        <label class="form-label">Button Name</label>
-       <input type="text" class="form-control" placeholder="Placeholder">
-    </div>
-    <div class="col-lg-4 my-3">
-        <label class="form-label">Button URL</label>
-       <input type="text" class="form-control" placeholder="http://">
-    </div>
+  <div class="col-lg-4 my-3">
+    <label class="form-label">Button Name</label>
+   <input type="text" class="form-control" placeholder="" name="action_name" value="{{ad_data.action_name}}">
+</div>
+<div class="col-lg-4 my-3">
+  <label class="form-label">Button URL</label>
+ <input type="text" class="form-control" placeholder="http://" name="action_url" value="{{ad_data.action_url}}">   
+</div>
     <div class="col-lg-4 my-3">
         
         </select> 
@@ -250,8 +299,8 @@
 
           <div class="col-lg-12 high_prof_sec9">
 
-              <label class="high_prof_cont">
-                        <input type="checkbox">
+              <label class="high_prof_cont" >
+                        <input type="checkbox" checked>
                         <span class="high_prof_mark"></span>
                          I agree to the Terms of Service and Privacy Policy.
                         </label>
@@ -259,14 +308,15 @@
           
         </div>
         
-        </form>
+       
         <div class="local_admin_edi_subbtn my-4">
 
-          <button>Approve</button>
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
+          <button type="submit" name="approve_dis" value="{{ad_data.ad_id}}" >Approve</button>
+          
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
           
         </div>
-           
+      </form>
         
         
       </div>
@@ -283,25 +333,36 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="border:none;">
+        <form action="" method="POST">
+          {%csrf_token%}
         <h4>Reason</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="local_admin_edi_success">
          <p>Replay</p>
-         <textarea class="form-control" id="" rows="3"></textarea>
+         <textarea class="form-control" id="" name="reason" rows="3"></textarea>
         </div>
         <div class="modal-footer reject_modal_btn" style="border:none;background:#ebebeb">
-          <button>Cancel</button>
-          <button>Submit</button>
+          <button type="reset">Cancel</button>
+          <button type="submit" name="addis_reject" value="{{ad_data.ad_id}}">Submit</button>
 
         </div>
       </div>
-     
+    </form>
+     </div>
+     </div>
  
       <script src="{% static 'js/main.js'%}"></script>
 
-
+      <script>
+        function displayValue() {
+          var inputValue1 = document.getElementById('inputField1').value;
+          var inputValue2 = document.getElementById('inputField2').value;
+          
+          document.getElementById('displayArea').textContent =inputValue1+ "-"+inputValue2;
+        }
+      </script>
 </body>
 </html>
 

@@ -84,8 +84,8 @@
         </div>
 
             <div>
-              <h3 style="color:#EB5757;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 100</span></h3>
-              <p>Redeem Emera Coins <span><a href="#">Details</a></span></p>
+              <h3 style="color:#EB5757;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;">{{total_coin}}</span></h3>
+              <p>Redeem Emera Coins <span></span></p>
             </div>
 
 
@@ -101,7 +101,9 @@
      </div>
 
      <h4 style="color:#2B3674;font-weight:700;">Coin Transaction History</h4>
-
+     
+     
+    
      <div class="loc_adm_bala_tables px-3">
 
       <table>
@@ -117,6 +119,7 @@
           </tr>
         </thead>
         <tbody>
+      
           {% for i in all_data%}
           <tr >
             <td>{{forloop.counter}}</td>
@@ -126,10 +129,12 @@
             <td>{{i.ad_created_date}}</td>
             <td>{{i.ad_created_time}}</td>
             
-            <td> {{i.coin}}</td>
-          </tr>
-          {% endfor %}
-           
+            <td>{{i.coin}}</td>
+            
+        </tr>
+      {% endfor %}
+     
+   
            {% comment %} <tr>
             <td>1</td>
             <td>Ad #1234 Closed </td>
@@ -146,13 +151,13 @@
        
      </div>
 
-      
+     
     </div>
     <!-- over -->
 
 
    </div>
-
+   
 
 
  

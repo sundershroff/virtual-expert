@@ -92,7 +92,7 @@
 
           <div>
             
-            <h4 style="color:#3247CE">{{all_client_data|length}}</h4>
+            <h4 style="color:#3247CE">{{totalclient}}</h4>
             <h5>Total Clients</h5>
           </div>
 
@@ -101,11 +101,16 @@
           <div class="dash_bor_box">
 
             <div>
-             <i class="fa-solid fa-copper-coin-line dash_dot"></i>
+             <i class="fa-solid fa-copper-coin-line dash_dot"><img src="{% static 'images/download.svg'%}" height="25px" width="25px">
+             </i>
             </div>
 
             <div>
-            <h4 style="color:#EB5757">30</h4>
+             
+          
+                      
+         
+            <h4 style="color:#EB5757">{{totalcoin}}</h4>
             <h5>Total Coins</h5>
           </div>
           
@@ -123,7 +128,7 @@
            <div class="dash_ratstr">
            
             <div class="dash_strpos">
-               <h4 style="color:#2B3674">5,000(USD)</h4>
+               <h4 style="color:#2B3674">{{incent_amount}}(INR)</h4>
             </div>
             <h5>Total Commissions</h5>
           </div> 
@@ -139,7 +144,7 @@
            </div>
 
            <div>
-             <h4 style="color: #2B3674">2,500(USD)</h4>
+             <h4 style="color: #2B3674">2,500(INR)</h4>
             <h5>Total Withdrawals</h5>
            </div>
 
@@ -177,7 +182,7 @@
 
       <tr class="me-5">
         
-        <th class="py-4">No</th>
+        <th class="py-4">#No</th>
         <th class="py-4">User Id</th>
         <th class="py-4">Name</th>
         <th class="py-4">Email Id</th>
@@ -200,7 +205,7 @@
   
 
     <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/sales_manager/ad_pro_ads/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
      </div>
@@ -221,40 +226,28 @@
           <table class="table table-borderless">
 
             <tr>
+              <th class="py-4">#No</th>
               <th class="py-4">Ad</th>
-              <th class="py-4">Ad Date</th>
-              <th class="py-4">Credited Date</th>
+              <th class="py-4">Ad Type</th>
+              <th class="py-4">Created Date</th>
               <th class="py-4">Coins</th>
             </tr>
+            {% for i in ads_data %}
+            {% if i.coin != None %}
 
             <tr>
-              <td class="py-4">AD-01</td>
-              <td class="py-4">Bandner Ad</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">1</td>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.ad_id}}</td>
+              <td class="py-4">{{i.ad_type}}</td>
+              <td class="py-4">{{i.ad_created_date}}</td>
+              <td class="py-4">{{i.coin}}</td>
             </tr>
-            <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">1</td>
-              </tr>
-          
-              <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">4</td>
-              </tr>
-              <tr>
-                <td class="py-4">AD-01</td>
-                <td class="py-4">Bandner Ad</td>
-                <td class="py-4">18/09/2016</td>
-                <td class="py-4">1</td>
-              </tr>
+            {%endif%}
+            {%endfor%}
+            
           </table>
              <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/sales_manager/sm_coindetails/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
         
@@ -273,23 +266,25 @@
             <div style="position:relative;top:20px;">
                 <center><i class="fa-solid fa-wallet dash_db_user"></i></center>
                 
-                 <center> <h1 style="color: #52C193">1800</h1>
+                 <center> <h1 style="color: #52C193">{{incent_amount}}</h1>
                  <p style="color:#6E717A;">Total Commission</p></center>
                  </div>
                 <div class="row py-lg-5">
+                  {% for i in result %}
                     <div class="col-lg-6 col-md-6">
                         <center><div style="background-color:  #fdf7f2;height:100px;width:240px;border-radius:80px;margin-top:25px;margin-bottom:10px;padding:12px;">
-                        <h3 style="color:#F27E64;">80</h3>
-                       <p style="color:#6E717A;">Bandner Advertisement</p>
+                        <h3 style="color:#F27E64;">{{i.count}}</h3>
+                       <p style="color:#6E717A;">{{i.word}}</p>
                         </div></center>
                     </div> 
-                    <div class="col-lg-6 col-md-6">
+                    {%endfor%}
+                    <!-- <div class="col-lg-6 col-md-6">
                         
                         <center><div style="background-color:  #edfffd;height:100px;width:240px;border-radius:80px;margin-top:25px;padding:12px">
                             <h3 style="color: #52C193;">80</h3>
                             <p style="color:#6E717A;">Bandner Advertisement</p>
                             </div></center>
-                        </div>
+                        </div> -->
                         <div></div>
                     </div> 
                 </div>

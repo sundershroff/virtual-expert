@@ -195,7 +195,7 @@
         <th class="py-4">#No</th>
         <th class="py-4">User Id</th>
         <th class="py-4">Name</th>
-        <th class="py-4">Email Id</th>
+        <th class="py-4">Ad Type</th>
       </tr>
       {% comment %} {% for i in all_data|dictsortreversed:"created_at" %} {% endcomment %}
       {% for i in all_data|dictsortreversed:"ad_created_date" %}
@@ -204,7 +204,7 @@
         <td class="py-4">{{i.ad_id}}</td>
         <td class="dash_bor_table_img"><img src="{{i.id_card}}" class="mx-2"> {{i.ad_name}}</td>
         
-        <td class="py-4">{{i.action_url}}</td>
+        <td class="py-4">{{i.ad_type}}</td>
       </tr>
       {% endfor %}
       {% comment %} <tr>
@@ -265,14 +265,15 @@
               <th class="py-4">Credited Date</th>
               <th class="py-4">Coins</th>
             </tr>
-
+            {% for i in all_data|dictsortreversed:"ad_created_date" %}
             <tr>
-              <td class="py-4">AD-01</td>
-              <td class="py-4">Bandner Ad</td>
-              <td class="py-4">18/09/2016</td>
-              <td class="py-4">1</td>
+              <td class="py-4">{{i.ad_id}}</td>
+              <td class="py-4">{{i.ad_type}}</td>
+              <td class="py-4">{{i.ad_created_date}}</td>
+              <td class="py-4">{{i.coin}}</td>
             </tr>
-            <tr>
+            {% endfor %}
+            {% comment %} <tr>
                 <td class="py-4">AD-01</td>
                 <td class="py-4">Bandner Ad</td>
                 <td class="py-4">18/09/2016</td>
@@ -290,10 +291,10 @@
                 <td class="py-4">Bandner Ad</td>
                 <td class="py-4">18/09/2016</td>
                 <td class="py-4">1</td>
-              </tr>
+              </tr> {% endcomment %}
           </table>
              <div class="dash_bor_rsp_va my-3">
-      <a href="#" class="mx-3">View All</a>
+      <a href="/ad_provider/ad_pro_coins/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
         
@@ -312,23 +313,26 @@
             <div style="position:relative;top:20px;">
                 <center><i class="fa-solid fa-wallet dash_db_user"></i></center>
                 
-                 <center> <h1 style="color:  #7B61FF">1800</h1>
+                 <center> <h1 style="color:  #7B61FF">{{all_data|length}}</h1>
                  <p style="color:#6E717A;">Ads</p></center>
                  </div>
+
                 <div class="row py-lg-5">
+                  {% for s in result %}
                     <div class="col-lg-6 col-md-6">
                         <center><div style="background-color:  #fdf7f2;height:100px;width:220px;border-radius:80px;margin-top:25px;margin-bottom:10px;padding:12px;">
-                        <h3 style="color:#F27E64;">80</h3>
-                       <p style="color:#6E717A;">Bandner Advertisement</p>
+                        <h3 style="color:#F27E64;">{{s.count}}</h3>
+                       <p style="color:#6E717A;">{{s.word}}</p>
                         </div></center>
                     </div> 
-                    <div class="col-lg-6 col-md-6">
+                    {% endfor %}
+                    {% comment %} <div class="col-lg-6 col-md-6">
                         
                         <center><div style="background-color:  #edfffd;height:100px;width:220px;border-radius:80px;margin-top:25px;padding:12px">
                             <h3 style="color: #52C193;">80</h3>
                             <p style="color:#6E717A;">Bandner Advertisement</p>
                             </div></center>
-                        </div>
+                        </div> {% endcomment %}
                         <div></div>
                     </div> 
                 </div>

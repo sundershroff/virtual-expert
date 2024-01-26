@@ -30,7 +30,8 @@
       <header id="header">
     <div class="d-flex flex-column">
        <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
-      <nav id="navbar" class="nav-menu navbar">
+      <nav id="navbar" class="nav-menu navbar" style="overflow-y: scroll;
+      height: 33rem;">
        
         {% include "hm_nav.html" %}
 
@@ -83,7 +84,13 @@
               <th>Phone Number</th>
               <th>Location</th>
               <th>Status</th>
+            {% if "Upload Adprovidermanager document" in access %}
               <th>Actions</th>
+              {%else%}
+              {%endif%}
+              {% if access == "" %}
+              <th>Actions</th>
+              {%endif%}
               
             </tr>
           </thead>
@@ -109,18 +116,38 @@
              <td data-label = "Actions">
               <form method="POST">
                 {% csrf_token %}
-                {% if i.id_card == None %}
-             <button type="submit" value="{{i.uid}}" name="uid" style="
-             border: 1px transparent;
-             background-color: transparent;
-         "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
-         {% else %}    
-         <button style="
-         border: 1px transparent;
-         background-color: transparent;
-         opacity:30%;
-     "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
-{% endif %}  
+
+
+    {% if "Upload Adprovidermanager document" in access %}  
+
+            {% if i.id_card == None %}
+            <button type="submit" value="{{i.uid}}" name="uid" style="
+            border: 1px transparent;
+            background-color: transparent;
+            "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+            {% else %}    
+            <button style="
+            border: 1px transparent;
+            background-color: transparent;
+            opacity:30%;
+            "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+            {% endif %}  
+{%else%}
+{%endif%}
+{% if access == "" %}
+        {% if i.id_card == None %}
+        <button type="submit" value="{{i.uid}}" name="uid" style="
+        border: 1px transparent;
+        background-color: transparent;
+        "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+        {% else %}    
+        <button style="
+        border: 1px transparent;
+        background-color: transparent;
+        opacity:30%;
+        "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+        {% endif %}  
+  {%endif%}            
         </form>
             </td>
               

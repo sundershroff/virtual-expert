@@ -80,7 +80,7 @@
 
     <div class="local_add_user px-3 py-4">
 
-      <a href="/profile_manager/users/{{key.uid}}" style="
+      <a href="/ad_provider/ad_pro_users/{{key.uid}}" style="
       text-decoration: none;color:#6E717A;
   "><h4 style="color:#6E717A; font-weight:700;">Users ></a> <span style="color:#7B61FF;">Edit User</span></h4>
 
@@ -135,6 +135,7 @@
               All
             </label>
             {% endif %}
+            
             {% if "Create Ads" in users_data.access_Privileges %}
             <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
               <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Create Ads" checked>
@@ -233,7 +234,7 @@
           <div class="local_add_user_btn">
 
             <button>Cancel</button>
-            <button type="submit" name="edit_user" value="{{pm_my_users_data.uid}}">Create</button>
+            <button type="submit" name="edit_user" value="{{users_data.uid}}">Create</button>
             
           </div>
           <p style="
